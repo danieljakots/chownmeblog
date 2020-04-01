@@ -57,9 +57,9 @@ def generate_website(content):
     result = jinja2_template.render(articles=content, site=SITE)
     with open(f"{OUTPUT_DIR}/index.html", "w") as f:
         f.write(result)
-    for article in content:
-        jinja2_template = jinja2_env.get_template("article.html.j2")
 
+    jinja2_template = jinja2_env.get_template("article.html.j2")
+    for article in content:
         result = jinja2_template.render(article=article, site=SITE)
         with open(f"{OUTPUT_DIR}/{article['file']}", "w") as f:
             f.write(result)
