@@ -42,6 +42,7 @@ def parse_articles(content_path):
     for article in glob.glob(content_path):
         article = parse_article(article)
         content.append(article)
+    content.sort(reverse=True, key=lambda i: i["date"][:10])
     return content
 
 
