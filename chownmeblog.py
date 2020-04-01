@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import glob
+import sys
 
 import markdown
 
@@ -15,25 +16,35 @@ def md2html(md):
     return html
 
 
-def get_metadata(article):
-    with open(article, "r") as f:
-        for line in f:
+def parse_article(article_path):
+    article = {}
+    with open(article_path, "r") as f:
+        metadata = [next(f) for x in range(4)]
+        for line in metadata:
             if line.startswith("Title: "):
-                title = line[7:].strip()
+                article["title"] = line[7:].strip()
             elif line.startswith("Date: "):
-                date = line[6:].strip()
+                article["date"] = line[6:].strip()
             elif line.startswith("Category: "):
-                category = line[10:].strip()
+                article["category"] = line[10:].strip()
             elif line.startswith("Summary: "):
-                summary = line[9:].strip()
-    return title, date, category, summary
+                article["summary"] = line[9:].strip()
+
+    if len(article) < 4:
+        print(f"There's a problem with metadata for {article_path}")
+        sys.exit(1)
+    return article
+
+
+def parse_articles(content_path):
+    content = []
+    for article in glob.glob(content_path):
+        article = parse_article(article)
+        content.append(article)
 
 
 def main():
-    for article in glob.glob(CONTENT_PATH):
-        title, date, category, summary = get_metadata(article)
-        print(title, date, category, summary, sep="\n")
-        print()
+    parse_articles(CONTENT_PATH)
     # with open("./photography.md", "r") as f:
     #     md = f.read()
 
