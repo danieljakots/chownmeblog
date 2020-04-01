@@ -29,8 +29,9 @@ def parse_article(article_path):
                 article["category"] = line[10:].strip()
             elif line.startswith("Summary: "):
                 article["summary"] = line[9:].strip()
+        article["markdown"] = f.read()
 
-    if len(article) < 4:
+    if len(article) < 5:
         print(f"There's a problem with metadata for {article_path}")
         sys.exit(1)
     return article
@@ -41,10 +42,11 @@ def parse_articles(content_path):
     for article in glob.glob(content_path):
         article = parse_article(article)
         content.append(article)
+    return content
 
 
 def main():
-    parse_articles(CONTENT_PATH)
+    content = parse_articles(CONTENT_PATH)
     # with open("./photography.md", "r") as f:
     #     md = f.read()
 
