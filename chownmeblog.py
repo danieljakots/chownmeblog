@@ -9,7 +9,7 @@ import markdown
 CONTENT_PATH = "content/*"
 SITE = {}
 SITE["author"] = "Daniel Jakots"
-SITE["url"] = "chown.me"
+SITE["url"] = "https://oldblog.chown.me"
 OUTPUT_DIR = "output"
 
 
