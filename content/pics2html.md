@@ -1,5 +1,5 @@
 Title: How I accidentally wrote a static site generator
-Date: 2020-04-15 10:20
+Date: 2020-04-15
 Category: Tech
 
 # Some context first

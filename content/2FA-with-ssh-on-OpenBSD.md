@@ -1,5 +1,5 @@
 Title: 2FA with ssh on OpenBSD
-Date: 2018-08-31 10:20
+Date: 2018-08-31
 Category: Tech
 
 Five years ago I wrote about [using a yubikey](./yubikey.html) on OpenBSD.  The

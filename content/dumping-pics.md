@@ -1,5 +1,5 @@
 Title: Dumping pics
-Date: 2017-11-04 10:20
+Date: 2017-11-04
 Category: Mylife
 
 A few years ago I bought a camera (a Canon 100D) and since that I take

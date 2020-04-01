@@ -1,5 +1,5 @@
 Title: My recent journey with 2FA
-Date: 2017-02-26 10:20
+Date: 2017-02-26
 Category: Tech
 
 ## 2FA

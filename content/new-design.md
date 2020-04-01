@@ -1,5 +1,5 @@
 Title: New design
-Date: 2018-04-13 10:20
+Date: 2018-04-13
 Category: Tech
 
 

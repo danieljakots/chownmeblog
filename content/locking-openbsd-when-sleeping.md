@@ -1,5 +1,5 @@
 Title: Locking OpenBSD when it's sleeping
-Date: 2018-10-08 10:20
+Date: 2018-10-08
 Category: Tech
 
 I frequent the #openbsd IRC channel in order to help people. A question

@@ -1,5 +1,5 @@
 Title: My infrastructure as of 2019
-Date: 2020-03-06 10:20
+Date: 2020-03-06
 Category: Tech
 
 I've wanted to write about my infrastructure for a while, but I kept thinking,

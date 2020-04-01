@@ -1,5 +1,5 @@
 Title: Playing with the pine64
-Date: 2017-10-19 10:20
+Date: 2017-10-19
 Category: Tech
 
 ## Finding something to install on it

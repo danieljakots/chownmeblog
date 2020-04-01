@@ -1,5 +1,5 @@
 Title: The Effective Manager
-Date: 2018-08-13 10:20
+Date: 2018-08-13
 Category: Books
 
 *Note: this is also available in audio format: 3:49

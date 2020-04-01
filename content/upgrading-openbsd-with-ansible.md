@@ -1,5 +1,5 @@
 Title: Upgrading OpenBSD with Ansible
-Date: 2018-10-19 08:30
+Date: 2018-10-19
 Category: Tech
 
 This article is best enjoyed with basic knowledge of [OpenBSD
