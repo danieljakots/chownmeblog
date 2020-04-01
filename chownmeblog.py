@@ -47,10 +47,8 @@ def parse_articles(content_path):
 
 def main():
     content = parse_articles(CONTENT_PATH)
-    # with open("./photography.md", "r") as f:
-    #     md = f.read()
-
-    # print(md2html(md))
+    for article in content:
+        article["html"] = md2html(article.pop("markdown"))
 
 
 if __name__ == "__main__":
