@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>body{line-height:1.6;font-size:18px;font-family:sans-serif;color:#333;padding:0
+10px}h1,h2,h3{line-height:1.2}.hidelink{color:#333;text-decoration:none;}h1{text-transform:uppercase;color:#CD0006}a:link{color:#CD0006;text-decoration:none;}.sidebar{margin:-18px;padding-top:8%;width:290px;background-color:#8f0006;position:fixed;height:100%;overflow:auto;text-align:center;top:-15px}.sidebar
+  h1{color:white;font-size:24px;}.sidebar a{display:block;color:white;padding:18px;}.sidebar a:hover{background-color:#CD0006;text-decoration: none}.notsidebar{margin:40px auto;max-width:650px;}a:hover{text-decoration:underline;}</style>
+
+  <title>Daniel Jakots' blog</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <h1>Hi, I'm Daniel Jakots</h1>
+    <br>
+    <a href="chown.me">Home</a>
+    <a href="./about.html">About</a>
+    <a href="https://px.chown.me">Pictures</a>
+    <a href="https://github.com/danieljakots/chownmeblog">Code</a>
+    <a href="./feed.xml">Feed</a>
+  </div>
+  <div class="notsidebar">
+  <header>
+    <a href="chown.me" class=hidelink>
+      <h1>Welcome on my blog!</h1>
+    </a>
+  </header>
+
+  <br>
+<p>I also wrote <a href="http://undeadly.org/cgi?action=article&amp;sid=20170821231153">a shorter and less personal report on undeadly</a>, feel free
+to read it rather than this one if you don't want to know about other things than
+the hackathon.</p>
+<p>August was a busy month events-wise. I had the visit of coworkers who
+work in France, because <a href="https://debconf17.debconf.org/">this year's Debconf</a> took place here, in Montreal.</p>
+<p>After a week of fun activities,
+<a href="https://twitter.com/Vigdis_/status/894318053093146624">I went to debconf</a>
+with them.
+<a href="https://twitter.com/Vigdis_/status/893877976235991042">With my badge</a>,
+people noticed I liked OpenBSD and during the 'Wine and Cheese' event,
+someone came to me to talk about OpenBSD. In fact he was
+<a href="https://qa.debian.org/developer.php?login=sf">sf@debian.org</a> who is also
+<a href="https://v4.freshbsd.org/search?committer=sf&amp;project=openbsd">sf@openbsd.org</a>. I
+was very surprised to meet another OpenBSD developer at debconf!</p>
+<p>I finally left debconf on Tuesday evening because I had to take the
+train on Wednesday morning with mpi@ to go to Toronto. In the train I
+was slacking on the Internet when I noticed mpi@ was already hacking
+with his $EDITOR. I felt guilty so I began to update
+graphics/pqiv. Fortunately, jca@ was already in the hackroom so he was
+available to help/review. It was cool to begin with that port because
+it's a very simple port and I had to learn about the new COMPILER
+variable, thus I could easily focus just on that.</p>
+<p>I also took the opportunity of the train journey to ask mpi@ questions
+about networking stuff which leaded to more things I want to dig in.</p>
+<p>Once I arrived in the hackroom, I committed a duplicity update I had
+in my tree for a long time. I also looked at a submission on ports@
+which needed some help because of libressl vs openssl and once I
+received some ok I put it in the tree.</p>
+<p>Over the last few weeks I've been looking at porting some OpenBGPD
+check for nagios-like monitoring system to improve my <a href="https://evolix.ca/">dayjob</a>'s
+monitoring system. I realized then that I didn't even check what we
+already had in the ports tree. We had a check that I quickly tested
+and it appeared to be broken. afresh1@, who is the check maintainer
+and upstream hadn't arrived yet, I asked other developers that I know
+they run BGPd in production what they use. I got to know about how
+they did their monitoring which was pretty interesting!</p>
+<p>To look at something else than the ports tree, I began to look at
+updating xkeyboard-config which is one of the tool used by xenocara. I
+already did the last update but at the time I didn't notice we had
+some local patches so I wanted to do it more carefully this time. I
+had some troubles doing this update so I took care of writing some
+notes about how I did it so next time should be easier.</p>
+<p>Finally afresh1@ arrived and I told him about the bgpd check problem
+and in fact he had fixed it two years ago but forgot to update the
+port. He quickly committed an update to close the case.</p>
+<p>One thing I wanted to do during this hackathon was updating
+haproxy. A few months ago when they release the latest branch, I
+didn't succeed to update our port to it because of libressl vs
+openssl. It wasn't such a big deal because old-stable branch was still
+supported. After waiting 9 months, I just grabbed
+<a href="https://github.com/trueos/freebsd-ports/blob/3745ead2e0f43985c3647e1e3aecae2751decfda/net/haproxy/files/patch-src_ssl__sock.c">the patch Bernard Spil did for TrueOS</a>
+and it just worked so I was really happy!</p>
+<p>In addition of that, I updated the other ports I maintained and I
+finally reached a state where all the ports I maintained were up to
+date \o/</p>
+<p>To sum up, I did everything I wanted during this hackaton, with more
+ease than I thought. I had the opportunity to have really interesting
+discussions with a lot of other developers (during <a href="https://twitter.com/Vigdis_/status/895794041450897408">our social event</a> but not only). Thanks a lot to the
+University of Toronto for hosting us (in a
+<a href="https://twitter.com/Vigdis_/status/896356797988167681">very nice part of the city</a>
+and krw@ for organizing!</p>
+  </div>
+</body>
+</html>

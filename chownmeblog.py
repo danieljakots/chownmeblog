@@ -22,7 +22,7 @@ def parse_article(article_path):
     article = {}
     article[
         "file"
-    ] = f"./blog/{article_path.replace('.md', '.html')[len(CONTENT_PATH) - 1:]}"
+    ] = f"blog/{article_path.replace('.md', '.html')[len(CONTENT_PATH) - 1:]}"
     with open(article_path, "r") as f:
         metadata = [next(f) for x in range(3)]
         for line in metadata:
@@ -57,6 +57,12 @@ def generate_website(content):
     result = jinja2_template.render(articles=content, site=SITE)
     with open(f"{OUTPUT_DIR}/index.html", "w") as f:
         f.write(result)
+    for article in content:
+        jinja2_template = jinja2_env.get_template("article.html.j2")
+
+        result = jinja2_template.render(article=article, site=SITE)
+        with open(f"{OUTPUT_DIR}/{article['file']}", "w") as f:
+            f.write(result)
 
 
 def main():

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>body{line-height:1.6;font-size:18px;font-family:sans-serif;color:#333;padding:0
+10px}h1,h2,h3{line-height:1.2}.hidelink{color:#333;text-decoration:none;}h1{text-transform:uppercase;color:#CD0006}a:link{color:#CD0006;text-decoration:none;}.sidebar{margin:-18px;padding-top:8%;width:290px;background-color:#8f0006;position:fixed;height:100%;overflow:auto;text-align:center;top:-15px}.sidebar
+  h1{color:white;font-size:24px;}.sidebar a{display:block;color:white;padding:18px;}.sidebar a:hover{background-color:#CD0006;text-decoration: none}.notsidebar{margin:40px auto;max-width:650px;}a:hover{text-decoration:underline;}</style>
+
+  <title>Daniel Jakots' blog</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <h1>Hi, I'm Daniel Jakots</h1>
+    <br>
+    <a href="chown.me">Home</a>
+    <a href="./about.html">About</a>
+    <a href="https://px.chown.me">Pictures</a>
+    <a href="https://github.com/danieljakots/chownmeblog">Code</a>
+    <a href="./feed.xml">Feed</a>
+  </div>
+  <div class="notsidebar">
+  <header>
+    <a href="chown.me" class=hidelink>
+      <h1>Welcome on my blog!</h1>
+    </a>
+  </header>
+
+  <br>
+<p>Five years ago I wrote about <a href="./yubikey.html">using a yubikey</a> on OpenBSD.  The
+only problem with doing this is that there's no validation server available on
+OpenBSD, so you need to use a different OTP slot for each machine. (You don't
+want to risk a <a href="https://en.wikipedia.org/wiki/Replay_attack">replay attack</a> if
+someone succeeds in capturing an OTP on one machine, right?)  Yubikey has two
+OTP slots per device, so you would need a yubikey for every two machines with
+which you'd like to use it. You could use a
+<a href="https://en.wikipedia.org/wiki/Bastion_host">bastion</a>—and use only one
+yubikey—but I don't like the SPOF aspect of a bastion. YMMV.</p>
+<p>After <a href="./my-recent-journey-with-2FA.html">I played with TOTP</a>, I wanted to use
+them as a 2FA for ssh. At the time of writing, we can't do that using only the
+tools in base. This article focuses on OpenBSD; if you use another operating
+system, here are two <a href="https://www.openbsd.org/faq/faq4.html">handy</a>
+<a href="https://ftp.openbsd.org/pub/OpenBSD/6.3/amd64/INSTALL.amd64">links</a>.</p>
+<h1>Seed configuration</h1>
+<p>The first thing we need to do is to install the software which will be used to
+verify the OTPs we submit.</p>
+<p>~~~</p>
+<h1>pkg_add login_oath</h1>
+<p>~~~</p>
+<p>We need to create a <em>secret</em> - aka, the <em>seed</em> - that will be used to calculate
+the Time-based One-Time Passwords. We should make sure no one can read or
+change it.</p>
+<p>~~~
+$ openssl rand -hex 20 &gt; ~/.totp-key
+$ chmod 400 ~/.totp-key
+~~~</p>
+<p>Now we have a hexadecimal key, but apps usually <a href="https://github.com/mattrubin/Authenticator/blob/develop/Authenticator/Source/TokenEntryForm.swift#L214">want a base32
+secret</a>.
+I initially wrote a small script to do the conversion.</p>
+<p>While writing this article, I took the opportunity to improve it. When I
+initially wrote this utility for my use,
+<a href="https://github.com/lincolnloop/python-qrcode">python-qrcode</a> hadn't yet been
+imported to the OpenBSD ports/packages system. It's easy to install now, so
+let's use it.</p>
+<p>Here's the improved version. It will ask for the hex key and output the secret
+as a base32-encoded string, both with and without spacing so you can copy-paste
+it into your password manager or easily retype it. It will then ask for the
+information needed to generate a <em>QR code</em>. Adding our new OTP secret to any
+mobile app using the QR code will be super easy!</p>
+<p>~~~</p>
+<h1>!/usr/bin/env python</h1>
+<h1>DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE</h1>
+<h1>Version 2, December 2004</h1>
+<h1>Copyright (C) 2018 Daniel Jakots</h1>
+<p>import binascii
+import base64
+import sys</p>
+<p>try:
+    import qrcode
+except ModuleNotFoundError:
+    print("pkg_add py3-qrcode")
+    sys.exit(1)</p>
+<p>seed_hex = input("Key in hex format ")</p>
+<p>binary_string = binascii.unhexlify(seed_hex)
+seed_b32 = base64.b32encode(binary_string).decode('utf-8')</p>
+<p>print("The secret in a base32 encoded format")
+print(seed_b32)</p>
+<p>print("The same, but with a space every three letters for readability")
+print(' '.join([seed_b32[i:i+3] for i in range(0, len(seed_b32), 3)]))</p>
+<p>print("Let's create a QR code to import it into an app")
+issuer = input("'Issuer' (can be the server name) ")
+username = input("Username ")</p>
+<p>uri = f"otpauth://totp/{username}?secret={seed_b32}&amp;issuer={issuer}"
+img = qrcode.make(uri)
+image_file = open(f"qrcode-otp-{issuer}.jpg", "wb")
+img.save(image_file)
+~~~</p>
+<p>You can fetch this script using <code>ftp
+https://chown.me/iota/blog/totp-hex-to-qrcode.py</code>.  (The code isn't in any of
+my public repositories for
+<a href="https://chown.me/iota/blog/issues-public-repo.jpg">reasons</a>).</p>
+<p>We can check to make sure everything went smoothly by comparing the code
+provided by your mobile app to one generated by <em>oathtool</em> at the same time.
+The <em>oathtool</em> binary is provided by the package <em>oath-toolkit</em> (which is the
+dependency needed by <em>login_oath</em>). <em>oathtool</em> accepts the seed in either
+hexadecimal or base32 format.</p>
+<p>~~~
+$ oathtool --totp 0123456789abcdef0123
+054640
+$ oathtool --totp -b AERUKZ4JVPG66AJD
+054640
+~~~</p>
+<p><em>0123456789abcdef0123</em> is the <em>seed</em> in hexadecimal format (as in
+<code>~/.totp-key</code>) and <em>AERUKZ4JVPG66AJD</em> is the same data, but base32-encoded.</p>
+<p>Alternatively, if you just want to do the hex -&gt; b32 conversion, <em>login_oath</em>'s
+README gives a Perl example (but it is not an unreadable one-liner, so you may
+not want to use it):</p>
+<p>~~~
+Some tokens (e.g. Google Authenticator) require secrets in base32 format;
+you can convert them with p5-Convert-Base32:</p>
+<p>use Convert::Base32;
+my $s = pack('H*', '99d12448129d1e8192e063d64714209137a13864');
+print encode_base32($s)."\n";
+~~~</p>
+<h1>System configuration</h1>
+<p>We can now move to the configuration of the system to put our new TOTP to use.
+As you might guess, it's going to be quite close to what we did with the
+yubikey.</p>
+<p>We need to tweak <code>login.conf</code>. <strong>Be careful</strong> and keep a root shell open at all
+times.  The few times I broke my OpenBSD were because I messed with login.conf
+without showing enough care.</p>
+<p>After the lines:</p>
+<p>~~~</p>
+<h1>Default allowed authentication styles for authentication type ftp</h1>
+<p>auth-ftp-defaults:auth-ftp=passwd:
+~~~</p>
+<p>we add:</p>
+<p>~~~</p>
+<h1>Default allowed authentication styles for authentication type ssh</h1>
+<p>auth-ssh-defaults:auth-ssh=-totp:
+~~~</p>
+<p>and inside the class of the user account for which TOTP is being set, we add
+the line <code>:tc=auth-ssh-defaults:\</code>. For instance, in my case it's:</p>
+<p>~~~
+staff:\
+        :datasize-cur=1536M:\
+        :datasize-max=infinity:\
+        :maxproc-max=512:\
+        :maxproc-cur=256:\
+        :ignorenologin:\
+        :requirehome@:\
+        :tc=auth-ssh-defaults:\
+        :tc=default:
+~~~</p>
+<p>(Hint: it's the penultimate line). You can check the class of your user using
+<code>id -c</code>.</p>
+<h1>sshd configuration</h1>
+<p>Again, keeping a root shell around decreases the risk of losing access to the
+system and being locked outside.</p>
+<p>A good standard is to use <code>PasswordAuthentication no</code> and to use public key
+only. Except... have a guess what the <em>P</em> stands for in <em>TOTP</em>.  Yes, congrats,
+you guessed it!</p>
+<p>We need to switch to <code>PasswordAuthentication yes</code>. However, if we made this
+change alone, sshd would then accept a public key OR a password (which are TOTP
+because of our <em>login.conf</em>). 2FA uses both at the same time.</p>
+<p>To inform sshd we intend to use both, we need to set <code>AuthenticationMethods
+publickey,password</code>. This way, the user trying to login will first need to
+perform the traditional publickey authentication. Once that's done, ssh will
+prompt for a password and the user will need to submit a valid TOTP for the
+system.</p>
+<p>We could do this the other way around, but I think bots could try passwords,
+wasting resources. Evaluated in this order, failing to provide a public key leads to
+sshd immediately declining your attempt.</p>
+<p>Here's the diff of the output when testing with <code>ssh -v</code> using both public-key-only authentication and two-factor authentication:</p>
+<p>~~~
+-debug1: Authentication succeeded (publickey).
++Authenticated with partial success.
++debug1: Authentications that can continue: password
++debug1: Next authentication method: password
++danj@198.51.100.12's password:
++debug1: Authentication succeeded (password).
+~~~</p>
+<h1>Improving security without impacting UX</h1>
+<p>My phone has a long enough password that most of the time, I fail to type it
+correctly on the first try. Of course, if I had to unlock my phone, launch my
+TOTP app and use my keyboard to enter what I see on my phone's screen, I would
+quickly disable 2FA.</p>
+<p>To find a balance, I have whitelisted certain IP addresses and users. If I
+connect from a particular IP address or as a specific user, I don't want to go
+through 2FA. For some users, I might not even enable 2FA.</p>
+<p>To whitelist, we can use the <em>Match</em> keyword. Here are two basic examples:</p>
+<p>~~~
+Match User git
+    AuthenticationMethods publickey
+~~~</p>
+<p>~~~
+Match Address 203.0.113.47 # VPN
+    AuthenticationMethods publickey
+~~~</p>
+<p><br/></p>
+<p>To sum up, we covered how to create a seed, how to perform a hexadecimal to
+base32 conversion and how to create a <em>QR code</em> for mobile applications. We
+configured the login system with <em>login.conf</em> so that ssh authentication uses
+the TOTP login system, and we told sshd to ask for both the public key and the
+Time-based One-Time Password. Now you should be all set to use two-factor
+ssh authentication on OpenBSD!</p>
+<p><br/></p>
+<p><em>Thanks <a href="https://bsd.network/@pamela">Pamela</a> for the proof-reading!</em></p>
+  </div>
+</body>
+</html>

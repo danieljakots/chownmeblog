@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>body{line-height:1.6;font-size:18px;font-family:sans-serif;color:#333;padding:0
+10px}h1,h2,h3{line-height:1.2}.hidelink{color:#333;text-decoration:none;}h1{text-transform:uppercase;color:#CD0006}a:link{color:#CD0006;text-decoration:none;}.sidebar{margin:-18px;padding-top:8%;width:290px;background-color:#8f0006;position:fixed;height:100%;overflow:auto;text-align:center;top:-15px}.sidebar
+  h1{color:white;font-size:24px;}.sidebar a{display:block;color:white;padding:18px;}.sidebar a:hover{background-color:#CD0006;text-decoration: none}.notsidebar{margin:40px auto;max-width:650px;}a:hover{text-decoration:underline;}</style>
+
+  <title>Daniel Jakots' blog</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <h1>Hi, I'm Daniel Jakots</h1>
+    <br>
+    <a href="chown.me">Home</a>
+    <a href="./about.html">About</a>
+    <a href="https://px.chown.me">Pictures</a>
+    <a href="https://github.com/danieljakots/chownmeblog">Code</a>
+    <a href="./feed.xml">Feed</a>
+  </div>
+  <div class="notsidebar">
+  <header>
+    <a href="chown.me" class=hidelink>
+      <h1>Welcome on my blog!</h1>
+    </a>
+  </header>
+
+  <br>
+<h2>Getting an account</h2>
+<p>Since end of March I have had an OpenBSD account which means that I can do
+some commits on my own, the login I use is <em>danj</em>. I was then invited
+to <a href="https://www.openbsd.org/images/hackathons/p2k16.gif">p2k16</a> which
+took place in Nantes, about 100kms from where I live (Rennes).</p>
+<h2>Planning</h2>
+<p>I read most of hackathons report (if not all) on undeadly, and people
+often says that they had plans. So I thought I was going to do the
+same. Finally I did only a few things that I planned and other things
+I didn't plan at all :)</p>
+<h2>Meeting people</h2>
+<p>Since 2013 I've been talking with jca@ (mainly about OpenBSD but not only),
+though I never had the chance to meet him. Finally at p2k16 I could
+finally meet him.</p>
+<p>I've also been talking on irc with landry@ for quite a long time, I
+was eager to meet him as I really appreciate him because we laugh
+together.</p>
+<p>I could also see again mpi@, who I didn't saw since my
+<a href="./some-news-from-my-internship.html">internship</a>.</p>
+<p>During the hackathon I could also talk with people that I had never
+talked to, before like espie@ or eric@. It was both funny and
+interesting as I learnt a couple of things while I was chatting with
+them.</p>
+<h2>Even teaching people</h2>
+<p>I was still heavily learning at lot of things, whatever I was doing,
+though I was looking forward to share my (little) knowledge. I could
+show some tricks to tsg@ who was porting some python ports and at the
+same time working on
+<a href="http://man.openbsd.org/OpenBSD-current/man1/portgen.1">portgen</a> to
+teach it to handle python ports. I was really happy/proud to be able to
+help him.</p>
+<p>I even could teach eric@ how to use cvs again :D. He didn't touch cvs
+for a while and in the mean time, new tools were created to help us like
+<a href="http://man.openbsd.org/OpenBSD-current/man1/portimport.1">portimport</a>
+and he didn't know its existence so I showed him thus he could use it
+rather than importing his port (that I reviewed as it was a python
+port :3) manually.</p>
+<h2>The work</h2>
+<p>I begun the week with committing an update to legit and its chains of
+*_DEPS, it was quite a pain so I was happy to be over. After that, I
+updated a bunch of little ports. I reviewed a few ports for
+shadchin@. Python ports are usually easy (IMO) but the problem is
+that there are always tons of *_DEPS which quickly sums up.</p>
+<p>I left a bit the python ports to update osm2pgsql. They switched their
+build system from autotools to cmake. Some people don't like
+autotools, other don't like cmake and many hate both but in my case I
+don't know them well so it doesn't make a lot of difference. At first
+I didn't succeed to make the test pass (but of course osm2pgsql was
+tested to be working), but after being home I worked on it again, and
+I was glad of my work.</p>
+<p>One of my plan was to port py-tox as it's used by nearly all python
+software for the tests. jca@ told me to look into
+<a href="https://github.com/jasperla/openbsd-wip">openbsd-wip</a> and indeed it
+was already done by shadchin@, I bring it to ports@ and ok'ed it so he
+imported it.</p>
+<p>Finally, I begin to work on poezio, a python3 xmpp client. I needed
+some directions as some of its *_DEPS were python3-only and currently
+the port infrastructure for python ports is mainly axed towards
+python2, and sthen@ kindly helped me.</p>
+<h2>The end</h2>
+<p>Of course, I was sad when it ended, seeing people leaving
+gradually. I was really happy of the whole week, meeting people I was
+quite fond of. The meals were goods, with lots of
+<a href="https://fr.wikipedia.org/wiki/Galette_de_sarrasin">galettes</a> and
+<a href="https://en.wikipedia.org/wiki/Cr%C3%AApe">crepes</a> (even though we
+were not in Brittany). Thanks to all who made it possible! Would
+definitely do again.</p>
+  </div>
+</body>
+</html>
