@@ -20,6 +20,9 @@ def md2html(md):
 
 def parse_article(article_path):
     article = {}
+    article[
+        "file"
+    ] = f"./blog/{article_path.replace('.md', '.html')[len(CONTENT_PATH) - 1:]}"
     with open(article_path, "r") as f:
         metadata = [next(f) for x in range(4)]
         for line in metadata:
