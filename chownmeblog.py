@@ -3,12 +3,14 @@
 import glob
 import sys
 
+import jinja2
 import markdown
 
 CONTENT_PATH = "content/*"
 SITE = {}
 SITE["author"] = "Daniel Jakots"
 SITE["url"] = "chown.me"
+OUTPUT_DIR = "output"
 
 
 def md2html(md):
@@ -46,10 +48,21 @@ def parse_articles(content_path):
     return content
 
 
+def generate_website(content):
+    jinja2_env = jinja2.Environment(
+        loader=jinja2.FileSystemLoader("templates"), trim_blocks=True
+    )
+    jinja2_template = jinja2_env.get_template("index.html.j2")
+    result = jinja2_template.render(articles=content, site=SITE)
+    with open(f"{OUTPUT_DIR}/index.html", "w") as f:
+        f.write(result)
+
+
 def main():
     content = parse_articles(CONTENT_PATH)
     for article in content:
         article["html"] = md2html(article.pop("markdown"))
+    generate_website(content)
 
 
 if __name__ == "__main__":

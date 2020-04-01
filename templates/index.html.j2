@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>body{margin:40px auto;max-width:650px;line-height:1.6;font-size:18px;font-family:sans-serif;color:#333;padding:0 10px}h1,h2,h3{line-height:1.2}.hidelink{color: #333;text-decoration:none;}h1{color:#CD0006}</style>
+
+    <title>{{ site.author }}' blog</title>
+</head>
+
+<body>
+    <header>
+      <a href="{{ site.url }}" class=hidelink>
+        <h1>Welcome on my blog!</h1>
+      </a>
+    </header>
+
+{% for article in articles%}
+    <p>{{ article.title }} published on {{ article.date }} in {{ article.category }}</p>
+    <p>{{ article.summary }}</p>
+{% endfor %}
+</body>
+</html>
