@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>body{line-height:1.6;font-size:18px;font-family:sans-serif;color:#333;padding:0
+10px}h1,h2,h3{line-height:1.2}.hidelink{color:#333;text-decoration:none;}h1{text-transform:uppercase;color:#CD0006}a:link{color:#CD0006;text-decoration:none;}.sidebar{margin:-18px;padding-top:8%;width:290px;background-color:#8f0006;position:fixed;height:100%;overflow:auto;text-align:center;top:-15px}.sidebar
+  h1{color:white;font-size:24px;}.sidebar a{display:block;color:white;padding:18px;}.sidebar a:hover{background-color:#CD0006;text-decoration: none}.notsidebar{margin:40px auto;max-width:650px;}a:hover{text-decoration:underline;}</style>
+
+  <title>{{ site.author }}' blog</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <h1>Hi, I'm Daniel Jakots</h1>
+    <br>
+    <a href="{{ site.url }}">Home</a>
+    <a href="./about.html">About</a>
+    <a href="https://px.chown.me">Pictures</a>
+    <a href="https://github.com/danieljakots/chownmeblog">Code</a>
+    <a href="./feed.xml">Feed</a>
+  </div>
+  <div class="notsidebar">
+  <header>
+    <a href="{{ site.url }}" class=hidelink>
+      <h1>Welcome on my blog!</h1>
+    </a>
+  </header>
+
+  <br>
+{% block content %}
+{% endblock %}
+  </div>
+</body>
+</html>
