@@ -1,7 +1,6 @@
 Title: New design
 Date: 2018-04-13 10:20
 Category: Tech
-Summary: The blog has a new design!
 
 
 In June this blog will be five years old. Since [I created it](./blog.html), it

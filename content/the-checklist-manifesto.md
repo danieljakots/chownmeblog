@@ -1,7 +1,6 @@
 Title: The Checklist Manifesto
 Date: 2018-06-01 10:20
 Category: Books
-Summary: I read The Checklist Manifesto
 
 What is the best way to improve the quality of your actions? According to the
 author of the book [*The Checklist

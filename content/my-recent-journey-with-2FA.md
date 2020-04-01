@@ -1,7 +1,6 @@
 Title: My recent journey with 2FA
 Date: 2017-02-26 10:20
 Category: Tech
-Summary: I recently begin to increase my use of 2FA so here's my report about it.
 
 ## 2FA
 

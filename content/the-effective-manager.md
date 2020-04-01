@@ -1,7 +1,6 @@
 Title: The Effective Manager
 Date: 2018-08-13 10:20
 Category: Books
-Summary: I read The Effective Manager by Mark Horstman; here's my summary.
 
 *Note: this is also available in audio format: 3:49
 [(1.6MB mp3)](https://chown.me/iota/blog/the-effective-manager.mp3)

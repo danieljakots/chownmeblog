@@ -1,7 +1,6 @@
 Title: 2FA with ssh on OpenBSD
 Date: 2018-08-31 10:20
 Category: Tech
-Summary: How I locked down my ssh connection
 
 Five years ago I wrote about [using a yubikey](./yubikey.html) on OpenBSD.  The
 only problem with doing this is that there's no validation server available on

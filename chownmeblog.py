@@ -24,7 +24,7 @@ def parse_article(article_path):
         "file"
     ] = f"./blog/{article_path.replace('.md', '.html')[len(CONTENT_PATH) - 1:]}"
     with open(article_path, "r") as f:
-        metadata = [next(f) for x in range(4)]
+        metadata = [next(f) for x in range(3)]
         for line in metadata:
             if line.startswith("Title: "):
                 article["title"] = line[7:].strip()
@@ -32,11 +32,9 @@ def parse_article(article_path):
                 article["date"] = line[6:].strip()
             elif line.startswith("Category: "):
                 article["category"] = line[10:].strip()
-            elif line.startswith("Summary: "):
-                article["summary"] = line[9:].strip()
         article["markdown"] = f.read()
 
-    if len(article) < 5:
+    if len(article) < 4:
         print(f"There's a problem with metadata for {article_path}")
         sys.exit(1)
     return article

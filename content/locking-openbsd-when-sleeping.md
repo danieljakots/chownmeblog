@@ -1,7 +1,6 @@
 Title: Locking OpenBSD when it's sleeping
 Date: 2018-10-08 10:20
 Category: Tech
-Summary: A frequently asked question: how do you lock your machine?
 
 I frequent the #openbsd IRC channel in order to help people. A question
 commonly asked is how to automatically lock your machine when

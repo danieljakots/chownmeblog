@@ -1,7 +1,6 @@
 Title: Dumping pics
 Date: 2017-11-04 10:20
 Category: Mylife
-Summary: I finally dumped the pics I took with my phone
 
 A few years ago I bought a camera (a Canon 100D) and since that I take
 pictures from time to time. I go through all the pics I take and I

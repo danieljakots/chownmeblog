@@ -1,7 +1,6 @@
 Title: Upgrading OpenBSD with Ansible
 Date: 2018-10-19 08:30
 Category: Tech
-Summary: How to upgrade an OpenBSD machine with Ansible
 
 This article is best enjoyed with basic knowledge of [OpenBSD
 autoinstall](https://man.openbsd.org/autoinstall) and [Ansible](https://www.ansible.com/)

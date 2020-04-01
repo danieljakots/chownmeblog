@@ -1,7 +1,6 @@
 Title: How I accidentally wrote a static site generator
 Date: 2020-04-15 10:20
 Category: Tech
-Summary: How I accidentally wrote a static site generator
 
 # Some context first
 

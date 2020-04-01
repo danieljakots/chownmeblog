@@ -17,7 +17,6 @@
 
 {% for article in articles%}
 <p><a href="{{ article.file }}">{{ article.title }}</a> published on {{ article.date }} in {{ article.category }}</p>
-    <p>{{ article.summary }}</p>
 {% endfor %}
 </body>
 </html>

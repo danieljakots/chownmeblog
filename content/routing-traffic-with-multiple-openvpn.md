@@ -1,7 +1,6 @@
 Title: Routing traffic with multiple OpenVPN
 Date: 2017-11-21 10:20
 Category: Tech
-Summary: On my home router, I have multiple instances of OpenVPN, and here I describe how I route my traffic
 
 
 ## Why OpenVPN?
