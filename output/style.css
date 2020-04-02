@@ -8,3 +8,4 @@ a:link{color:#CD0006;text-decoration:none;}
 .sidebar a{display:block;color:white;padding:18px;}
 .sidebar a:hover{background-color:#CD0006;text-decoration: none}
 .notsidebar{margin:40px auto;max-width:725px;}a:hover{text-decoration:underline;}
+code {font-size:92%;background-color:#e8e8e8;border:1px solid #aaa;overflow:auto;border-radius:0.2em;padding:0.1em;}
