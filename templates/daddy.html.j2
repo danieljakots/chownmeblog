@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ site.url }}/style.css" type="text/css"/>
   <link rel="stylesheet" href="{{ site.url }}/pygmentize.css" type="text/css"/>
+{% if article is defined %}
+  <title>{{ article.title }}' blog</title>
+{% else %}
   <title>{{ site.author }}' blog</title>
+{% endif %}
 </head>
 
 <body>
@@ -19,6 +23,7 @@
     <a href="./feed.xml">Feed</a>
   </div>
   <div class="notsidebar">
+{% if article is not defined %}
   <header>
     <a href="{{ site.url }}" class=hidelink>
       <h1>Welcome on my blog!</h1>
@@ -26,6 +31,7 @@
   </header>
 
   <br>
+{% endif %}
 {% block content %}
 {% endblock %}
   </div>
