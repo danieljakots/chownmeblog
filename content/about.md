@@ -2,14 +2,14 @@ Title: About
 Date: 2013-06-15 10:20
 Category: other
 
-**Hey, I'm Daniel**
+## Hey, I'm Daniel
 
 I work as a system and network engineer in Montreal where I have been living since the end
 of 2016. In my spare time, I [contribute](http://oxide.org/cvs/danj.html) to
 [OpenBSD](https://www.openbsd.org), I
 [develop](https://github.com/danieljakots) in Python, and when it's hotter than
-10 Celsius, I ride my 
-[single speed](https://twitter.com/Vigdis_/status/857378539057893378).
+10 Celsius, I ride my [single
+speed](https://twitter.com/Vigdis_/status/857378539057893378).
 
 [My cat](https://pics.chown.me/Jean-Canard/) goes by the name of *Jean Canard*.
 
@@ -30,7 +30,7 @@ You can read quotes from me in
 and in [Amaelle Guiton](https://twitter.com/amaelle_g)'s book
 [Au coeur de la résistance numérique](http://hackers.micro-ouvert.net/).
 
-**My Corporate Biography** is:
+## Corporate Biography
 
 Daniel is a Python Developer focusing on DevOps methodologies. Curious by
 nature, his interests lie in the development of web applications, as well as
