@@ -4,27 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://oldblog.chown.me/style.css" type="text/css"/>
-  <title>Daniel Jakots' blog</title>
+  <link rel="stylesheet" href="https://oldblog.chown.me/pygmentize.css" type="text/css"/>
+  <title>2FA with ssh on OpenBSD' blog</title>
 </head>
 
 <body>
   <div class="sidebar">
-    <h1>Hi, I'm Daniel Jakots</h1>
+    <h1>Hi, I'm Daniel Jakots!</h1>
     <br>
     <a href="https://oldblog.chown.me">Home</a>
-    <a href="./about.html">About</a>
+    <a href="https://oldblog.chown.me/about.html">About</a>
     <a href="https://px.chown.me">Pictures</a>
     <a href="https://github.com/danieljakots/chownmeblog">Code</a>
     <a href="./feed.xml">Feed</a>
   </div>
   <div class="notsidebar">
-  <header>
-    <a href="https://oldblog.chown.me" class=hidelink>
-      <h1>Welcome on my blog!</h1>
-    </a>
-  </header>
-
-  <br>
+<h1>2FA with ssh on OpenBSD</h1>
+<br>
 <p>Five years ago I wrote about <a href="./yubikey.html">using a yubikey</a> on OpenBSD.  The
 only problem with doing this is that there's no validation server available on
 OpenBSD, so you need to use a different OTP slot for each machine. (You don't
@@ -39,19 +35,21 @@ them as a 2FA for ssh. At the time of writing, we can't do that using only the
 tools in base. This article focuses on OpenBSD; if you use another operating
 system, here are two <a href="https://www.openbsd.org/faq/faq4.html">handy</a>
 <a href="https://ftp.openbsd.org/pub/OpenBSD/6.3/amd64/INSTALL.amd64">links</a>.</p>
-<h1>Seed configuration</h1>
+<h2>Seed configuration</h2>
 <p>The first thing we need to do is to install the software which will be used to
 verify the OTPs we submit.</p>
-<p>~~~</p>
-<h1>pkg_add login_oath</h1>
-<p>~~~</p>
+<div class="codehilite"><pre><span></span># pkg_add login_oath
+</pre></div>
+
+
 <p>We need to create a <em>secret</em> - aka, the <em>seed</em> - that will be used to calculate
 the Time-based One-Time Passwords. We should make sure no one can read or
 change it.</p>
-<p>~~~
-$ openssl rand -hex 20 &gt; ~/.totp-key
-$ chmod 400 ~/.totp-key
-~~~</p>
+<div class="codehilite"><pre><span></span>$ openssl rand -hex <span class="m">20</span> &gt; ~/.totp-key
+$ chmod <span class="m">400</span> ~/.totp-key
+</pre></div>
+
+
 <p>Now we have a hexadecimal key, but apps usually <a href="https://github.com/mattrubin/Authenticator/blob/develop/Authenticator/Source/TokenEntryForm.swift#L214">want a base32
 secret</a>.
 I initially wrote a small script to do the conversion.</p>
@@ -65,34 +63,82 @@ as a base32-encoded string, both with and without spacing so you can copy-paste
 it into your password manager or easily retype it. It will then ask for the
 information needed to generate a <em>QR code</em>. Adding our new OTP secret to any
 mobile app using the QR code will be super easy!</p>
-<p>~~~</p>
-<h1>!/usr/bin/env python</h1>
-<h1>DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE</h1>
-<h1>Version 2, December 2004</h1>
-<h1>Copyright (C) 2018 Daniel Jakots</h1>
-<p>import binascii
-import base64
-import sys</p>
-<p>try:
-    import qrcode
-except ModuleNotFoundError:
-    print("pkg_add py3-qrcode")
-    sys.exit(1)</p>
-<p>seed_hex = input("Key in hex format ")</p>
-<p>binary_string = binascii.unhexlify(seed_hex)
-seed_b32 = base64.b32encode(binary_string).decode('utf-8')</p>
-<p>print("The secret in a base32 encoded format")
-print(seed_b32)</p>
-<p>print("The same, but with a space every three letters for readability")
-print(' '.join([seed_b32[i:i+3] for i in range(0, len(seed_b32), 3)]))</p>
-<p>print("Let's create a QR code to import it into an app")
-issuer = input("'Issuer' (can be the server name) ")
-username = input("Username ")</p>
-<p>uri = f"otpauth://totp/{username}?secret={seed_b32}&amp;issuer={issuer}"
-img = qrcode.make(uri)
-image_file = open(f"qrcode-otp-{issuer}.jpg", "wb")
-img.save(image_file)
-~~~</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1">#           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE</span>
+<span class="c1">#                   Version 2, December 2004</span>
+
+<span class="c1"># Copyright (C) 2018 Daniel Jakots</span>
+
+
+<span class="kn">import</span> <span class="nn">binascii</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">qrcode</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;pkg_add py3-qrcode&quot;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">seed_hex</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Key in hex format &quot;</span><span class="p">)</span>
+
+<span class="n">binary_string</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">unhexlify</span><span class="p">(</span><span class="n">seed_hex</span><span class="p">)</span>
+<span class="n">seed_b32</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b32encode</span><span class="p">(</span><span class="n">binary_string</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;The secret in a base32 encoded format&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">seed_b32</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;The same, but with a space every three letters for readability&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">seed_b32</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">seed_b32</span><span class="p">),</span> <span class="mi">3</span><span class="p">)]))</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Let&#39;s create a QR code to import it into an app&quot;</span><span class="p">)</span>
+<span class="n">issuer</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;&#39;Issuer&#39; (can be the server name) &quot;</span><span class="p">)</span>
+<span class="n">username</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Username &quot;</span><span class="p">)</span>
+
+<span class="n">uri</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;otpauth://totp/{username}?secret={seed_b32}&amp;issuer={issuer}&quot;</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">qrcode</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+<span class="n">image_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;qrcode-otp-{issuer}.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+<span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">image_file</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
 <p>You can fetch this script using <code>ftp
 https://chown.me/iota/blog/totp-hex-to-qrcode.py</code>.  (The code isn't in any of
 my public repositories for
@@ -102,25 +148,28 @@ provided by your mobile app to one generated by <em>oathtool</em> at the same ti
 The <em>oathtool</em> binary is provided by the package <em>oath-toolkit</em> (which is the
 dependency needed by <em>login_oath</em>). <em>oathtool</em> accepts the seed in either
 hexadecimal or base32 format.</p>
-<p>~~~
-$ oathtool --totp 0123456789abcdef0123
-054640
+<div class="codehilite"><pre><span></span>$ oathtool --totp 0123456789abcdef0123
+<span class="m">054640</span>
 $ oathtool --totp -b AERUKZ4JVPG66AJD
-054640
-~~~</p>
+<span class="m">054640</span>
+</pre></div>
+
+
 <p><em>0123456789abcdef0123</em> is the <em>seed</em> in hexadecimal format (as in
 <code>~/.totp-key</code>) and <em>AERUKZ4JVPG66AJD</em> is the same data, but base32-encoded.</p>
 <p>Alternatively, if you just want to do the hex -&gt; b32 conversion, <em>login_oath</em>'s
 README gives a Perl example (but it is not an unreadable one-liner, so you may
 not want to use it):</p>
-<p>~~~
-Some tokens (e.g. Google Authenticator) require secrets in base32 format;
-you can convert them with p5-Convert-Base32:</p>
-<p>use Convert::Base32;
-my $s = pack('H*', '99d12448129d1e8192e063d64714209137a13864');
-print encode_base32($s)."\n";
-~~~</p>
-<h1>System configuration</h1>
+<div class="codehilite"><pre><span></span><span class="n">Some</span> <span class="n">tokens</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">Google</span> <span class="n">Authenticator</span><span class="p">)</span> <span class="k">require</span> <span class="nn">secrets</span> <span class="n">in</span> <span class="n">base32</span> <span class="nb">format</span><span class="p">;</span>
+<span class="n">you</span> <span class="n">can</span> <span class="n">convert</span> <span class="n">them</span> <span class="n">with</span> <span class="n">p5</span><span class="o">-</span><span class="n">Convert</span><span class="o">-</span><span class="n">Base32:</span>
+
+<span class="k">use</span> <span class="nn">Convert::Base32</span><span class="p">;</span>
+<span class="k">my</span> <span class="nv">$s</span> <span class="o">=</span> <span class="nb">pack</span><span class="p">(</span><span class="s">&#39;H*&#39;</span><span class="p">,</span> <span class="s">&#39;99d12448129d1e8192e063d64714209137a13864&#39;</span><span class="p">);</span>
+<span class="k">print</span> <span class="n">encode_base32</span><span class="p">(</span><span class="nv">$s</span><span class="p">)</span><span class="o">.</span><span class="s">&quot;\n&quot;</span><span class="p">;</span>
+</pre></div>
+
+
+<h2>System configuration</h2>
 <p>We can now move to the configuration of the system to put our new TOTP to use.
 As you might guess, it's going to be quite close to what we did with the
 yubikey.</p>
@@ -128,19 +177,20 @@ yubikey.</p>
 times.  The few times I broke my OpenBSD were because I messed with login.conf
 without showing enough care.</p>
 <p>After the lines:</p>
-<p>~~~</p>
-<h1>Default allowed authentication styles for authentication type ftp</h1>
-<p>auth-ftp-defaults:auth-ftp=passwd:
-~~~</p>
+<div class="codehilite"><pre><span></span># Default allowed authentication styles for authentication type ftp
+auth-ftp-defaults:auth-ftp=passwd:
+</pre></div>
+
+
 <p>we add:</p>
-<p>~~~</p>
-<h1>Default allowed authentication styles for authentication type ssh</h1>
-<p>auth-ssh-defaults:auth-ssh=-totp:
-~~~</p>
+<div class="codehilite"><pre><span></span># Default allowed authentication styles for authentication type ssh
+auth-ssh-defaults:auth-ssh=-totp:
+</pre></div>
+
+
 <p>and inside the class of the user account for which TOTP is being set, we add
 the line <code>:tc=auth-ssh-defaults:\</code>. For instance, in my case it's:</p>
-<p>~~~
-staff:\
+<div class="codehilite"><pre><span></span>staff:\
         :datasize-cur=1536M:\
         :datasize-max=infinity:\
         :maxproc-max=512:\
@@ -149,10 +199,12 @@ staff:\
         :requirehome@:\
         :tc=auth-ssh-defaults:\
         :tc=default:
-~~~</p>
+</pre></div>
+
+
 <p>(Hint: it's the penultimate line). You can check the class of your user using
 <code>id -c</code>.</p>
-<h1>sshd configuration</h1>
+<h2>sshd configuration</h2>
 <p>Again, keeping a root shell around decreases the risk of losing access to the
 system and being locked outside.</p>
 <p>A good standard is to use <code>PasswordAuthentication no</code> and to use public key
@@ -170,15 +222,16 @@ system.</p>
 wasting resources. Evaluated in this order, failing to provide a public key leads to
 sshd immediately declining your attempt.</p>
 <p>Here's the diff of the output when testing with <code>ssh -v</code> using both public-key-only authentication and two-factor authentication:</p>
-<p>~~~
--debug1: Authentication succeeded (publickey).
-+Authenticated with partial success.
-+debug1: Authentications that can continue: password
-+debug1: Next authentication method: password
-+danj@198.51.100.12's password:
-+debug1: Authentication succeeded (password).
-~~~</p>
-<h1>Improving security without impacting UX</h1>
+<div class="codehilite"><pre><span></span><span class="p">-</span><span class="nf">debug1:</span> <span class="n">Authentication</span> <span class="n">succeeded</span> <span class="p">(</span><span class="n">publickey</span><span class="p">).</span>
+<span class="o">+</span><span class="n">Authenticated</span> <span class="n">with</span> <span class="n">partial</span> <span class="n">success</span><span class="p">.</span>
+<span class="o">+</span><span class="nl">debug1</span><span class="p">:</span> <span class="n">Authentications</span> <span class="n">that</span> <span class="n">can</span> <span class="k">continue</span><span class="o">:</span> <span class="n">password</span>
+<span class="o">+</span><span class="nl">debug1</span><span class="p">:</span> <span class="n">Next</span> <span class="n">authentication</span> <span class="nl">method</span><span class="p">:</span> <span class="n">password</span>
+<span class="o">+</span><span class="n">danj</span><span class="mf">@198.51.100.12</span><span class="err">&#39;</span><span class="n">s</span> <span class="nl">password</span><span class="p">:</span>
+<span class="o">+</span><span class="nl">debug1</span><span class="p">:</span> <span class="n">Authentication</span> <span class="n">succeeded</span> <span class="p">(</span><span class="n">password</span><span class="p">).</span>
+</pre></div>
+
+
+<h2>Improving security without impacting UX</h2>
 <p>My phone has a long enough password that most of the time, I fail to type it
 correctly on the first try. Of course, if I had to unlock my phone, launch my
 TOTP app and use my keyboard to enter what I see on my phone's screen, I would
@@ -187,14 +240,16 @@ quickly disable 2FA.</p>
 connect from a particular IP address or as a specific user, I don't want to go
 through 2FA. For some users, I might not even enable 2FA.</p>
 <p>To whitelist, we can use the <em>Match</em> keyword. Here are two basic examples:</p>
-<p>~~~
-Match User git
+<div class="codehilite"><pre><span></span>Match User git
     AuthenticationMethods publickey
-~~~</p>
-<p>~~~
-Match Address 203.0.113.47 # VPN
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>Match Address 203.0.113.47 # VPN
     AuthenticationMethods publickey
-~~~</p>
+</pre></div>
+
+
 <p><br/></p>
 <p>To sum up, we covered how to create a seed, how to perform a hexadecimal to
 base32 conversion and how to create a <em>QR code</em> for mobile applications. We

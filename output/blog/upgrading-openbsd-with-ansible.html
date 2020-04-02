@@ -4,27 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://oldblog.chown.me/style.css" type="text/css"/>
-  <title>Daniel Jakots' blog</title>
+  <link rel="stylesheet" href="https://oldblog.chown.me/pygmentize.css" type="text/css"/>
+  <title>Upgrading OpenBSD with Ansible' blog</title>
 </head>
 
 <body>
   <div class="sidebar">
-    <h1>Hi, I'm Daniel Jakots</h1>
+    <h1>Hi, I'm Daniel Jakots!</h1>
     <br>
     <a href="https://oldblog.chown.me">Home</a>
-    <a href="./about.html">About</a>
+    <a href="https://oldblog.chown.me/about.html">About</a>
     <a href="https://px.chown.me">Pictures</a>
     <a href="https://github.com/danieljakots/chownmeblog">Code</a>
     <a href="./feed.xml">Feed</a>
   </div>
   <div class="notsidebar">
-  <header>
-    <a href="https://oldblog.chown.me" class=hidelink>
-      <h1>Welcome on my blog!</h1>
-    </a>
-  </header>
-
-  <br>
+<h1>Upgrading OpenBSD with Ansible</h1>
+<br>
 <p>This article is best enjoyed with basic knowledge of <a href="https://man.openbsd.org/autoinstall">OpenBSD
 autoinstall</a> and <a href="https://www.ansible.com/">Ansible</a></p>
 <h2>My router runs OpenBSD -current</h2>
@@ -61,11 +57,12 @@ upgrades, and wanted to assess the cleanliness of this method. ;-)</p>
 <p>I learned that with the then-upcoming 2.7 Ansible release, a proper <em>reboot</em>
 module would be included. I went to the docs, which stated that for a certain
 parameter:</p>
-<p>~~~
-- On Linux and macOS, this is converted to minutes and
+<div class="codehilite"><pre><span></span>- On Linux and macOS, this is converted to minutes and
   rounded down. If less than 60, it will be set to 0.
 - On Solaris and FreeBSD, this will be seconds.
-~~~</p>
+</pre></div>
+
+
 <p>I took this to mean that there was no support for OpenBSD. I looked at the code
 and, indeed, there was not. However, I believed that it wouldn't be too hard
 to add it. I added the missing pieces for OpenBSD, tested it on my poor Pine64
@@ -102,67 +99,69 @@ rebooting into <em>bsd.rd</em>. It enabled me to remove some <em>tasks</em> I ha
 order to get working Internet access in <em>bsd.rd</em>. (This is specific to my
 case).</p>
 <h3>The playbook itself</h3>
-<h2>~~~</h2>
-<ul>
-<li>name: Upgrade OpenBSD
-  hosts: apu-root
-  vars:
-    arch: amd64
-    date: "{{ lookup('pipe', 'date +%Y-%m-%d') }}"
-    disk: "sd0"
-    mirror: "fastly.cdn.openbsd.org"
-    path_sets: "/home/danj/sets"</li>
-</ul>
-<p>tasks:
-    - name: fetch sets
-      command: /home/danj/bin/fetch-sets
-      when: path_sets is defined
-    - name: create answer file for upobsd
-      template:
-        src: answer.j2
-        dest: answer
-      delegate_to: localhost
-    - name: create kernel with upobsd
-      command: "upobsd -v -a {{ arch }} -u ./answer -m https://{{ mirror }}/pub/OpenBSD -V snapshots"
-      delegate_to: localhost
-    - name: copy bsd.rd created by upobsd
-      copy:
-        src: bsd.rd
-        dest: /bsd
-    - name: reboot host
-      reboot:
-        msg: "rebooting into bsd.rd to upgrade"
-        reboot_timeout: 900
-    - name: archive kernel
-      copy:
-        src: "/bsd"
-        dest: "/bsd-{{ date }}"
-        mode: 0700
-        remote_src: "yes"
-    - name: upgrade all packages
-      command: "pkg_add -u -Dsnap"
-~~~</p>
+<div class="codehilite"><pre><span></span><span class="x">---</span>
+<span class="x">- name: Upgrade OpenBSD</span>
+<span class="x">  hosts: apu-root</span>
+<span class="x">  vars:</span>
+<span class="x">    arch: amd64</span>
+<span class="x">    date: &quot;</span><span class="cp">{{</span> <span class="nv">lookup</span><span class="o">(</span><span class="s1">&#39;pipe&#39;</span><span class="o">,</span> <span class="s1">&#39;date +%Y-%m-%d&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">    disk: &quot;sd0&quot;</span>
+<span class="x">    mirror: &quot;fastly.cdn.openbsd.org&quot;</span>
+<span class="x">    path_sets: &quot;/home/danj/sets&quot;</span>
+
+<span class="x">  tasks:</span>
+<span class="x">    - name: fetch sets</span>
+<span class="x">      command: /home/danj/bin/fetch-sets</span>
+<span class="x">      when: path_sets is defined</span>
+<span class="x">    - name: create answer file for upobsd</span>
+<span class="x">      template:</span>
+<span class="x">        src: answer.j2</span>
+<span class="x">        dest: answer</span>
+<span class="x">      delegate_to: localhost</span>
+<span class="x">    - name: create kernel with upobsd</span>
+<span class="x">      command: &quot;upobsd -v -a </span><span class="cp">{{</span> <span class="nv">arch</span> <span class="cp">}}</span><span class="x"> -u ./answer -m https://</span><span class="cp">{{</span> <span class="nv">mirror</span> <span class="cp">}}</span><span class="x">/pub/OpenBSD -V snapshots&quot;</span>
+<span class="x">      delegate_to: localhost</span>
+<span class="x">    - name: copy bsd.rd created by upobsd</span>
+<span class="x">      copy:</span>
+<span class="x">        src: bsd.rd</span>
+<span class="x">        dest: /bsd</span>
+<span class="x">    - name: reboot host</span>
+<span class="x">      reboot:</span>
+<span class="x">        msg: &quot;rebooting into bsd.rd to upgrade&quot;</span>
+<span class="x">        reboot_timeout: 900</span>
+<span class="x">    - name: archive kernel</span>
+<span class="x">      copy:</span>
+<span class="x">        src: &quot;/bsd&quot;</span>
+<span class="x">        dest: &quot;/bsd-</span><span class="cp">{{</span> <span class="nv">date</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">        mode: 0700</span>
+<span class="x">        remote_src: &quot;yes&quot;</span>
+<span class="x">    - name: upgrade all packages</span>
+<span class="x">      command: &quot;pkg_add -u -Dsnap&quot;</span>
+</pre></div>
+
+
 <h3>The answer file</h3>
 <p>The answer file is automatically <a href="https://github.com/openbsd/src/blob/master/distrib/miniroot/install.sub#L2811-L2812">mailed to root at the end of the
 upgrade</a>,
 so it's easy to get it!</p>
 <p>In my case, the answer file transformed into a jinja2 template is:</p>
-<p>~~~
-Which disk is the root disk = sd0
-Force checking of clean non-root filesystems = no
-{% if path_sets is defined %}
-Location of sets = disk
-Is the disk partition already mounted = yes
-Pathname to the sets = {{ path_sets }}
-{% else %}
-Location of sets = http
-HTTP proxy URL = none
-HTTP Server = {{ mirror }}
-Server directory = pub/OpenBSD/snapshots/{{ arch }}
-{% endif %}
-Set name(s) = done
-Location of sets = done
-~~~</p>
+<div class="codehilite"><pre><span></span><span class="x">Which disk is the root disk = sd0</span>
+<span class="x">Force checking of clean non-root filesystems = no</span>
+<span class="cp">{%</span> <span class="k">if</span> <span class="nv">path_sets</span> <span class="k">is</span> <span class="nf">defined</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">Location of sets = disk</span>
+<span class="x">Is the disk partition already mounted = yes</span>
+<span class="x">Pathname to the sets = </span><span class="cp">{{</span> <span class="nv">path_sets</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">Location of sets = http</span>
+<span class="x">HTTP proxy URL = none</span>
+<span class="x">HTTP Server = </span><span class="cp">{{</span> <span class="nv">mirror</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">Server directory = pub/OpenBSD/snapshots/</span><span class="cp">{{</span> <span class="nv">arch</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">Set name(s) = done</span>
+<span class="x">Location of sets = done</span>
+</pre></div>
+
+
 <h3>The explanations</h3>
 <p>Ansible runs my script on the remote host to fetch the sets. It creates an
 answer file from the template and then gives it to <em>upobsd</em>. Once <em>upobsd</em> has

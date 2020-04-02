@@ -4,27 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://oldblog.chown.me/style.css" type="text/css"/>
-  <title>Daniel Jakots' blog</title>
+  <link rel="stylesheet" href="https://oldblog.chown.me/pygmentize.css" type="text/css"/>
+  <title>My recent journey with 2FA' blog</title>
 </head>
 
 <body>
   <div class="sidebar">
-    <h1>Hi, I'm Daniel Jakots</h1>
+    <h1>Hi, I'm Daniel Jakots!</h1>
     <br>
     <a href="https://oldblog.chown.me">Home</a>
-    <a href="./about.html">About</a>
+    <a href="https://oldblog.chown.me/about.html">About</a>
     <a href="https://px.chown.me">Pictures</a>
     <a href="https://github.com/danieljakots/chownmeblog">Code</a>
     <a href="./feed.xml">Feed</a>
   </div>
   <div class="notsidebar">
-  <header>
-    <a href="https://oldblog.chown.me" class=hidelink>
-      <h1>Welcome on my blog!</h1>
-    </a>
-  </header>
-
-  <br>
+<h1>My recent journey with 2FA</h1>
+<br>
 <h2>2FA</h2>
 <p>Of course by 2FA I mean
 <a href="https://en.wikipedia.org/wiki/Multi-factor_authentication">two-factor authentication</a>.</p>
@@ -111,9 +107,11 @@ others (but it's not thriving either), so far it works good.</p>
 log in my different accounts. In the lobste.rs' link that I gave at the
 beginning of this article, someone mentioned oath-toolkit which works
 very easily:</p>
-<pre><code>$ oathtool --totp -b deafcafe
-405723
-</code></pre>
+<div class="codehilite"><pre><span></span>$ oathtool --totp -b deafcafe
+<span class="m">405723</span>
+</pre></div>
+
+
 <p>(with deafcafe being the shared secret).</p>
 <h2>Activating it</h2>
 <p>Now that we're ready to use it, let's do it. So where to activate
@@ -127,8 +125,10 @@ steal your precious IP addresses and/or your atlas credit) and it was
 actually a good one to try it.</p>
 <p>To activate it usually the website gives you a qrcode which is in fact
 just a URL looking like:</p>
-<pre><code>otpauth://totp/Example:foo@example.com?secret=DEAFCAFE&amp;issuer=Example
-</code></pre>
+<div class="codehilite"><pre><span></span>otpauth://totp/Example:foo@example.com?secret=DEAFCAFE&amp;issuer=Example
+</pre></div>
+
+
 <p>which is fine for my phone but sadly my eyes can't decode qrcode and I
 need the shared secret to put it my keepassx. Most of the time
 websites gives you by default the qrcode but also gives you the
