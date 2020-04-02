@@ -11,6 +11,7 @@ SITE = {}
 SITE["author"] = "Daniel Jakots"
 SITE["url"] = "https://oldblog.chown.me"
 OUTPUT_DIR = "output"
+ARTICLE_CATEGORIES = {"Tech", "Mylife", "Books"}
 
 
 def md2html(md):
@@ -22,7 +23,7 @@ def parse_article(article_path):
     article = {}
     article[
         "file"
-    ] = f"blog/{article_path.replace('.md', '.html')[len(CONTENT_PATH) - 1:]}"
+    ] = f"{article_path.replace('.md', '.html')[len(CONTENT_PATH) - 1:]}"
     with open(article_path, "r") as f:
         metadata = [next(f) for x in range(3)]
         for line in metadata:
@@ -61,7 +62,10 @@ def generate_website(content):
     jinja2_template = jinja2_env.get_template("article.html.j2")
     for article in content:
         result = jinja2_template.render(article=article, site=SITE)
-        with open(f"{OUTPUT_DIR}/{article['file']}", "w") as f:
+        prefix = ""
+        if article["category"] in ARTICLE_CATEGORIES:
+            prefix = "blog/"
+        with open(f"{OUTPUT_DIR}/{prefix}{article['file']}", "w") as f:
             f.write(result)
 
 
