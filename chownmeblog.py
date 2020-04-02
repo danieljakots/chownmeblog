@@ -14,7 +14,7 @@ OUTPUT_DIR = "output"
 
 
 def md2html(md):
-    html = markdown.markdown(md)
+    html = markdown.markdown(md, extensions=['codehilite'])
     return html
 
 
