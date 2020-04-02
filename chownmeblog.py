@@ -15,7 +15,7 @@ ARTICLE_CATEGORIES = {"Tech", "Mylife", "Books"}
 
 
 def md2html(md):
-    html = markdown.markdown(md, extensions=['codehilite'])
+    html = markdown.markdown(md, extensions=['codehilite', 'fenced_code'])
     return html
 
 
