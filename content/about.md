@@ -1,6 +1,6 @@
 Title: About
 Date: nope
-Category: other
+Category: othercontent
 
 ## Hey, I'm Daniel
 

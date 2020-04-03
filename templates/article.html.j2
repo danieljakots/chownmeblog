@@ -1,7 +1,7 @@
 {% extends "daddy.html.j2" %}
 {% block content %}
 <h1>{{ article.title }}</h1>
-{% if article.date != "nope" %}
+{% if article.category != "othercontent" %}
 <p>Posted on {{ article.date }}</p>
 {% else %}
 <br>

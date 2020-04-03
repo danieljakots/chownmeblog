@@ -11,7 +11,6 @@ SITE = {}
 SITE["author"] = "Daniel Jakots"
 SITE["url"] = "https://oldblog.chown.me"
 OUTPUT_DIR = "output"
-ARTICLE_CATEGORIES = {"Tech", "Mylife", "Books"}
 
 
 def md2html(md):
@@ -63,7 +62,7 @@ def generate_website(content):
     for article in content:
         result = jinja2_template.render(article=article, site=SITE)
         prefix = ""
-        if article["category"] in ARTICLE_CATEGORIES:
+        if article["category"] != "othercontent":
             prefix = "blog/"
         with open(f"{OUTPUT_DIR}/{prefix}{article['file']}", "w") as f:
             f.write(result)
