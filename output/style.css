@@ -1,11 +1,16 @@
-body{line-height:1.6;font-size:16px;font-family:sans-serif;color:#333;padding:0 10px;text-align: justify;}
+body{line-height:1.6;font-size:16px;font-family:sans-serif;color:#333;padding:0;text-align: justify;margin: 0;}
 h1,h2,h3{line-height:1.2;text-align:left}
 .hidelink{color:#333;text-decoration:none;}
 h1{text-transform:uppercase;color:#CD0006}
 a:link{color:#CD0006;text-decoration:none;}
-.sidebar{margin:-18px;padding-top:8%;width:290px;background-color:#8f0006;position:fixed;height:100%;overflow:auto;text-align:center;top:-15px}
-.sidebar h1{color:white;font-size:24px;text-align:center}
+.sidebar{padding-top: 100px;width:280px;background-color:#8f0006;position:fixed;height:100%;overflow:auto;text-align:center;top:0}
+.sidebar h1{padding:0 15px 0;color:white;font-size:24px;text-align:center}
 .sidebar a{display:block;color:white;padding:18px;}
 .sidebar a:hover{background-color:#CD0006;text-decoration: none}
-.notsidebar{margin:40px auto;max-width:700px;}a:hover{text-decoration:underline;}
+.notsidebar{padding: 0 10px;margin:40px auto auto 400px;max-width:700px;}a:hover{text-decoration:underline;}
 code {font-size:92%;background-color:#e8e8e8;border:1px solid #aaa;overflow:auto;border-radius:0.2em;padding:0.1em;}
+@media screen and (max-width: 800px) {
+    .sidebar{padding-top:50px;margin: 0;width: 100%;height: auto;position: relative;}
+    .sidebar a {text-align: center;float: none;}
+    .notsidebar {margin-left: 0;}
+}
