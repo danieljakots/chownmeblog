@@ -1,6 +1,8 @@
 {% extends "daddy.html.j2" %}
 {% block content %}
 {% for article in articles%}
+{% if article.date != "nope" %}
   <p><a href="./blog/{{ article.file }}">[{{ article.category }}] {{ article.title }}</a> — {{ article.date }}</p>
+{% endif %}
 {% endfor %}
 {% endblock %}

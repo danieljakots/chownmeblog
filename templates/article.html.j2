@@ -1,6 +1,10 @@
 {% extends "daddy.html.j2" %}
 {% block content %}
 <h1>{{ article.title }}</h1>
+{% if article.date != "nope" %}
+<p>Posted on {{ article.date }}</p>
+{% else %}
 <br>
+{% endif %}
 {{ article.html }}
 {% endblock %}

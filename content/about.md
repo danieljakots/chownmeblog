@@ -1,5 +1,5 @@
 Title: About
-Date: 2013-06-15 10:20
+Date: nope
 Category: other
 
 ## Hey, I'm Daniel
