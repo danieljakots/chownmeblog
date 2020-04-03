@@ -1,8 +1,10 @@
 {% extends "daddy.html.j2" %}
 {% block content %}
+<p>
 {% for article in articles%}
 {% if article.category != "othercontent" %}
-  <p><a href="./blog/{{ article.file }}">[{{ article.category }}] {{ article.title }}</a> — {{ article.date }}</p>
+  {{ article.date }} — <a href="./blog/{{ article.file }}">[{{ article.category }}] {{ article.title }}</a><br>
 {% endif %}
 {% endfor %}
+</p>
 {% endblock %}
