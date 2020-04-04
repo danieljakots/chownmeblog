@@ -9,8 +9,12 @@ a:link{color:#CD0006;text-decoration:none;}
 .sidebar a:hover{background-color:#CD0006;text-decoration: none}
 .notsidebar{padding: 0 10px;margin:40px auto 0;max-width:700px;}a:hover{text-decoration:underline;}
 code {font-size:92%;background-color:#e8e8e8;border:1px solid #aaa;overflow:auto;border-radius:0.2em;padding:0.1em;}
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1300px) {
+    .sidebar{width:180px;}
+    .notsidebar {padding-left:150px;}
+}
+@media screen and (max-width: 950px) {
     .sidebar{padding-top:50px;margin: 0;width: 100%;height: auto;position: relative;}
     .sidebar a {text-align: center;float: none;}
-    .notsidebar {margin: 0 auto;}
+    .notsidebar {padding:10px;margin: 0 auto;}
 }
