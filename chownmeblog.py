@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# Copyright (c) 2020 Daniel Jakots
+#
+# Licensed under the MIT license. See the LICENSE file.
+
 import datetime
 import glob
 import sys
