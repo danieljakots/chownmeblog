@@ -38,7 +38,7 @@ better idea of what I want and care about. During the ensuing years, I have
 also acquired much more experience in [hosting my own
 services](./infrastructure-2019.html), which I try to do for everything I use.
 
-# Looking for some FOSS
+## Looking for some FOSS
 
 I thought writing my own would be difficult/time consuming, so I went for doing
 what I do best: using existing Free Software. I carefully thought through my
