@@ -1,0 +1,8 @@
+# chown.me blog
+
+This repository contains everything (articles in markdown, script to make
+the html + RSS feeds, the CSS, and the results).
+
+# Requirements
+
+`pip install Jinja2 Markdown Pygments rfeed`
