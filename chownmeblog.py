@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
 
+import datetime
 import glob
 import sys
 
 import jinja2
 import markdown
 
+import rfeed
+
 CONTENT_PATH = "content/*"
 SITE = {}
 SITE["author"] = "Daniel Jakots"
+SITE["name"] = SITE["author"]
 SITE["url"] = "https://oldblog.chown.me"
 OUTPUT_DIR = "output"
 
@@ -66,10 +70,47 @@ def generate_website(content):
             f.write(result)
 
 
+def create_feed(feed_items):
+    return rfeed.Feed(
+        title=SITE["name"],
+        link=SITE["url"],
+        description=f"RSS feed for {SITE['url']}",
+        language="en-US",
+        lastBuildDate=datetime.datetime.now(),
+        items=feed_items,
+    )
+
+
+def create_feed_item(title, link, date, content):
+    return rfeed.Item(
+        title=title,
+        link=link,
+        description=content,
+        author=SITE["author"],
+        guid=rfeed.Guid(link),
+        pubDate=date,
+    )
+
+
 def main():
     content = parse_articles(CONTENT_PATH)
+    feed_items = []
     for article in content:
         article["html"] = md2html(article.pop("markdown"))
+        if article["category"] == "othercontent":
+            continue
+        date = [int(i) for i in article["date"].split("-")]
+        date = datetime.datetime(*date, 10, 0, 0)
+        feed_items.append(
+            create_feed_item(
+                article["title"],
+                f"{SITE['url']}/{article['file']}.html",
+                date,
+                article["html"],
+            )
+        )
+    with open(f"{OUTPUT_DIR}/blog/feeds/atom.xml", "w") as f:
+        f.write(create_feed(feed_items).rss())
     generate_website(content)
 
 
