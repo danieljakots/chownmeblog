@@ -5,4 +5,4 @@ the html + RSS feeds, the CSS, and the results).
 
 # Requirements
 
-`pip install Jinja2 Markdown Pygments rfeed`
+`pip install Jinja2 Markdown Pygments==2.3.1 rfeed`
