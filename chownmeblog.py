@@ -14,15 +14,13 @@ OUTPUT_DIR = "output"
 
 
 def md2html(md):
-    html = markdown.markdown(md, extensions=['codehilite', 'fenced_code'])
+    html = markdown.markdown(md, extensions=["codehilite", "fenced_code"])
     return html
 
 
 def parse_article(article_path):
     article = {}
-    article[
-        "file"
-    ] = f"{article_path.replace('.md', '.html')[len(CONTENT_PATH) - 1:]}"
+    article["file"] = f"{article_path.replace('.md', '.html')[len(CONTENT_PATH) - 1:]}"
     with open(article_path, "r") as f:
         metadata = [next(f) for x in range(3)]
         for line in metadata:
