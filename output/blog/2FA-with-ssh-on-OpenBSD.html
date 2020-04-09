@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://oldblog.chown.me/style.css" type="text/css"/>
   <link rel="stylesheet" href="https://oldblog.chown.me/pygmentize.css" type="text/css"/>
+  <link rel="icon" type="image/png" href="https://oldblog.chown.me/favicon.png">
   <title>2FA with ssh on OpenBSD' blog</title>
 </head>
 
@@ -35,7 +36,7 @@ them as a 2FA for ssh. At the time of writing, we can't do that using only the
 tools in base. This article focuses on OpenBSD; if you use another operating
 system, here are two <a href="https://www.openbsd.org/faq/faq4.html">handy</a>
 <a href="https://ftp.openbsd.org/pub/OpenBSD/6.3/amd64/INSTALL.amd64">links</a>.</p>
-<h2>Seed configuration</h2>
+<h2 id="seedconfig"><a href="#seedconfig">Seed configuration</a></h2>
 <p>The first thing we need to do is to install the software which will be used to
 verify the OTPs we submit.</p>
 <div class="codehilite"><pre><span></span># pkg_add login_oath
@@ -169,7 +170,7 @@ not want to use it):</p>
 </pre></div>
 
 
-<h2>System configuration</h2>
+<h2 id="sysconfig"><a href="#sysconfig">System configuration</a></h2>
 <p>We can now move to the configuration of the system to put our new TOTP to use.
 As you might guess, it's going to be quite close to what we did with the
 yubikey.</p>
@@ -204,7 +205,7 @@ the line <code>:tc=auth-ssh-defaults:\</code>. For instance, in my case it's:</p
 
 <p>(Hint: it's the penultimate line). You can check the class of your user using
 <code>id -c</code>.</p>
-<h2>sshd configuration</h2>
+<h2 id="sshdconfig"><a href="#sshdconfig">sshd configuration</a></h2>
 <p>Again, keeping a root shell around decreases the risk of losing access to the
 system and being locked outside.</p>
 <p>A good standard is to use <code>PasswordAuthentication no</code> and to use public key
@@ -231,7 +232,7 @@ sshd immediately declining your attempt.</p>
 </pre></div>
 
 
-<h2>Improving security without impacting UX</h2>
+<h2 id="nouximpact"><a href="#nouximpact">Improving security without impacting UX</a></h2>
 <p>My phone has a long enough password that most of the time, I fail to type it
 correctly on the first try. Of course, if I had to unlock my phone, launch my
 TOTP app and use my keyboard to enter what I see on my phone's screen, I would

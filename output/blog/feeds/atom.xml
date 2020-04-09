@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Daniel Jakots</title><link>https://oldblog.chown.me</link><description>RSS feed for https://oldblog.chown.me</description><language>en-US</language><lastBuildDate>Wed, 08 Apr 2020 17:15:40 GMT</lastBuildDate><generator>rfeed v1.1.1</generator><docs>https://github.com/svpino/rfeed/blob/master/README.md</docs><item><title>How I accidentally wrote a static site generator</title><link>https://oldblog.chown.me/pics2html.html.html</link><description>&lt;h2&gt;Some context first&lt;/h2&gt;
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Daniel Jakots</title><link>https://oldblog.chown.me</link><description>RSS feed for https://oldblog.chown.me</description><language>en-US</language><lastBuildDate>Thu, 09 Apr 2020 10:41:53 GMT</lastBuildDate><generator>rfeed v1.1.1</generator><docs>https://github.com/svpino/rfeed/blob/master/README.md</docs><item><title>How I accidentally wrote a static site generator</title><link>https://oldblog.chown.me/pics2html.html.html</link><description>&lt;h2 id="context"&gt;&lt;a href="#context"&gt;Some context first&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;I bought my
 &lt;a href="https://en.wikipedia.org/wiki/Digital_single-lens_reflex_camera"&gt;DSLR&lt;/a&gt; at the
 end of 2014. I wanted to host the resulting pictures somewhere. I never liked
@@ -28,7 +28,7 @@ Now that I have more experience publishing pictures on the Internet, I have a
 better idea of what I want and care about. During the ensuing years, I have
 also acquired much more experience in &lt;a href="./infrastructure-2019.html"&gt;hosting my own
 services&lt;/a&gt;, which I try to do for everything I use.&lt;/p&gt;
-&lt;h1&gt;Looking for some FOSS&lt;/h1&gt;
+&lt;h2 id="foss"&gt;&lt;a href="#foss"&gt;Looking for some FOSS&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;I thought writing my own would be difficult/time consuming, so I went for doing
 what I do best: using existing Free Software. I carefully thought through my
 requirements, and here they are:&lt;/p&gt;
@@ -44,7 +44,7 @@ won't look at which phone model took that cat picture).&lt;/p&gt;
 software and added machine learning. Well, I've better use for my computing
 power and I prefer simpler things.&lt;/p&gt;
 &lt;p&gt;AND SHOW THOSE DAMN EXIF!&lt;/p&gt;
-&lt;h2&gt;Writing my own - the process&lt;/h2&gt;
+&lt;h2 id="myown"&gt;&lt;a href="#myown"&gt;Writing my own - the process&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Sadly, I didn't find anything that met those two simple requirements.&lt;/p&gt;
 &lt;p&gt;Because of that, I thought I would either write something myself or put the
 photos into my blog. I was not very fond of the idea of putting my pictures on
@@ -75,7 +75,7 @@ similar and it has a smile on it! What's not to love?&lt;/p&gt;
 &lt;p&gt;During the process, I went to look at how I did stuff with my blog and I
 noticed it was a complete mess. Seeing how easy writing a static site generator
 was made me want to write one for my blog. So, stay tuned! ;)&lt;/p&gt;
-&lt;h2&gt;The result&lt;/h2&gt;
+&lt;h2 id="result"&gt;&lt;a href="#result"&gt;The result&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;The result is available here: &lt;a href="https://px.chown.me/"&gt;https://px.chown.me/&lt;/a&gt;. The &lt;a href="https://github.com/danieljakots/pics2html"&gt;code is, of course,
 available&lt;/a&gt; as well.&lt;/p&gt;
 &lt;p&gt;I would not necessarily advise someone to reuse the code as-is (even though you
@@ -98,7 +98,7 @@ generating 200 html files with a single command really feels like magic!&lt;/p&g
 "I'll wait until after I've done $next_thing_on_my_todo." Of course this cycle
 never ends, so I decided to write about its state at the end of 2019. Maybe
 I'll write an update on it in a couple of moons; who knows?&lt;/p&gt;
-&lt;h2&gt;Goal for this infrastructure&lt;/h2&gt;
+&lt;h2 id="goal"&gt;&lt;a href="#goal"&gt;Goal for this infrastructure&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;The goal for my infrastructure is to run the services I need. While a lot of
 people in the homelab community experiment and play with software for its own
 sake, I actively use the stuff I host. When I stop, I kill the service (though
@@ -120,7 +120,7 @@ I restrict access to my services in different ways.&lt;/p&gt;
 resources) and great (as I can be more nimble). A notable exception is my
 mastodon instance which is also used by &lt;a href="https://awoo.chown.me/@jeancanard"&gt;my
 cat&lt;/a&gt;.&lt;/p&gt;
-&lt;h2&gt;Machines&lt;/h2&gt;
+&lt;h2 id="machines"&gt;&lt;a href="#machines"&gt;Machines&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;My machines are hosted in 3 different places. First is at
 &lt;a href="https://www.exoscale.com/"&gt;Exoscale&lt;/a&gt;, second is
 &lt;a href="https://www.vultr.com/"&gt;Vultr&lt;/a&gt; and the third is... my flat.&lt;/p&gt;
@@ -142,7 +142,7 @@ on them. Reinstalling machines regularly helps spot missing pieces in Ansible.
 both so that in the case that one gets pwned it won't help the attacker to
 &lt;a href="https://en.wikipedia.org/wiki/Network_Lateral_Movement"&gt;move laterally&lt;/a&gt;, and
 so that if one is unavailable it shouldn't impact anything else.&lt;/p&gt;
-&lt;h3&gt;ns3.chown.me (OpenBSD)&lt;/h3&gt;
+&lt;h3 id="ns3"&gt;&lt;a href="#ns3"&gt;ns3.chown.me (OpenBSD)&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;It's my secondary name server and as you can guess, it replaced ns2. It's the
 only machine that I don't back up, since I can replace it with my Ansible
 without losing data.&lt;/p&gt;
@@ -159,7 +159,7 @@ software on both aren't that serious in my case.&lt;/p&gt;
 &lt;p&gt;Since this machine doesn't do much otherwise, it's running
 &lt;a href="https://github.com/danieljakots/mownitoring"&gt;mownitoring&lt;/a&gt; to check that
 everything works.&lt;/p&gt;
-&lt;h3&gt;virtie.chown.me (OpenBSD)&lt;/h3&gt;
+&lt;h3 id="virtie"&gt;&lt;a href="#virtie"&gt;virtie.chown.me (OpenBSD)&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;This virtual machine is the main one in my infrastructure. A moment ago your
 browser connected to it to get this page. :)&lt;/p&gt;
 &lt;p&gt;It's hosted by Exoscale (with whom my experiences have been nothing less than
@@ -182,7 +182,7 @@ can say they haven't?) I assume my IP has a good reputation, which is why this
 VM is the oldest, as I've been reluctant to lose it.&lt;/p&gt;
 &lt;p&gt;This machine also hosts a &lt;em&gt;gitolite&lt;/em&gt; for a couple of different internal git
 repositories.&lt;/p&gt;
-&lt;h3&gt;pancake.chown.me (OpenBSD)&lt;/h3&gt;
+&lt;h3 id="pancake"&gt;&lt;a href="#pancake"&gt;pancake.chown.me (OpenBSD)&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;This machine is an &lt;a href="https://pcengines.ch/apu2.htm"&gt;APU2&lt;/a&gt;. It acts as a router
 for my flat. Since it's way more powerful than necessary for this task, I put
 some other stuff on it. It's a trade-off between increasing the attack surface
@@ -193,7 +193,7 @@ opinion are super cool!&lt;/p&gt;
 collectd (&lt;a href="https://collectd.org/wiki/index.php/Networking_introduction#Cryptographic_setup"&gt;which allow signing/encrypting the network
 traffic&lt;/a&gt;).
 This doesn't work well for a couple of reasons, so it's waiting to be replaced.&lt;/p&gt;
-&lt;h3&gt;kvm1, and sometimes kvm2 (Ubuntu)&lt;/h3&gt;
+&lt;h3 id="kvm"&gt;&lt;a href="#kvm"&gt;kvm1, and sometimes kvm2 (Ubuntu)&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;These machines are hosted at home. kvm1 is the main machine, and kvm2 is the
 machine I use to play Windows games on another SSD. I boot on the Ubuntu SSD
 whenever I want to do something on kvm1 and then I live-migrate guests on it so
@@ -220,7 +220,7 @@ disks on the hypervisor with LVM directly. I tend to have multiple disks to
 bring more flexibility to the disk layout/partitioning than OpenBSD would,
 thanks to LVM.&lt;/p&gt;
 &lt;p&gt;It hosts all the following virtual machines:&lt;/p&gt;
-&lt;h3&gt;manicouagan1 (OpenBSD)&lt;/h3&gt;
+&lt;h3 id="manicouagan1"&gt;&lt;a href="#manicouagan1"&gt;manicouagan1 (OpenBSD)&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;This machine's name dates from back when I used names from Québec to name my
 machines.  The name comes from the &lt;a href="https://en.wikipedia.org/wiki/Manicouagan_Reservoir"&gt;Manicouagan
 Reservoir&lt;/a&gt;, as this
@@ -242,11 +242,11 @@ private PKI. This is mostly in case one machine gets hacked, to help with
 &lt;p&gt;I wrote a short script that shows me the largest data transfers on my router. I
 use this to check that the backups are alive (I receive emails if the
 &lt;em&gt;BorgBackup&lt;/em&gt; script fails, but isn't that less fun? :))&lt;/p&gt;
-&lt;h3&gt;db1 (OpenBSD)&lt;/h3&gt;
+&lt;h3 id="db1"&gt;&lt;a href="#db1"&gt;db1 (OpenBSD)&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;This machine hosts postgresql and redis. Two boring pieces of software which I
 love. Redis requires so little care that when I moved from db0, I forgot I had
 it!&lt;/p&gt;
-&lt;h3&gt;web1 (OpenBSD)&lt;/h3&gt;
+&lt;h3 id="web1"&gt;&lt;a href="#web1"&gt;web1 (OpenBSD)&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;This machine runs nginx for my whole web presence excluding my blog. It hosts
 &lt;em&gt;nextcloud&lt;/em&gt;, &lt;em&gt;tt-rss&lt;/em&gt;, &lt;em&gt;shaarli&lt;/em&gt; and pics.chown.me (whose content I should
 update).&lt;/p&gt;
@@ -259,7 +259,7 @@ but I'm not entirely sure I'm doing this stuff properly and it is such a pain
 to get it working that I'm not willing to look into it more than that.&lt;/p&gt;
 &lt;p&gt;Nginx also acts as a reverse proxy for the docker containers that run on
 another machine. Finally, it hosts &lt;em&gt;minio&lt;/em&gt; for &lt;em&gt;mastodon&lt;/em&gt;.&lt;/p&gt;
-&lt;h3&gt;docker2 (Ubuntu, obviously)&lt;/h3&gt;
+&lt;h3 id="docker2"&gt;&lt;a href="#docker2"&gt;docker2 (Ubuntu, obviously)&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;This machine runs a few docker containers through &lt;em&gt;docker-compose&lt;/em&gt;:
 - 3 containers for &lt;em&gt;mastodon&lt;/em&gt; (&lt;em&gt;ruby on rails&lt;/em&gt; stuff, a node api and &lt;em&gt;sidekiq&lt;/em&gt;)
 - container running the code I wrote for api.chown.me; it's a &lt;em&gt;flask&lt;/em&gt;
@@ -274,20 +274,20 @@ trash the VM any time.&lt;/p&gt;
 infra. This way, if an IP is acting badly on one machine, it doesn't get to try
 its luck on another of my machines. This list is also supplemented by public
 lists of threats.&lt;/p&gt;
-&lt;h2&gt;That's it for now&lt;/h2&gt;
+&lt;h2 id="end"&gt;&lt;a href="#end"&gt;That's it for now&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Currently, my infrastructure is good at meeting my needs. It's not perfect, of
 course, and it's a perpetual work in progress. But it's stable, and usually the
 most I need to do is quickly patch some security vulnerabilities.  Since most
 of the resources I use come from reused computers hosted at my place, I'm able
-to keep the cost (both financial and ecological) really low.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Fri, 06 Mar 2020 10:00:00 GMT</pubDate><guid isPermaLink="true">https://oldblog.chown.me/infrastructure-2019.html.html</guid></item><item><title>Launching my newsletter</title><link>https://oldblog.chown.me/launching-my-newsletter.html.html</link><description>&lt;h2&gt;Social media&lt;/h2&gt;
-&lt;h3&gt;Blogging...&lt;/h3&gt;
+to keep the cost (both financial and ecological) really low.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Fri, 06 Mar 2020 10:00:00 GMT</pubDate><guid isPermaLink="true">https://oldblog.chown.me/infrastructure-2019.html.html</guid></item><item><title>Launching my newsletter</title><link>https://oldblog.chown.me/launching-my-newsletter.html.html</link><description>&lt;h2 id="socialmedia"&gt;&lt;a href="#socialmedia"&gt;Social media&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="blogging"&gt;&lt;a href="#blogging"&gt;Blogging...&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I created this blog a few years ago because I wanted to talk about the stuff I
 was experimenting with, and in my opinion it was cool to have a blog. I still have
 the same opinion, but now I'm using the blog more like a portfolio. I like it
 because I take a lot of care with it and I like to build high quality stuff. However,
 it takes me. So. Much. Time. I have to be really enthusiastic about something to
 write about it.&lt;/p&gt;
-&lt;h3&gt;...and micro-blogging&lt;/h3&gt;
+&lt;h3 id="microblogging"&gt;&lt;a href="#microblogging"&gt;...and micro-blogging&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;More or less at the same time, I created my Twitter account. I've used it for
 multiple years and I have realized the way it was architected to influence users was obnoxious and the way I was using it made it even worse.&lt;/p&gt;
 &lt;p&gt;Then came Mastodon, and while there is lot to bit^Wsay about it, many things
@@ -302,8 +302,8 @@ micro-posts there are still somewhat shallow. Even though I have 500 characters 
 each post, I don't feel the medium is the right one to allow me to express myself deeply.
 Which is perfectly fine, because I enjoy shitposting and bitching about a wide
 spectrum of things!&lt;/p&gt;
-&lt;h2&gt;In between&lt;/h2&gt;
-&lt;h3&gt;Why?&lt;/h3&gt;
+&lt;h2 id="inbetween"&gt;&lt;a href="#inbetween"&gt;In between&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="why"&gt;&lt;a href="#why"&gt;Why?&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I'll be honest and tell you what happened. Recently, I read &lt;a href="https://blog.chaddickerson.com/2019/01/09/replacing-facebook/"&gt;Going old school: how I
 replaced Facebook with
 email&lt;/a&gt;. In his
@@ -320,7 +320,7 @@ create an environment more friendly to replies than what my blog articles
 currently provide (as there isn't a system for comments). I'm also
 curious about how the social interaction will happen. Lastly, I'll do it for
 myself, as a writing exercise.&lt;/p&gt;
-&lt;h3&gt;What?&lt;/h3&gt;
+&lt;h3 id="what"&gt;&lt;a href="#what"&gt;What?&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I plan to talk about my life, what I have been doing lately or a
 particular subject I care about. My frequency goal ranges between multiple times a
 week for a busy period to at least once per month. I'm not sure yet how I'm
@@ -335,13 +335,13 @@ will require you to email me as the goal is also to experiment with human
 interaction, since nowadays there is less and less of that.&lt;/p&gt;
 &lt;p&gt;Of course, you won't get access to the previous newsletters, only the
 subsequent ones. (Maybe the previous one?)&lt;/p&gt;
-&lt;h3&gt;How can I subscribe?&lt;/h3&gt;
+&lt;h3 id="subscribe"&gt;&lt;a href="#subscribe"&gt;How can I subscribe?&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;If you're curious about this experiment and want to be part of it, please send an email
 to newsletter at chown dot me!&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Fri, 25 Jan 2019 10:00:00 GMT</pubDate><guid isPermaLink="true">https://oldblog.chown.me/launching-my-newsletter.html.html</guid></item><item><title>Upgrading OpenBSD with Ansible</title><link>https://oldblog.chown.me/upgrading-openbsd-with-ansible.html.html</link><description>&lt;p&gt;This article is best enjoyed with basic knowledge of &lt;a href="https://man.openbsd.org/autoinstall"&gt;OpenBSD
 autoinstall&lt;/a&gt; and &lt;a href="https://www.ansible.com/"&gt;Ansible&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;My router runs OpenBSD -current&lt;/h2&gt;
+&lt;h2 id="router"&gt;&lt;a href="#router"&gt;My router runs OpenBSD -current&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;A few months ago, I needed software that had just hit the ports tree. I didn't
 want to wait for the next release, so I upgraded my router to use -current.
 Since then, I've continued running -current, which means upgrading to a newer
@@ -363,7 +363,7 @@ my router out of commission, life is very dull, because it is my gateway to the
 Internet. Even services hosted at my place (like my Mastodon instance) are not
 reachable when the router is down because I use multiple VLANs (so I need the
 router to &lt;em&gt;jump&lt;/em&gt; across VLANs).&lt;/p&gt;
-&lt;h2&gt;Ansible Reboot Module&lt;/h2&gt;
+&lt;h2 id="ansiblereboot"&gt;&lt;a href="#ansiblereboot"&gt;Ansible Reboot Module&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;I recently got a new job, and one of my first tasks was auditing the &lt;em&gt;Ansible&lt;/em&gt;
 roles written by my predecessors. In one role, the machine rebooted and they
 used the
@@ -405,7 +405,7 @@ ansible&lt;/a&gt;.&lt;/p&gt;
 with Ansible 2.1," while for unix systems it wasn't added until 2.7. :D For
 more details, you can read the &lt;a href="http://samdoran.com/ansible-reboot-plugin/"&gt;module's author blog
 article&lt;/a&gt;.&lt;/p&gt;
-&lt;h2&gt;The Playbook&lt;/h2&gt;
+&lt;h2 id="playbook"&gt;&lt;a href="#playbook"&gt;The Playbook&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Initially, my playbook did the upgrade as usual (i.e., it fetched the sets in
 &lt;em&gt;bsd.rd&lt;/em&gt;). During this process, of course, my machine is not performing its
 function as a router. My Internet access is not super great, so fetching the
@@ -416,7 +416,7 @@ script&lt;/a&gt; to fetch the sets &lt;strong&gt;before&lt;/strong&gt;
 rebooting into &lt;em&gt;bsd.rd&lt;/em&gt;. It enabled me to remove some &lt;em&gt;tasks&lt;/em&gt; I had to do in
 order to get working Internet access in &lt;em&gt;bsd.rd&lt;/em&gt;. (This is specific to my
 case).&lt;/p&gt;
-&lt;h3&gt;The playbook itself&lt;/h3&gt;
+&lt;h3 id="playbookitself"&gt;&lt;a href="#playbookitself"&gt;The playbook itself&lt;/a&gt;&lt;/h3&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="x"&gt;---&lt;/span&gt;
 &lt;span class="x"&gt;- name: Upgrade OpenBSD&lt;/span&gt;
 &lt;span class="x"&gt;  hosts: apu-root&lt;/span&gt;
@@ -458,7 +458,7 @@ case).&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;The answer file&lt;/h3&gt;
+&lt;h3 id="answerfile"&gt;&lt;a href="#answerfile"&gt;The answer file&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;The answer file is automatically &lt;a href="https://github.com/openbsd/src/blob/master/distrib/miniroot/install.sub#L2811-L2812"&gt;mailed to root at the end of the
 upgrade&lt;/a&gt;,
 so it's easy to get it!&lt;/p&gt;
@@ -480,7 +480,7 @@ so it's easy to get it!&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;The explanations&lt;/h3&gt;
+&lt;h3 id="explanations"&gt;&lt;a href="#explanations"&gt;The explanations&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Ansible runs my script on the remote host to fetch the sets. It creates an
 answer file from the template and then gives it to &lt;em&gt;upobsd&lt;/em&gt;. Once &lt;em&gt;upobsd&lt;/em&gt; has
 created the kernel, Ansible copies it in place of &lt;code&gt;/bsd&lt;/code&gt; on the host. The
@@ -507,7 +507,7 @@ just &lt;strong&gt;before&lt;/strong&gt; a release because &lt;code&gt;pkg_add&l
 &lt;em&gt;pub/OpenBSD/${release}/packages/${arch}&lt;/em&gt; (which is empty). I wrote and tested
 this playbook while 6.4 was around the corner, so I switched to &lt;em&gt;command&lt;/em&gt; to be
 able to pass the &lt;code&gt;-Dsnap&lt;/code&gt; parameter.&lt;/p&gt;
-&lt;h2&gt;The result&lt;/h2&gt;
+&lt;h2 id="result"&gt;&lt;a href="#result"&gt;The result&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;I'm very happy with the playbook! It performs the upgrade with as little
 intervention as possible and minimal downtime. \o/&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
@@ -516,7 +516,7 @@ commonly asked is how to automatically lock your machine when
 putting it to sleep with zzz(1). I answered this question in a
 previous article (which was actually written four years ago; time flies!) but
 it was written in French, so here's a new one, also covering additional related topics.&lt;/p&gt;
-&lt;h2&gt;Locking the machine when it is put to sleep&lt;/h2&gt;
+&lt;h2 id="locking"&gt;&lt;a href="#locking"&gt;Locking the machine when it is put to sleep&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;If you read &lt;a href="https://man.openbsd.org/apmd.8"&gt;apmd(8)&lt;/a&gt;:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;FILES
      /etc/apm/suspend
@@ -549,13 +549,13 @@ doas -u danj env &lt;span class="nv"&gt;DISPLAY&lt;/span&gt;&lt;span class="o"&g
 &lt;li&gt;running apmd (hashtag rcctl)&lt;/li&gt;
 &lt;li&gt;an executable script&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;Locking it further&lt;/h2&gt;
+&lt;h2 id="lockingfurther"&gt;&lt;a href="#lockingfurther"&gt;Locking it further&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;This is off to a good start, but if you are a &lt;em&gt;startx&lt;/em&gt; user (versus using xenodm), be sure to run &lt;code&gt;exec startx&lt;/code&gt; and not just &lt;code&gt;startx&lt;/code&gt;. Otherwise, it is possible to kill X and then access the shell.&lt;/p&gt;
 &lt;p&gt;If you don't set a maximum lifetime for your &lt;code&gt;ssh-agent&lt;/code&gt;, you should clear your identities using &lt;code&gt;ssh-add -D&lt;/code&gt;. You should also revoke any &lt;code&gt;sudo&lt;/code&gt; permissions with &lt;code&gt;sudo -K&lt;/code&gt;. &lt;code&gt;doas&lt;/code&gt; doesn't work the same way, so &lt;code&gt;doas -L&lt;/code&gt; won't help you much. (You have elevated permissions only in the current shell, not account-wide).&lt;/p&gt;
 &lt;p&gt;You might want to clear your clipboards, as well. Use something like: &lt;code&gt;xsel -c -p; xsel -c -s; xsel -c -b&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Of course, if you use other authentication mechanisms (GNOME keyring, ssh's
 Control*, etc.), you should handle those as well.&lt;/p&gt;
-&lt;h2&gt;Beware of the cat&lt;/h2&gt;
+&lt;h2 id="cat"&gt;&lt;a href="#cat"&gt;Beware of the cat&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Now that I have a &lt;a href="https://awoo.chown.me/@jeancanard"&gt;Captive Advanced
 Threat&lt;/a&gt;, I feel the need to automatically lock the screen after it has been idle for a short while. You can achieve this using &lt;code&gt;xidle&lt;/code&gt;. The &lt;a href="https://man.openbsd.org/xidle.1"&gt;man
 page&lt;/a&gt; is sufficiently descriptive that I won't talk about that further.&lt;/p&gt;
@@ -574,7 +574,7 @@ them as a 2FA for ssh. At the time of writing, we can't do that using only the
 tools in base. This article focuses on OpenBSD; if you use another operating
 system, here are two &lt;a href="https://www.openbsd.org/faq/faq4.html"&gt;handy&lt;/a&gt;
 &lt;a href="https://ftp.openbsd.org/pub/OpenBSD/6.3/amd64/INSTALL.amd64"&gt;links&lt;/a&gt;.&lt;/p&gt;
-&lt;h2&gt;Seed configuration&lt;/h2&gt;
+&lt;h2 id="seedconfig"&gt;&lt;a href="#seedconfig"&gt;Seed configuration&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;The first thing we need to do is to install the software which will be used to
 verify the OTPs we submit.&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# pkg_add login_oath
@@ -708,7 +708,7 @@ not want to use it):&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h2&gt;System configuration&lt;/h2&gt;
+&lt;h2 id="sysconfig"&gt;&lt;a href="#sysconfig"&gt;System configuration&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;We can now move to the configuration of the system to put our new TOTP to use.
 As you might guess, it's going to be quite close to what we did with the
 yubikey.&lt;/p&gt;
@@ -743,7 +743,7 @@ the line &lt;code&gt;:tc=auth-ssh-defaults:\&lt;/code&gt;. For instance, in my c
 
 &lt;p&gt;(Hint: it's the penultimate line). You can check the class of your user using
 &lt;code&gt;id -c&lt;/code&gt;.&lt;/p&gt;
-&lt;h2&gt;sshd configuration&lt;/h2&gt;
+&lt;h2 id="sshdconfig"&gt;&lt;a href="#sshdconfig"&gt;sshd configuration&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Again, keeping a root shell around decreases the risk of losing access to the
 system and being locked outside.&lt;/p&gt;
 &lt;p&gt;A good standard is to use &lt;code&gt;PasswordAuthentication no&lt;/code&gt; and to use public key
@@ -770,7 +770,7 @@ sshd immediately declining your attempt.&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h2&gt;Improving security without impacting UX&lt;/h2&gt;
+&lt;h2 id="nouximpact"&gt;&lt;a href="#nouximpact"&gt;Improving security without impacting UX&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;My phone has a long enough password that most of the time, I fail to type it
 correctly on the first try. Of course, if I had to unlock my phone, launch my
 TOTP app and use my keyboard to enter what I see on my phone's screen, I would
@@ -1031,7 +1031,7 @@ feeling to read my younger self. I wouldn't advise to read them haha. They're in
 French anyway.&lt;/p&gt;
 &lt;p&gt;One of my 2018 New Year's resolution was to write more blog articles. With not a
 single one for the first quarter, you can guess it's not my best
-accomplishment. But hopefully, I'll finally do it.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Fri, 13 Apr 2018 10:00:00 GMT</pubDate><guid isPermaLink="true">https://oldblog.chown.me/new-design.html.html</guid></item><item><title>Routing traffic with multiple OpenVPN</title><link>https://oldblog.chown.me/routing-traffic-with-multiple-openvpn.html.html</link><description>&lt;h2&gt;Why OpenVPN?&lt;/h2&gt;
+accomplishment. But hopefully, I'll finally do it.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Fri, 13 Apr 2018 10:00:00 GMT</pubDate><guid isPermaLink="true">https://oldblog.chown.me/new-design.html.html</guid></item><item><title>Routing traffic with multiple OpenVPN</title><link>https://oldblog.chown.me/routing-traffic-with-multiple-openvpn.html.html</link><description>&lt;h2 id="openvpn"&gt;&lt;a href="#openvpn"&gt;Why OpenVPN?&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;For &lt;a href="https://evolix.ca/en"&gt;my dayjob&lt;/a&gt; we access the servers we manage
 through OpenVPN. Of course it's not the only security measure, it's
 yet another layer and it helps to cut a part of the
@@ -1040,8 +1040,8 @@ our servers are registered in
 &lt;a href="https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol"&gt;LDAP&lt;/a&gt;
 and from this system we create some routes that the OpenVPN server
 pushes to the OpenVPN clients.&lt;/p&gt;
-&lt;h2&gt;What did I need?&lt;/h2&gt;
-&lt;h3&gt;Follow the pushed routes, not always and not for all the hosts&lt;/h3&gt;
+&lt;h2 id="needs"&gt;&lt;a href="#needs"&gt;What did I need?&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="pushedroutes"&gt;&lt;a href="#pushedroutes"&gt;Follow the pushed routes, not always and not for all the hosts&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I work sometimes from home (for on-call or just remote work). I have a
 IP phone which needs the VPN but of course I can't setup OpenVPN on
 the phone directly, so the VPN has to go on my router. But let's say
@@ -1050,27 +1050,27 @@ don't want its traffic to go through the VPN.&lt;/p&gt;
 &lt;p&gt;But I also have my own desktop that I don't want any of its traffic to
 go through the VPN, but sometimes I want it to use the routes if I
 want to quickly check something on a server.&lt;/p&gt;
-&lt;h3&gt;Default route sometimes, sometimes not&lt;/h3&gt;
+&lt;h3 id="default"&gt;&lt;a href="#default"&gt;Default route sometimes, sometimes not&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;By default, clients don't set the gateway to the vpn, because we
 have the routes. But sometimes, we need to access a host through the
 VPN without having a route to it being pushed by the server. Hence I
 need to be able to route all the traffic through the vpn if
 needed. But not always because the vpn endpoint is 105ms away and
 browsing with this increased latency is obviously a bit slower.&lt;/p&gt;
-&lt;h3&gt;Even with a default route, bypassing the VPN for some servers&lt;/h3&gt;
+&lt;h3 id="bypass"&gt;&lt;a href="#bypass"&gt;Even with a default route, bypassing the VPN for some servers&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I have a VM in Montreal, 10ms away, and there's no reason that the
 traffic should go through the VPN. Same goes for my OpenBSD mirror.&lt;/p&gt;
-&lt;h3&gt;Multiple VPN&lt;/h3&gt;
+&lt;h3 id="multiplevpns"&gt;&lt;a href="#multiplevpns"&gt;Multiple VPN&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I also have another VPN which endpoints is in Montreal and I may want
 to route some host from my lan through it. It must independant from
 the other VPN.&lt;/p&gt;
-&lt;h3&gt;Don't touch the server side&lt;/h3&gt;
+&lt;h3 id="serveragnoticism"&gt;&lt;a href="#serveragnosticism"&gt;Don't touch the server side&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;My coworkers use the VPN as well so I can't change the server
 configuration just to suit my own need.&lt;/p&gt;
-&lt;h2&gt;Suiting all the needs \o/&lt;/h2&gt;
+&lt;h2 id="suitneeds"&gt;&lt;a href="#suitneeds"&gt;Suiting all the needs \o/&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;I will only talk about the client as there's nothing special on the
 server side&lt;/p&gt;
-&lt;h3&gt;OpenVPN infrastructure&lt;/h3&gt;
+&lt;h3 id="ovpninfra"&gt;&lt;a href="#ovpninfra"&gt;OpenVPN infrastructure&lt;/a&gt;&lt;/h3&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;danj@pancake:/etc/openvpn$ ls
 client-ca.conf  client-fr.conf  private-stuff/
 &lt;/pre&gt;&lt;/div&gt;
@@ -1091,7 +1091,7 @@ openvpn_ca_flags=&amp;quot;--config /etc/openvpn/client-ca.conf&amp;quot;
 
 
 &lt;p&gt;now I can &lt;code&gt;rcctl start openvpn_fr&lt;/code&gt; and &lt;code&gt;rcctl start openvpn_ca&lt;/code&gt;&lt;/p&gt;
-&lt;h3&gt;routing&lt;/h3&gt;
+&lt;h3 id="routing"&gt;&lt;a href="#routing"&gt;routing&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Spoiler alert, everything is done with pf.&lt;/p&gt;
 &lt;p&gt;I won't put my whole pf.conf but only the needed parts. First let's
 describe the interface.&lt;/p&gt;
@@ -1203,7 +1203,7 @@ gallery there very few static generators. Finally I found
 &lt;a href="https://github.com/saimn/sigal"&gt;sigal&lt;/a&gt; which is maintained, written
 in python, quite nice and very straight forward to use.&lt;/p&gt;
 &lt;p&gt;Here's the result: &lt;a href="https://pics.chown.me/"&gt;https://pics.chown.me/&lt;/a&gt; (with among other themes,
-as of now, 229 pics of my delicious kitten &lt;em&gt;Jean Canard&lt;/em&gt;).&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Sat, 04 Nov 2017 10:00:00 GMT</pubDate><guid isPermaLink="true">https://oldblog.chown.me/dumping-pics.html.html</guid></item><item><title>Playing with the pine64</title><link>https://oldblog.chown.me/playing-with-the-pine64.html.html</link><description>&lt;h2&gt;Finding something to install on it&lt;/h2&gt;
+as of now, 229 pics of my delicious kitten &lt;em&gt;Jean Canard&lt;/em&gt;).&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Sat, 04 Nov 2017 10:00:00 GMT</pubDate><guid isPermaLink="true">https://oldblog.chown.me/dumping-pics.html.html</guid></item><item><title>Playing with the pine64</title><link>https://oldblog.chown.me/playing-with-the-pine64.html.html</link><description>&lt;h2 id="installwhat"&gt;&lt;a href="#installwhat"&gt;Finding something to install on it&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;6 weeks ago, I ordered two pine64 units. I didn't (and still don't)
 have much plan for them, but I wanted to play with some cheap
 boards. I finally received them this week. Initially I wanted to
@@ -1220,7 +1220,7 @@ server flavour seems to be experimental so I got scared of it. And
 sadly, the whole things looks like to be alot undermanned.&lt;/p&gt;
 &lt;p&gt;So I went for OpenBSD because I know the stuff and who to har^Wkindly
 ask for help. Spoiler alert, it's boring because it just works.&lt;/p&gt;
-&lt;h2&gt;Getting OpenBSD on it&lt;/h2&gt;
+&lt;h2 id="OpenBSD"&gt;&lt;a href="#OpenBSD"&gt;Getting OpenBSD on it&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;I downloaded miniroot62.fs, dd'ed it on the micro SD card. I was
 afraid I'd need to fiddle with some things like sysutils/dtb because I
 don't know what I would have needed to do. That's because I don't know
@@ -1243,7 +1243,7 @@ could lead a unclean reboot.&lt;/p&gt;
 &lt;p&gt;You just need to plug three cables: GND, TXD and RXD. Of course, the
 TXD goes on the RXD pin from the picture and the RXD goes on the TXD
 pin. Guess why I'm telling you that!&lt;/p&gt;
-&lt;h2&gt;That's it&lt;/h2&gt;
+&lt;h2 id="thatsit"&gt;&lt;a href="#thatsit"&gt;That's it&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Then you can connect with the usual&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ cu -dl /dev/cuaU0 -s &lt;span class="m"&gt;115200&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -1858,7 +1858,7 @@ ease than I thought. I had the opportunity to have really interesting
 discussions with a lot of other developers (during &lt;a href="https://twitter.com/Vigdis_/status/895794041450897408"&gt;our social event&lt;/a&gt; but not only). Thanks a lot to the
 University of Toronto for hosting us (in a
 &lt;a href="https://twitter.com/Vigdis_/status/896356797988167681"&gt;very nice part of the city&lt;/a&gt;
-and krw@ for organizing!&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Mon, 21 Aug 2017 10:00:00 GMT</pubDate><guid isPermaLink="true">https://oldblog.chown.me/t2k17.html.html</guid></item><item><title>My recent journey with 2FA</title><link>https://oldblog.chown.me/my-recent-journey-with-2FA.html.html</link><description>&lt;h2&gt;2FA&lt;/h2&gt;
+and krw@ for organizing!&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Mon, 21 Aug 2017 10:00:00 GMT</pubDate><guid isPermaLink="true">https://oldblog.chown.me/t2k17.html.html</guid></item><item><title>My recent journey with 2FA</title><link>https://oldblog.chown.me/my-recent-journey-with-2FA.html.html</link><description>&lt;h2 id="2FA"&gt;&lt;a href="#2FA"&gt;2FA&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Of course by 2FA I mean
 &lt;a href="https://en.wikipedia.org/wiki/Multi-factor_authentication"&gt;two-factor authentication&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I've been using that for a long time for ssh with
@@ -1874,7 +1874,7 @@ In addition to that, I guess seeing
 and everything what's happening if you want to cross the US border
 made me more interested in 2FA than before.&lt;/p&gt;
 &lt;p&gt;So I began to look into how it works.&lt;/p&gt;
-&lt;h2&gt;How it works&lt;/h2&gt;
+&lt;h2 id="how"&gt;&lt;a href="#how"&gt;How it works&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;The concept of 2FA is that you may lose your password (or your ssh
 key) and in that case the person who takes control of it can
 successfully impersonate you. The goal is that a login system will
@@ -1887,7 +1887,7 @@ have a fingerprint reader, it's not usable by third parties.&lt;/p&gt;
 &lt;p&gt;It must be something that keeps changing otherwise it's both
 subject to replay attack and it's just another password.&lt;/p&gt;
 &lt;p&gt;Here comes the OTP.&lt;/p&gt;
-&lt;h2&gt;One Time Password&lt;/h2&gt;
+&lt;h2 id="OTP"&gt;&lt;a href="#OTP"&gt;One Time Password&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;One Time Password was defined in
 &lt;a href="https://tools.ietf.org/html/rfc2289"&gt;RFC2289&lt;/a&gt; (which is quite old:
 February 1998). Then they made HOTP (H is for &lt;em&gt;HMAC-Based&lt;/em&gt;) in
@@ -1899,10 +1899,10 @@ factor.&lt;/p&gt;
 &lt;a href="https://tools.ietf.org/html/rfc4226#page-7"&gt;5.4.  Example of HOTP Computation for Digit = 6&lt;/a&gt;
 and then the short RFC6238 or you can just read this &lt;a href="https://pthree.org/2014/04/15/time-based-one-time-passwords-how-it-works/"&gt;random blog
 article on the Internet which explains clearly the same thing&lt;/a&gt;.&lt;/p&gt;
-&lt;h3&gt;tl;dr&lt;/h3&gt;
+&lt;h3 id="tldr"&gt;&lt;a href="#tldr"&gt;tl;dr&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;There's a secret shared and then you compute the HMAC-SHA1 of the
 shared secret and epoch.&lt;/p&gt;
-&lt;h3&gt;Wait, did you just say sha1?!?1?&lt;/h3&gt;
+&lt;h3 id="sha1"&gt;&lt;a href="#sha1"&gt;Wait, did you just say sha1?!?1?&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Even if there's now a sha1 collision, it's not really a problem. To
 quote Schneier: "[collision] pretty much puts a bullet into
 SHA-1 as a hash function for digital signatures (although it doesn't
@@ -1910,8 +1910,8 @@ affect applications such as HMAC where collisions aren't important)."
 (&lt;a href="https://www.schneier.com/blog/archives/2005/02/sha1_broken.html"&gt;source&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;And for a more complete answer, see this
 &lt;a href="http://crypto.stackexchange.com/questions/26510/why-is-hmac-sha1-still-considered-secure"&gt;answer&lt;/a&gt;.&lt;/p&gt;
-&lt;h2&gt;How to use it&lt;/h2&gt;
-&lt;h3&gt;Don't be locked out&lt;/h3&gt;
+&lt;h2 id="howuse"&gt;&lt;a href="#howuse"&gt;How to use it&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="lockedout"&gt;&lt;a href="#lockedout"&gt;Don't be locked out&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I wanted to use my phone (something distinct that my computer to
 compartment things a bit). Obviously the goal is to secure your
 account without losing it so that means that losing your phone
@@ -1923,13 +1923,13 @@ locked out from services don't provide backup codes either.&lt;/p&gt;
 &lt;p&gt;So my phone must not be a single point of failure.&lt;/p&gt;
 &lt;p&gt;We saw earlier that {T,H}OTP are based on a shared secret so let's
 backup it.&lt;/p&gt;
-&lt;h3&gt;Backuping shared secrets and backup codes&lt;/h3&gt;
+&lt;h3 id="backups"&gt;&lt;a href="#backups"&gt;Backuping shared secrets and backup codes&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;For my regular passwords, I use keepassx which is shared/backuped across my
 different computers. I created another database to store those. Of
 course you shouldn't use the same database to keep your passwords and the
 other secrets in case of you leak one of the two database's password.&lt;/p&gt;
-&lt;h3&gt;Clients&lt;/h3&gt;
-&lt;h4&gt;Android phone&lt;/h4&gt;
+&lt;h3 id="clients"&gt;&lt;a href="#clients"&gt;Clients&lt;/a&gt;&lt;/h3&gt;
+&lt;h4 id="android"&gt;&lt;a href="#android"&gt;Android phone&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;Now that I'm ready to activate 2FA, let's see how to use it. The plan
 is to use my android phone. On the
 &lt;a href="https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm"&gt;Time-based One-time Password Algorithm Wikipedia page&lt;/a&gt;
@@ -1939,7 +1939,7 @@ You can still find it
 &lt;p&gt;I wanted a FOSS application and Google Authenticator is now closed
 source so I went with FreeOTP which is not completely dead compared to
 others (but it's not thriving either), so far it works good.&lt;/p&gt;
-&lt;h4&gt;OpenBSD&lt;/h4&gt;
+&lt;h4 id="OpenBSD"&gt;&lt;a href="#OpenBSD"&gt;OpenBSD&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;In the case I don't have a phone, I still want to be able to
 log in my different accounts. In the lobste.rs' link that I gave at the
 beginning of this article, someone mentioned oath-toolkit which works
@@ -1950,12 +1950,12 @@ very easily:&lt;/p&gt;
 
 
 &lt;p&gt;(with deafcafe being the shared secret).&lt;/p&gt;
-&lt;h2&gt;Activating it&lt;/h2&gt;
+&lt;h2 id="activation"&gt;&lt;a href="#activation"&gt;Activating it&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Now that we're ready to use it, let's do it. So where to activate
 it? Actually, there's &lt;a href="https://twofactorauth.org/"&gt;a cool site&lt;/a&gt; that
 lists services that provide or not (and then you can shame them on
 twitter) 2FA with a link to the service's documentation.&lt;/p&gt;
-&lt;h3&gt;My Feedback&lt;/h3&gt;
+&lt;h3 id="feedback"&gt;&lt;a href="#feedback"&gt;My Feedback&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;So far I activated 2FA on about half a dozen of website. The first one was
 the &lt;a href="https://www.ripe.net/"&gt;RIPE NCC&lt;/a&gt; (if you don't want people to
 steal your precious IP addresses and/or your atlas credit) and it was
@@ -1973,17 +1973,17 @@ possibility to access the shared secret.&lt;/p&gt;
 &lt;p&gt;For now, everything works fine, I use my phone to unlock my different
 accounts and if anything happens to it, I can just unlock my second
 keepassx database and use oathtool (or use a backup code) to get my
-account back.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Sun, 26 Feb 2017 10:00:00 GMT</pubDate><guid isPermaLink="true">https://oldblog.chown.me/my-recent-journey-with-2FA.html.html</guid></item><item><title>Hackathon report - p2k16</title><link>https://oldblog.chown.me/p2k16.html.html</link><description>&lt;h2&gt;Getting an account&lt;/h2&gt;
+account back.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Sun, 26 Feb 2017 10:00:00 GMT</pubDate><guid isPermaLink="true">https://oldblog.chown.me/my-recent-journey-with-2FA.html.html</guid></item><item><title>Hackathon report - p2k16</title><link>https://oldblog.chown.me/p2k16.html.html</link><description>&lt;h2 id="account"&gt;&lt;a href="#account"&gt;Getting an account&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Since end of March I have had an OpenBSD account which means that I can do
 some commits on my own, the login I use is &lt;em&gt;danj&lt;/em&gt;. I was then invited
 to &lt;a href="https://www.openbsd.org/images/hackathons/p2k16.gif"&gt;p2k16&lt;/a&gt; which
 took place in Nantes, about 100kms from where I live (Rennes).&lt;/p&gt;
-&lt;h2&gt;Planning&lt;/h2&gt;
+&lt;h2 id="planning"&gt;&lt;a href="#planning"&gt;Planning&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;I read most of hackathons report (if not all) on undeadly, and people
 often says that they had plans. So I thought I was going to do the
 same. Finally I did only a few things that I planned and other things
 I didn't plan at all :)&lt;/p&gt;
-&lt;h2&gt;Meeting people&lt;/h2&gt;
+&lt;h2 id="meetingpeople"&gt;&lt;a href="#meetingpeople"&gt;Meeting people&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Since 2013 I've been talking with jca@ (mainly about OpenBSD but not only),
 though I never had the chance to meet him. Finally at p2k16 I could
 finally meet him.&lt;/p&gt;
@@ -1996,7 +1996,7 @@ together.&lt;/p&gt;
 talked to, before like espie@ or eric@. It was both funny and
 interesting as I learnt a couple of things while I was chatting with
 them.&lt;/p&gt;
-&lt;h2&gt;Even teaching people&lt;/h2&gt;
+&lt;h2 id="teaching"&gt;&lt;a href="#teaching"&gt;Even teaching people&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;I was still heavily learning at lot of things, whatever I was doing,
 though I was looking forward to share my (little) knowledge. I could
 show some tricks to tsg@ who was porting some python ports and at the
@@ -2010,7 +2010,7 @@ for a while and in the mean time, new tools were created to help us like
 and he didn't know its existence so I showed him thus he could use it
 rather than importing his port (that I reviewed as it was a python
 port :3) manually.&lt;/p&gt;
-&lt;h2&gt;The work&lt;/h2&gt;
+&lt;h2 id="work"&gt;&lt;a href="#work"&gt;The work&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;I begun the week with committing an update to legit and its chains of
 *_DEPS, it was quite a pain so I was happy to be over. After that, I
 updated a bunch of little ports. I reviewed a few ports for
@@ -2032,7 +2032,7 @@ imported it.&lt;/p&gt;
 some directions as some of its *_DEPS were python3-only and currently
 the port infrastructure for python ports is mainly axed towards
 python2, and sthen@ kindly helped me.&lt;/p&gt;
-&lt;h2&gt;The end&lt;/h2&gt;
+&lt;h2 id="end"&gt;&lt;a href="#end"&gt;The end&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Of course, I was sad when it ended, seeing people leaving
 gradually. I was really happy of the whole week, meeting people I was
 quite fond of. The meals were goods, with lots of

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://oldblog.chown.me/style.css" type="text/css"/>
   <link rel="stylesheet" href="https://oldblog.chown.me/pygmentize.css" type="text/css"/>
+  <link rel="icon" type="image/png" href="https://oldblog.chown.me/favicon.png">
   <title>My recent journey with 2FA' blog</title>
 </head>
 
@@ -21,7 +22,7 @@
   <div class="notsidebar">
 <a href="./my-recent-journey-with-2FA.html"><h1>My recent journey with 2FA</h1></a>
 <p>Posted on 2017-02-26</p>
-<h2>2FA</h2>
+<h2 id="2FA"><a href="#2FA">2FA</a></h2>
 <p>Of course by 2FA I mean
 <a href="https://en.wikipedia.org/wiki/Multi-factor_authentication">two-factor authentication</a>.</p>
 <p>I've been using that for a long time for ssh with
@@ -37,7 +38,7 @@ In addition to that, I guess seeing
 and everything what's happening if you want to cross the US border
 made me more interested in 2FA than before.</p>
 <p>So I began to look into how it works.</p>
-<h2>How it works</h2>
+<h2 id="how"><a href="#how">How it works</a></h2>
 <p>The concept of 2FA is that you may lose your password (or your ssh
 key) and in that case the person who takes control of it can
 successfully impersonate you. The goal is that a login system will
@@ -50,7 +51,7 @@ have a fingerprint reader, it's not usable by third parties.</p>
 <p>It must be something that keeps changing otherwise it's both
 subject to replay attack and it's just another password.</p>
 <p>Here comes the OTP.</p>
-<h2>One Time Password</h2>
+<h2 id="OTP"><a href="#OTP">One Time Password</a></h2>
 <p>One Time Password was defined in
 <a href="https://tools.ietf.org/html/rfc2289">RFC2289</a> (which is quite old:
 February 1998). Then they made HOTP (H is for <em>HMAC-Based</em>) in
@@ -62,10 +63,10 @@ factor.</p>
 <a href="https://tools.ietf.org/html/rfc4226#page-7">5.4.  Example of HOTP Computation for Digit = 6</a>
 and then the short RFC6238 or you can just read this <a href="https://pthree.org/2014/04/15/time-based-one-time-passwords-how-it-works/">random blog
 article on the Internet which explains clearly the same thing</a>.</p>
-<h3>tl;dr</h3>
+<h3 id="tldr"><a href="#tldr">tl;dr</a></h3>
 <p>There's a secret shared and then you compute the HMAC-SHA1 of the
 shared secret and epoch.</p>
-<h3>Wait, did you just say sha1?!?1?</h3>
+<h3 id="sha1"><a href="#sha1">Wait, did you just say sha1?!?1?</a></h3>
 <p>Even if there's now a sha1 collision, it's not really a problem. To
 quote Schneier: "[collision] pretty much puts a bullet into
 SHA-1 as a hash function for digital signatures (although it doesn't
@@ -73,8 +74,8 @@ affect applications such as HMAC where collisions aren't important)."
 (<a href="https://www.schneier.com/blog/archives/2005/02/sha1_broken.html">source</a>)</p>
 <p>And for a more complete answer, see this
 <a href="http://crypto.stackexchange.com/questions/26510/why-is-hmac-sha1-still-considered-secure">answer</a>.</p>
-<h2>How to use it</h2>
-<h3>Don't be locked out</h3>
+<h2 id="howuse"><a href="#howuse">How to use it</a></h2>
+<h3 id="lockedout"><a href="#lockedout">Don't be locked out</a></h3>
 <p>I wanted to use my phone (something distinct that my computer to
 compartment things a bit). Obviously the goal is to secure your
 account without losing it so that means that losing your phone
@@ -86,13 +87,13 @@ locked out from services don't provide backup codes either.</p>
 <p>So my phone must not be a single point of failure.</p>
 <p>We saw earlier that {T,H}OTP are based on a shared secret so let's
 backup it.</p>
-<h3>Backuping shared secrets and backup codes</h3>
+<h3 id="backups"><a href="#backups">Backuping shared secrets and backup codes</a></h3>
 <p>For my regular passwords, I use keepassx which is shared/backuped across my
 different computers. I created another database to store those. Of
 course you shouldn't use the same database to keep your passwords and the
 other secrets in case of you leak one of the two database's password.</p>
-<h3>Clients</h3>
-<h4>Android phone</h4>
+<h3 id="clients"><a href="#clients">Clients</a></h3>
+<h4 id="android"><a href="#android">Android phone</a></h4>
 <p>Now that I'm ready to activate 2FA, let's see how to use it. The plan
 is to use my android phone. On the
 <a href="https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm">Time-based One-time Password Algorithm Wikipedia page</a>
@@ -102,7 +103,7 @@ You can still find it
 <p>I wanted a FOSS application and Google Authenticator is now closed
 source so I went with FreeOTP which is not completely dead compared to
 others (but it's not thriving either), so far it works good.</p>
-<h4>OpenBSD</h4>
+<h4 id="OpenBSD"><a href="#OpenBSD">OpenBSD</a></h4>
 <p>In the case I don't have a phone, I still want to be able to
 log in my different accounts. In the lobste.rs' link that I gave at the
 beginning of this article, someone mentioned oath-toolkit which works
@@ -113,12 +114,12 @@ very easily:</p>
 
 
 <p>(with deafcafe being the shared secret).</p>
-<h2>Activating it</h2>
+<h2 id="activation"><a href="#activation">Activating it</a></h2>
 <p>Now that we're ready to use it, let's do it. So where to activate
 it? Actually, there's <a href="https://twofactorauth.org/">a cool site</a> that
 lists services that provide or not (and then you can shame them on
 twitter) 2FA with a link to the service's documentation.</p>
-<h3>My Feedback</h3>
+<h3 id="feedback"><a href="#feedback">My Feedback</a></h3>
 <p>So far I activated 2FA on about half a dozen of website. The first one was
 the <a href="https://www.ripe.net/">RIPE NCC</a> (if you don't want people to
 steal your precious IP addresses and/or your atlas credit) and it was

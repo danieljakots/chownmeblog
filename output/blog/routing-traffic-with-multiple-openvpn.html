@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://oldblog.chown.me/style.css" type="text/css"/>
   <link rel="stylesheet" href="https://oldblog.chown.me/pygmentize.css" type="text/css"/>
+  <link rel="icon" type="image/png" href="https://oldblog.chown.me/favicon.png">
   <title>Routing traffic with multiple OpenVPN' blog</title>
 </head>
 
@@ -21,7 +22,7 @@
   <div class="notsidebar">
 <a href="./routing-traffic-with-multiple-openvpn.html"><h1>Routing traffic with multiple OpenVPN</h1></a>
 <p>Posted on 2017-11-21</p>
-<h2>Why OpenVPN?</h2>
+<h2 id="openvpn"><a href="#openvpn">Why OpenVPN?</a></h2>
 <p>For <a href="https://evolix.ca/en">my dayjob</a> we access the servers we manage
 through OpenVPN. Of course it's not the only security measure, it's
 yet another layer and it helps to cut a part of the
@@ -30,8 +31,8 @@ our servers are registered in
 <a href="https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol">LDAP</a>
 and from this system we create some routes that the OpenVPN server
 pushes to the OpenVPN clients.</p>
-<h2>What did I need?</h2>
-<h3>Follow the pushed routes, not always and not for all the hosts</h3>
+<h2 id="needs"><a href="#needs">What did I need?</a></h2>
+<h3 id="pushedroutes"><a href="#pushedroutes">Follow the pushed routes, not always and not for all the hosts</a></h3>
 <p>I work sometimes from home (for on-call or just remote work). I have a
 IP phone which needs the VPN but of course I can't setup OpenVPN on
 the phone directly, so the VPN has to go on my router. But let's say
@@ -40,27 +41,27 @@ don't want its traffic to go through the VPN.</p>
 <p>But I also have my own desktop that I don't want any of its traffic to
 go through the VPN, but sometimes I want it to use the routes if I
 want to quickly check something on a server.</p>
-<h3>Default route sometimes, sometimes not</h3>
+<h3 id="default"><a href="#default">Default route sometimes, sometimes not</a></h3>
 <p>By default, clients don't set the gateway to the vpn, because we
 have the routes. But sometimes, we need to access a host through the
 VPN without having a route to it being pushed by the server. Hence I
 need to be able to route all the traffic through the vpn if
 needed. But not always because the vpn endpoint is 105ms away and
 browsing with this increased latency is obviously a bit slower.</p>
-<h3>Even with a default route, bypassing the VPN for some servers</h3>
+<h3 id="bypass"><a href="#bypass">Even with a default route, bypassing the VPN for some servers</a></h3>
 <p>I have a VM in Montreal, 10ms away, and there's no reason that the
 traffic should go through the VPN. Same goes for my OpenBSD mirror.</p>
-<h3>Multiple VPN</h3>
+<h3 id="multiplevpns"><a href="#multiplevpns">Multiple VPN</a></h3>
 <p>I also have another VPN which endpoints is in Montreal and I may want
 to route some host from my lan through it. It must independant from
 the other VPN.</p>
-<h3>Don't touch the server side</h3>
+<h3 id="serveragnoticism"><a href="#serveragnosticism">Don't touch the server side</a></h3>
 <p>My coworkers use the VPN as well so I can't change the server
 configuration just to suit my own need.</p>
-<h2>Suiting all the needs \o/</h2>
+<h2 id="suitneeds"><a href="#suitneeds">Suiting all the needs \o/</a></h2>
 <p>I will only talk about the client as there's nothing special on the
 server side</p>
-<h3>OpenVPN infrastructure</h3>
+<h3 id="ovpninfra"><a href="#ovpninfra">OpenVPN infrastructure</a></h3>
 <div class="codehilite"><pre><span></span>danj@pancake:/etc/openvpn$ ls
 client-ca.conf  client-fr.conf  private-stuff/
 </pre></div>
@@ -81,7 +82,7 @@ openvpn_ca_flags=&quot;--config /etc/openvpn/client-ca.conf&quot;
 
 
 <p>now I can <code>rcctl start openvpn_fr</code> and <code>rcctl start openvpn_ca</code></p>
-<h3>routing</h3>
+<h3 id="routing"><a href="#routing">routing</a></h3>
 <p>Spoiler alert, everything is done with pf.</p>
 <p>I won't put my whole pf.conf but only the needed parts. First let's
 describe the interface.</p>

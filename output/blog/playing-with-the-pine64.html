@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://oldblog.chown.me/style.css" type="text/css"/>
   <link rel="stylesheet" href="https://oldblog.chown.me/pygmentize.css" type="text/css"/>
+  <link rel="icon" type="image/png" href="https://oldblog.chown.me/favicon.png">
   <title>Playing with the pine64' blog</title>
 </head>
 
@@ -21,7 +22,7 @@
   <div class="notsidebar">
 <a href="./playing-with-the-pine64.html"><h1>Playing with the pine64</h1></a>
 <p>Posted on 2017-10-19</p>
-<h2>Finding something to install on it</h2>
+<h2 id="installwhat"><a href="#installwhat">Finding something to install on it</a></h2>
 <p>6 weeks ago, I ordered two pine64 units. I didn't (and still don't)
 have much plan for them, but I wanted to play with some cheap
 boards. I finally received them this week. Initially I wanted to
@@ -38,7 +39,7 @@ server flavour seems to be experimental so I got scared of it. And
 sadly, the whole things looks like to be alot undermanned.</p>
 <p>So I went for OpenBSD because I know the stuff and who to har^Wkindly
 ask for help. Spoiler alert, it's boring because it just works.</p>
-<h2>Getting OpenBSD on it</h2>
+<h2 id="OpenBSD"><a href="#OpenBSD">Getting OpenBSD on it</a></h2>
 <p>I downloaded miniroot62.fs, dd'ed it on the micro SD card. I was
 afraid I'd need to fiddle with some things like sysutils/dtb because I
 don't know what I would have needed to do. That's because I don't know
@@ -61,7 +62,7 @@ could lead a unclean reboot.</p>
 <p>You just need to plug three cables: GND, TXD and RXD. Of course, the
 TXD goes on the RXD pin from the picture and the RXD goes on the TXD
 pin. Guess why I'm telling you that!</p>
-<h2>That's it</h2>
+<h2 id="thatsit"><a href="#thatsit">That's it</a></h2>
 <p>Then you can connect with the usual</p>
 <div class="codehilite"><pre><span></span>$ cu -dl /dev/cuaU0 -s <span class="m">115200</span>
 </pre></div>
