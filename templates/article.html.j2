@@ -2,7 +2,7 @@
 {% block content %}
 <a href="./{{ article.file }}"><h1>{{ article.title }}</h1></a>
 {% if article.category != "othercontent" %}
-<p>Posted on {{ article.date }}</p>
+<p><b>Posted on {{ article.date }}</b></p>
 {% else %}
 <br>
 {% endif %}
