@@ -7,7 +7,7 @@ I've wanted to write about my infrastructure for a while, but I kept thinking,
 never ends, so I decided to write about its state at the end of 2019. Maybe
 I'll write an update on it in a couple of moons; who knows?
 
-## Goal for this infrastructure
+## [Goal for this infrastructure](#goal) {: #goal }
 
 The goal for my infrastructure is to run the services I need. While a lot of
 people in the homelab community experiment and play with software for its own
@@ -35,7 +35,7 @@ resources) and great (as I can be more nimble). A notable exception is my
 mastodon instance which is also used by [my
 cat](https://awoo.chown.me/@jeancanard).
 
-## Machines
+## [Machines](#machines) {: #machines }
 
 My machines are hosted in 3 different places. First is at
 [Exoscale](https://www.exoscale.com/), second is
@@ -63,7 +63,7 @@ both so that in the case that one gets pwned it won't help the attacker to
 [move laterally](https://en.wikipedia.org/wiki/Network_Lateral_Movement), and
 so that if one is unavailable it shouldn't impact anything else.
 
-### ns3.chown.me (OpenBSD)
+### [ns3.chown.me (OpenBSD)](#ns3) {: #ns3 }
 
 It's my secondary name server and as you can guess, it replaced ns2. It's the
 only machine that I don't back up, since I can replace it with my Ansible
@@ -86,7 +86,7 @@ Since this machine doesn't do much otherwise, it's running
 [mownitoring](https://github.com/danieljakots/mownitoring) to check that
 everything works.
 
-### virtie.chown.me (OpenBSD)
+### [virtie.chown.me (OpenBSD)](#virtie) {: #virtie }
 
 This virtual machine is the main one in my infrastructure. A moment ago your
 browser connected to it to get this page. :)
@@ -116,7 +116,7 @@ VM is the oldest, as I've been reluctant to lose it.
 This machine also hosts a *gitolite* for a couple of different internal git
 repositories.
 
-### pancake.chown.me (OpenBSD)
+### [pancake.chown.me (OpenBSD)](#pancake) {: #pancake }
 
 This machine is an [APU2](https://pcengines.ch/apu2.htm). It acts as a router
 for my flat. Since it's way more powerful than necessary for this task, I put
@@ -131,7 +131,7 @@ collectd ([which allow signing/encrypting the network
 traffic](https://collectd.org/wiki/index.php/Networking_introduction#Cryptographic_setup)).
 This doesn't work well for a couple of reasons, so it's waiting to be replaced.
 
-### kvm1, and sometimes kvm2 (Ubuntu)
+### [kvm1, and sometimes kvm2 (Ubuntu)](#kvm) {: #kvm }
 
 These machines are hosted at home. kvm1 is the main machine, and kvm2 is the
 machine I use to play Windows games on another SSD. I boot on the Ubuntu SSD
@@ -163,7 +163,7 @@ thanks to LVM.
 
 It hosts all the following virtual machines:
 
-### manicouagan1 (OpenBSD)
+### [manicouagan1 (OpenBSD)](#manicouagan1) {: #manicouagan1 }
 
 This machine's name dates from back when I used names from Québec to name my
 machines.  The name comes from the [Manicouagan
@@ -191,13 +191,13 @@ I wrote a short script that shows me the largest data transfers on my router. I
 use this to check that the backups are alive (I receive emails if the
 *BorgBackup* script fails, but isn't that less fun? :))
 
-### db1 (OpenBSD)
+### [db1 (OpenBSD)](#db1) {: #db1 }
 
 This machine hosts postgresql and redis. Two boring pieces of software which I
 love. Redis requires so little care that when I moved from db0, I forgot I had
 it!
 
-### web1 (OpenBSD)
+### [web1 (OpenBSD)](#web1) {: #web1 }
 
 This machine runs nginx for my whole web presence excluding my blog. It hosts
 *nextcloud*, *tt-rss*, *shaarli* and pics.chown.me (whose content I should
@@ -214,7 +214,7 @@ to get it working that I'm not willing to look into it more than that.
 Nginx also acts as a reverse proxy for the docker containers that run on
 another machine. Finally, it hosts *minio* for *mastodon*.
 
-### docker2 (Ubuntu, obviously)
+### [docker2 (Ubuntu, obviously)](#docker2) {: #docker2 }
 
 This machine runs a few docker containers through *docker-compose*:
 - 3 containers for *mastodon* (*ruby on rails* stuff, a node api and *sidekiq*)
@@ -234,7 +234,7 @@ infra. This way, if an IP is acting badly on one machine, it doesn't get to try
 its luck on another of my machines. This list is also supplemented by public
 lists of threats.
 
-## That's it for now
+## [That's it for now](#end) {: #end }
 
 Currently, my infrastructure is good at meeting my needs. It's not perfect, of
 course, and it's a perpetual work in progress. But it's stable, and usually the

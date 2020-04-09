@@ -5,7 +5,7 @@ Category: Tech
 This article is best enjoyed with basic knowledge of [OpenBSD
 autoinstall](https://man.openbsd.org/autoinstall) and [Ansible](https://www.ansible.com/)
 
-## My router runs OpenBSD -current
+## [My router runs OpenBSD -current](#router) {: #router }
 
 A few months ago, I needed software that had just hit the ports tree. I didn't
 want to wait for the next release, so I upgraded my router to use -current.
@@ -31,7 +31,7 @@ Internet. Even services hosted at my place (like my Mastodon instance) are not
 reachable when the router is down because I use multiple VLANs (so I need the
 router to *jump* across VLANs).
 
-## Ansible Reboot Module
+## [Ansible Reboot Module](#ansiblereboot) {: #ansiblereboot }
 
 I recently got a new job, and one of my first tasks was auditing the *Ansible*
 roles written by my predecessors. In one role, the machine rebooted and they
@@ -79,7 +79,7 @@ with Ansible 2.1," while for unix systems it wasn't added until 2.7. :D For
 more details, you can read the [module's author blog
 article](http://samdoran.com/ansible-reboot-plugin/).
 
-## The Playbook
+## [The Playbook](#playbook) {: #playbook }
 
 Initially, my playbook did the upgrade as usual (i.e., it fetched the sets in
 *bsd.rd*). During this process, of course, my machine is not performing its
@@ -93,7 +93,7 @@ rebooting into *bsd.rd*. It enabled me to remove some *tasks* I had to do in
 order to get working Internet access in *bsd.rd*. (This is specific to my
 case).
 
-### The playbook itself
+### [The playbook itself](#playbookitself) {: #playbookitself }
 
 ~~~
 ---
@@ -136,7 +136,7 @@ case).
       command: "pkg_add -u -Dsnap"
 ~~~
 
-### The answer file
+### [The answer file](#answerfile) {: #answerfile }
 
 The answer file is automatically [mailed to root at the end of the
 upgrade](https://github.com/openbsd/src/blob/master/distrib/miniroot/install.sub#L2811-L2812),
@@ -161,7 +161,7 @@ Set name(s) = done
 Location of sets = done
 ~~~
 
-### The explanations
+### [The explanations](#explanations) {: #explanations }
 
 Ansible runs my script on the remote host to fetch the sets. It creates an
 answer file from the template and then gives it to *upobsd*. Once *upobsd* has
@@ -194,7 +194,7 @@ just **before** a release because `pkg_add` automatically looks for
 this playbook while 6.4 was around the corner, so I switched to *command* to be
 able to pass the `-Dsnap` parameter.
 
-## The result
+## [The result](#result) {: #result }
 
 I'm very happy with the playbook! It performs the upgrade with as little
 intervention as possible and minimal downtime. \o/

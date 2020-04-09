@@ -2,7 +2,7 @@ Title: How I accidentally wrote a static site generator
 Date: 2020-04-08
 Category: Tech
 
-## Some context first
+## [Some context first](#context) {: #context }
 
 I bought my
 [DSLR](https://en.wikipedia.org/wiki/Digital_single-lens_reflex_camera) at the
@@ -38,7 +38,7 @@ better idea of what I want and care about. During the ensuing years, I have
 also acquired much more experience in [hosting my own
 services](./infrastructure-2019.html), which I try to do for everything I use.
 
-## Looking for some FOSS
+## [Looking for some FOSS](#foss) {: #foss }
 
 I thought writing my own would be difficult/time consuming, so I went for doing
 what I do best: using existing Free Software. I carefully thought through my
@@ -60,7 +60,7 @@ power and I prefer simpler things.
 
 AND SHOW THOSE DAMN EXIF!
 
-## Writing my own - the process
+## [Writing my own - the process](#myown) {: #myown }
 
 Sadly, I didn't find anything that met those two simple requirements.
 
@@ -100,7 +100,7 @@ During the process, I went to look at how I did stuff with my blog and I
 noticed it was a complete mess. Seeing how easy writing a static site generator
 was made me want to write one for my blog. So, stay tuned! ;)
 
-## The result
+## [The result](#result) {: #result }
 
 The result is available here: <https://px.chown.me/>. The [code is, of course,
 available](https://github.com/danieljakots/pics2html) as well.

@@ -3,7 +3,7 @@ Date: 2017-11-21
 Category: Tech
 
 
-## Why OpenVPN?
+## [Why OpenVPN?](#openvpn) {: #openvpn }
 
 For [my dayjob](https://evolix.ca/en) we access the servers we manage
 through OpenVPN. Of course it's not the only security measure, it's
@@ -14,9 +14,9 @@ our servers are registered in
 and from this system we create some routes that the OpenVPN server
 pushes to the OpenVPN clients.
 
-## What did I need?
+## [What did I need?](#needs) {: #needs }
 
-### Follow the pushed routes, not always and not for all the hosts
+### [Follow the pushed routes, not always and not for all the hosts](#pushedroutes) {: #pushedroutes }
 
 I work sometimes from home (for on-call or just remote work). I have a
 IP phone which needs the VPN but of course I can't setup OpenVPN on
@@ -28,7 +28,7 @@ But I also have my own desktop that I don't want any of its traffic to
 go through the VPN, but sometimes I want it to use the routes if I
 want to quickly check something on a server.
 
-### Default route sometimes, sometimes not
+### [Default route sometimes, sometimes not](#default) {: #default }
 
 By default, clients don't set the gateway to the vpn, because we
 have the routes. But sometimes, we need to access a host through the
@@ -37,28 +37,28 @@ need to be able to route all the traffic through the vpn if
 needed. But not always because the vpn endpoint is 105ms away and
 browsing with this increased latency is obviously a bit slower.
 
-### Even with a default route, bypassing the VPN for some servers
+### [Even with a default route, bypassing the VPN for some servers](#bypass) {: #bypass }
 
 I have a VM in Montreal, 10ms away, and there's no reason that the
 traffic should go through the VPN. Same goes for my OpenBSD mirror.
 
-### Multiple VPN
+### [Multiple VPN](#multiplevpns) {: #multiplevpns }
 
 I also have another VPN which endpoints is in Montreal and I may want
 to route some host from my lan through it. It must independant from
 the other VPN.
 
-### Don't touch the server side
+### [Don't touch the server side](#serveragnosticism) {: #serveragnoticism }
 
 My coworkers use the VPN as well so I can't change the server
 configuration just to suit my own need.
 
-## Suiting all the needs \o/
+## [Suiting all the needs \o/](#suitneeds) {: #suitneeds }
 
 I will only talk about the client as there's nothing special on the
 server side
 
-### OpenVPN infrastructure
+### [OpenVPN infrastructure](#ovpninfra) {: #ovpninfra }
 
 ~~~
 danj@pancake:/etc/openvpn$ ls
@@ -83,7 +83,7 @@ openvpn_ca_flags="--config /etc/openvpn/client-ca.conf"
 
 now I can `rcctl start openvpn_fr` and `rcctl start openvpn_ca`
 
-### routing
+### [routing](#routing) {: #routing }
 
 Spoiler alert, everything is done with pf.
 

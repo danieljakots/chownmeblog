@@ -9,6 +9,8 @@ a:hover{text-decoration:underline;}
 .sidebar a{display:block;color:white;padding:18px;}
 .sidebar a:hover{background-color:#CD0006;text-decoration: none}
 .notsidebar{padding: 0 10px;margin:40px auto 0;max-width:700px;}
+.notsidebar h2 a{color:#333;text-decoration:none;}
+.notsidebar h2 a:hover{color:#CD0006;}
 footer{font-size:12px;color:#555;text-align:center;}
 code {font-size:92%;background-color:#e8e8e8;border:1px solid #aaa;overflow:auto;border-radius:0.2em;padding:0.1em;}
 @media screen and (max-width: 1300px) {

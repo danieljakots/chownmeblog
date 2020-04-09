@@ -2,7 +2,7 @@ Title: Playing with the pine64
 Date: 2017-10-19
 Category: Tech
 
-## Finding something to install on it
+## [Finding something to install on it](#installwhat) {: #installwhat }
 
 6 weeks ago, I ordered two pine64 units. I didn't (and still don't)
 have much plan for them, but I wanted to play with some cheap
@@ -23,7 +23,7 @@ sadly, the whole things looks like to be alot undermanned.
 So I went for OpenBSD because I know the stuff and who to har^Wkindly
 ask for help. Spoiler alert, it's boring because it just works.
 
-## Getting OpenBSD on it
+## [Getting OpenBSD on it](#OpenBSD) {: #OpenBSD }
 
 I downloaded miniroot62.fs, dd'ed it on the micro SD card. I was
 afraid I'd need to fiddle with some things like sysutils/dtb because I
@@ -53,7 +53,7 @@ You just need to plug three cables: GND, TXD and RXD. Of course, the
 TXD goes on the RXD pin from the picture and the RXD goes on the TXD
 pin. Guess why I'm telling you that!
 
-## That's it
+## [That's it](#thatsit) {: #thatsit }
 
 Then you can connect with the usual
 

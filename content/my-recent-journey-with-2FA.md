@@ -2,7 +2,7 @@ Title: My recent journey with 2FA
 Date: 2017-02-26
 Category: Tech
 
-## 2FA
+## [2FA](#2FA) {: #2FA }
 
 Of course by 2FA I mean
 [two-factor authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication).
@@ -23,7 +23,7 @@ made me more interested in 2FA than before.
 
 So I began to look into how it works.
 
-## How it works
+## [How it works](#how) {: #how }
 
 The concept of 2FA is that you may lose your password (or your ssh
 key) and in that case the person who takes control of it can
@@ -42,7 +42,7 @@ subject to replay attack and it's just another password.
 
 Here comes the OTP.
 
-## One Time Password
+## [One Time Password](#OTP) {: #OTP }
 
 One Time Password was defined in
 [RFC2289](https://tools.ietf.org/html/rfc2289) (which is quite old:
@@ -57,12 +57,12 @@ To understand in more details you can either read in the RFC4226
 and then the short RFC6238 or you can just read this [random blog
 article on the Internet which explains clearly the same thing](https://pthree.org/2014/04/15/time-based-one-time-passwords-how-it-works/).
 
-### tl;dr
+### [tl;dr](#tldr) {: #tldr }
 
 There's a secret shared and then you compute the HMAC-SHA1 of the
 shared secret and epoch.
 
-### Wait, did you just say sha1?!?1?
+### [Wait, did you just say sha1?!?1?](#sha1) {: #sha1 }
 
 Even if there's now a sha1 collision, it's not really a problem. To
 quote Schneier: "[collision] pretty much puts a bullet into
@@ -73,9 +73,9 @@ affect applications such as HMAC where collisions aren't important)."
 And for a more complete answer, see this
 [answer](http://crypto.stackexchange.com/questions/26510/why-is-hmac-sha1-still-considered-secure).
 
-## How to use it
+## [How to use it](#howuse) {: #howuse }
 
-### Don't be locked out
+### [Don't be locked out](#lockedout) {: #lockedout }
 
 I wanted to use my phone (something distinct that my computer to
 compartment things a bit). Obviously the goal is to secure your
@@ -92,16 +92,16 @@ So my phone must not be a single point of failure.
 We saw earlier that {T,H}OTP are based on a shared secret so let's
 backup it.
 
-### Backuping shared secrets and backup codes
+### [Backuping shared secrets and backup codes](#backups) {: #backups }
 
 For my regular passwords, I use keepassx which is shared/backuped across my
 different computers. I created another database to store those. Of
 course you shouldn't use the same database to keep your passwords and the
 other secrets in case of you leak one of the two database's password.
 
-### Clients
+### [Clients](#clients) {: #clients }
 
-#### Android phone
+#### [Android phone](#android) {: #android }
 
 Now that I'm ready to activate 2FA, let's see how to use it. The plan
 is to use my android phone. On the
@@ -114,7 +114,7 @@ I wanted a FOSS application and Google Authenticator is now closed
 source so I went with FreeOTP which is not completely dead compared to
 others (but it's not thriving either), so far it works good.
 
-#### OpenBSD
+#### [OpenBSD](#OpenBSD) {: #OpenBSD }
 
 In the case I don't have a phone, I still want to be able to
 log in my different accounts. In the lobste.rs' link that I gave at the
@@ -126,14 +126,14 @@ very easily:
 
 (with deafcafe being the shared secret).
 
-## Activating it
+## [Activating it](#activation) {: #activation }
 
 Now that we're ready to use it, let's do it. So where to activate
 it? Actually, there's [a cool site](https://twofactorauth.org/) that
 lists services that provide or not (and then you can shame them on
 twitter) 2FA with a link to the service's documentation.
 
-### My Feedback
+### [My Feedback](#feedback) {: #feedback }
 
 So far I activated 2FA on about half a dozen of website. The first one was
 the [RIPE NCC](https://www.ripe.net/) (if you don't want people to

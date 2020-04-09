@@ -8,7 +8,7 @@ putting it to sleep with zzz(1). I answered this question in a
 previous article (which was actually written four years ago; time flies!) but
 it was written in French, so here's a new one, also covering additional related topics.
 
-## Locking the machine when it is put to sleep
+## [Locking the machine when it is put to sleep](#locking) {: #locking }
 
 If you read [apmd(8)](https://man.openbsd.org/apmd.8):
 
@@ -43,7 +43,7 @@ It requires:
 - running apmd (hashtag rcctl)
 - an executable script
 
-## Locking it further
+## [Locking it further](#lockingfurther) {: #lockingfurther }
 
 This is off to a good start, but if you are a *startx* user (versus using xenodm), be sure to run `exec startx` and not just `startx`. Otherwise, it is possible to kill X and then access the shell.
 
@@ -54,7 +54,7 @@ You might want to clear your clipboards, as well. Use something like: `xsel -c -
 Of course, if you use other authentication mechanisms (GNOME keyring, ssh's
 Control\*, etc.), you should handle those as well.
 
-## Beware of the cat
+## [Beware of the cat](#cat) {: #cat }
 
 Now that I have a [Captive Advanced
 Threat](https://awoo.chown.me/@jeancanard), I feel the need to automatically lock the screen after it has been idle for a short while. You can achieve this using `xidle`. The [man

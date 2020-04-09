@@ -2,9 +2,9 @@ Title: Launching my newsletter
 Date: 2019-01-25
 Category: Mylife
 
-## Social media
+## [Social media](#socialmedia) {: #socialmedia }
 
-### Blogging...
+### [Blogging...](#blogging) {: #blogging }
 
 I created this blog a few years ago because I wanted to talk about the stuff I
 was experimenting with, and in my opinion it was cool to have a blog. I still have
@@ -13,7 +13,7 @@ because I take a lot of care with it and I like to build high quality stuff. How
 it takes me. So. Much. Time. I have to be really enthusiastic about something to
 write about it.
 
-### ...and micro-blogging
+### [...and micro-blogging](#microblogging) {: #microblogging }
 
 More or less at the same time, I created my Twitter account. I've used it for
 multiple years and I have realized the way it was architected to influence users was obnoxious and the way I was using it made it even worse.
@@ -32,9 +32,9 @@ each post, I don't feel the medium is the right one to allow me to express mysel
 Which is perfectly fine, because I enjoy shitposting and bitching about a wide
 spectrum of things!
 
-## In between
+## [In between](#inbetween) {: #inbetween }
 
-### Why?
+### [Why?](#why) {: #why }
 
 I'll be honest and tell you what happened. Recently, I read [Going old school: how I
 replaced Facebook with
@@ -55,7 +55,7 @@ currently provide (as there isn't a system for comments). I'm also
 curious about how the social interaction will happen. Lastly, I'll do it for
 myself, as a writing exercise.
 
-### What?
+### [What?](#what) {: #what }
 
 I plan to talk about my life, what I have been doing lately or a
 particular subject I care about. My frequency goal ranges between multiple times a
@@ -74,7 +74,7 @@ interaction, since nowadays there is less and less of that.
 Of course, you won't get access to the previous newsletters, only the
 subsequent ones. (Maybe the previous one?)
 
-### How can I subscribe?
+### [How can I subscribe?](#subscribe) {: #subscribe }
 
 If you're curious about this experiment and want to be part of it, please send an email
 to newsletter at chown dot me!

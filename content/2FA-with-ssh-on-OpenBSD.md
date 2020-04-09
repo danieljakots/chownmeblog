@@ -18,7 +18,7 @@ tools in base. This article focuses on OpenBSD; if you use another operating
 system, here are two [handy](https://www.openbsd.org/faq/faq4.html)
 [links](https://ftp.openbsd.org/pub/OpenBSD/6.3/amd64/INSTALL.amd64).
 
-## Seed configuration
+## [Seed configuration](#seedconfig) {: #seedconfig }
 
 The first thing we need to do is to install the software which will be used to
 verify the OTPs we submit.
@@ -126,7 +126,7 @@ my $s = pack('H*', '99d12448129d1e8192e063d64714209137a13864');
 print encode_base32($s)."\n";
 ~~~
 
-## System configuration
+## [System configuration](#sysconfig) {: #sysconfig }
 
 We can now move to the configuration of the system to put our new TOTP to use.
 As you might guess, it's going to be quite close to what we did with the
@@ -168,7 +168,7 @@ staff:\
 (Hint: it's the penultimate line). You can check the class of your user using
 `id -c`.
 
-## sshd configuration
+## [sshd configuration](#sshdconfig) {: #sshdconfig }
 
 Again, keeping a root shell around decreases the risk of losing access to the
 system and being locked outside.
@@ -202,7 +202,7 @@ Here's the diff of the output when testing with `ssh -v` using both public-key-o
 +debug1: Authentication succeeded (password).
 ~~~
 
-## Improving security without impacting UX
+## [Improving security without impacting UX](#nouximpact) {: #nouximpact}
 
 My phone has a long enough password that most of the time, I fail to type it
 correctly on the first try. Of course, if I had to unlock my phone, launch my
