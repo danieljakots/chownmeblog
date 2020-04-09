@@ -3,7 +3,7 @@
 <p>
 {% for article in articles%}
 {% if article.category != "othercontent" %}
-  {{ article.date }} — <a href="./blog/{{ article.file }}">[{{ article.category }}] {{ article.title }}</a><br>
+  {{ article.date }} — <a href="./blog/{{ article.file }}" style="font-size:20px;">[{{ article.category }}] {{ article.title }}</a><br>
 {% endif %}
 {% endfor %}
 </p>
