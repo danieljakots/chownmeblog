@@ -22,7 +22,7 @@ code {font-size:92%;background-color:#e8e8e8;border:1px solid #aaa;overflow:auto
     .notsidebar {padding-left:150px;}
 }
 @media screen and (max-width: 950px) {
-    .sidebar{padding-top:50px;margin: 0;width: 100%;height: auto;position: relative;}
+    .sidebar{padding-top:10px;margin: 0;width: 100%;height: auto;position: relative;}
     .sidebar a {text-align: center;float: none;}
     .notsidebar {padding:10px;margin: 0 auto;}
     .index {text-align:left;}
