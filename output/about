@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://pre-prod.chown.me/style.css" type="text/css"/>
+  <link rel="stylesheet" href="https://pre-prod.chown.me/pygmentize.css" type="text/css"/>
+  <link rel="icon" type="image/png" href="https://pre-prod.chown.me/favicon.png">
+  <title>About' blog</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <a href="https://pre-prod.chown.me" style="background-color:inherit;"><h1>Hi, I'm Daniel Jakots!</h1></a>
+    <br>
+    <a href="https://pre-prod.chown.me">Home</a>
+    <a href="https://pre-prod.chown.me/about">About</a>
+    <a href="https://px.chown.me">Pictures</a>
+    <a href="https://oldblog.chown.me">Old blog</a>
+    <a href="https://pre-prod.chown.me/blog/feeds/atom.xml">RSS Feed</a>
+  </div>
+  <div class="notsidebar">
+<a href="./about"><h1>About</h1></a>
+<br>
+<h2>Hey, I'm Daniel</h2>
+<p>I work as a system and network engineer in Montreal where I have been living since the end
+of 2016. In my spare time, I <a href="http://oxide.org/cvs/danj.html">contribute</a> to
+<a href="https://www.openbsd.org">OpenBSD</a>, I
+<a href="https://github.com/danieljakots">develop</a> in Python, and when it's hotter than
+10 Celsius, I ride my <a href="https://twitter.com/Vigdis_/status/857378539057893378">single
+speed</a>.</p>
+<p><a href="https://pics.chown.me/Jean-Canard/">My cat</a> goes by the name of <em>Jean Canard</em>.</p>
+<p>I've been a board member of the <a href="https://qix.ca/">QIX</a>, the
+<a href="https://en.wikipedia.org/wiki/Internet_exchange_point">Internet Exchange Point</a>
+in Montreal.</p>
+<p>Previously, I've been involved in a couple of non-profits such as
+<a href="https://www.franciliens.net/">Franciliens.net</a>, <a href="https://www.ffdn.org/">FFDN</a>,
+and <a href="https://nos-oignons.net/">Nos oignons</a>. At the time I was living in
+France. Before I came to Montreal, I lived for eight years in Normandy
+(Caen and Rouen) and one year in Brittany (Rennes).</p>
+<p>I have the Canadian and French citizenships.</p>
+<p>You can read quotes from me in
+<a href="http://www.lemonde.fr/technologies/article/2013/04/23/la-police-japonaise-recommande-le-blocage-du-reseau-tor_3164344_651865.html">Le Monde</a>
+and in <a href="https://twitter.com/amaelle_g">Amaelle Guiton</a>'s book
+<a href="http://hackers.micro-ouvert.net/">Au coeur de la résistance numérique</a>.</p>
+<h2>Corporate Biography</h2>
+<p>Daniel is a Python Developer focusing on DevOps methodologies. Curious by
+nature, his interests lie in the development of web applications, as well as
+their deployment, performance optimization, availability and security.</p>
+<p>During his studies, Daniel cultivated his passion for Information Technology.
+He first pursued the world of the command line on Ubuntu, then strove to
+develop his skills in system administration, followed by network
+administration. Heavily motivated toward leveraging his skills for community
+enrichment, Daniel has been involved in various non-profit organizations
+working to provide better Internet access.</p>
+<p>Daniel began his professional life as a system and network administrator in a
+server management company. Servicing small and medium-sized businesses, the
+focus of this work was technical administration for businesses lacking in-house
+resources, such as communications agencies. Managing the large number of
+servers required to meet customer needs helped him to recognize the utility of
+automation in deployment and server management.</p>
+<p>Having reached an end to the learning opportunities available within the
+non-profit sector, Daniel turned to open source contribution to further develop
+his skills. He began to submit patches with improvements to the OpenBSD
+project. After a year, Daniel was invited to join the small team of OpenBSD
+developers, and now works with developers worldwide to improve and maintain the
+project.</p>
+<p>Seeking a life change, Daniel took advantage of his dual national status and
+emigrated to Montreal. He continued to work as a system and network
+administrator, managing Ansible machines running OpenBSD that manage the
+network for a small host and network operator. To accomplish various tasks, he
+developed and deployed Python code at every opportunity.</p>
+<p>Eventually, Daniel decided to stop resisting his passion for Python and open
+source communities. He switched his focus to the world of development, seeking
+to bridge his primary interests and better understand operations from another
+perspective.</p>
+  <br>
+  <footer>
+    <p>This website is best viewed on the exact same screen as mine. <a href="https://github.com/danieljakots/chownmeblog">Source code</a></p>
+  </footer>
+  </div>
+</body>
+</html>

@@ -28,7 +28,7 @@ def md2html(md):
 
 def parse_article(article_path):
     article = {}
-    article["file"] = f"{article_path.replace('.md', '.html')[len(CONTENT_PATH) - 1:]}"
+    article["file"] = f"{article_path.replace('.md', '')[len(CONTENT_PATH) - 1:]}"
     with open(article_path, "r") as f:
         metadata = [next(f) for x in range(3)]
         for line in metadata:
@@ -72,6 +72,8 @@ def generate_website(content):
             prefix = "blog/"
         with open(f"{OUTPUT_DIR}/{prefix}{article['file']}", "w") as f:
             f.write(result)
+        with open(f"{OUTPUT_DIR}/{prefix}{article['file']}.html", "w") as f:
+            f.write(result)
 
 
 def create_feed(feed_items):
@@ -108,7 +110,7 @@ def main():
         feed_items.append(
             create_feed_item(
                 article["title"],
-                f"{SITE['url']}/{article['file']}.html",
+                f"{SITE['url']}/{article['file']}",
                 date,
                 article["html"],
             )

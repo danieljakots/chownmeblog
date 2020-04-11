@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://pre-prod.chown.me/style.css" type="text/css"/>
+  <link rel="stylesheet" href="https://pre-prod.chown.me/pygmentize.css" type="text/css"/>
+  <link rel="icon" type="image/png" href="https://pre-prod.chown.me/favicon.png">
+  <title>Routing traffic with multiple OpenVPN' blog</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <a href="https://pre-prod.chown.me" style="background-color:inherit;"><h1>Hi, I'm Daniel Jakots!</h1></a>
+    <br>
+    <a href="https://pre-prod.chown.me">Home</a>
+    <a href="https://pre-prod.chown.me/about">About</a>
+    <a href="https://px.chown.me">Pictures</a>
+    <a href="https://oldblog.chown.me">Old blog</a>
+    <a href="https://pre-prod.chown.me/blog/feeds/atom.xml">RSS Feed</a>
+  </div>
+  <div class="notsidebar">
+<a href="./routing-traffic-with-multiple-openvpn"><h1>Routing traffic with multiple OpenVPN</h1></a>
+<p><b>Posted on 2017-11-21</b></p>
+<h2 id="openvpn"><a href="#openvpn">Why OpenVPN?</a></h2>
+<p>For <a href="https://evolix.ca/en">my dayjob</a> we access the servers we manage
+through OpenVPN. Of course it's not the only security measure, it's
+yet another layer and it helps to cut a part of the
+<a href="https://en.wikipedia.org/wiki/Internet_background_noise">IBN</a>. All of
+our servers are registered in
+<a href="https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol">LDAP</a>
+and from this system we create some routes that the OpenVPN server
+pushes to the OpenVPN clients.</p>
+<h2 id="needs"><a href="#needs">What did I need?</a></h2>
+<h3 id="pushedroutes"><a href="#pushedroutes">Follow the pushed routes, not always and not for all the hosts</a></h3>
+<p>I work sometimes from home (for on-call or just remote work). I have a
+IP phone which needs the VPN but of course I can't setup OpenVPN on
+the phone directly, so the VPN has to go on my router. But let's say
+some android phone (without security updates) connects to my wifi, I
+don't want its traffic to go through the VPN.</p>
+<p>But I also have my own desktop that I don't want any of its traffic to
+go through the VPN, but sometimes I want it to use the routes if I
+want to quickly check something on a server.</p>
+<h3 id="default"><a href="#default">Default route sometimes, sometimes not</a></h3>
+<p>By default, clients don't set the gateway to the vpn, because we
+have the routes. But sometimes, we need to access a host through the
+VPN without having a route to it being pushed by the server. Hence I
+need to be able to route all the traffic through the vpn if
+needed. But not always because the vpn endpoint is 105ms away and
+browsing with this increased latency is obviously a bit slower.</p>
+<h3 id="bypass"><a href="#bypass">Even with a default route, bypassing the VPN for some servers</a></h3>
+<p>I have a VM in Montreal, 10ms away, and there's no reason that the
+traffic should go through the VPN. Same goes for my OpenBSD mirror.</p>
+<h3 id="multiplevpns"><a href="#multiplevpns">Multiple VPN</a></h3>
+<p>I also have another VPN which endpoints is in Montreal and I may want
+to route some host from my lan through it. It must independant from
+the other VPN.</p>
+<h3 id="serveragnoticism"><a href="#serveragnosticism">Don't touch the server side</a></h3>
+<p>My coworkers use the VPN as well so I can't change the server
+configuration just to suit my own need.</p>
+<h2 id="suitneeds"><a href="#suitneeds">Suiting all the needs \o/</a></h2>
+<p>I will only talk about the client as there's nothing special on the
+server side</p>
+<h3 id="ovpninfra"><a href="#ovpninfra">OpenVPN infrastructure</a></h3>
+<div class="codehilite"><pre><span></span>danj@pancake:/etc/openvpn$ ls
+client-ca.conf  client-fr.conf  private-stuff/
+</pre></div>
+
+
+<p>Config files are as usual, the only special thing is that I force
+the tun device used by the VPN (so I can use it in pf.conf):</p>
+<div class="codehilite"><pre><span></span>danj@pancake:/etc/openvpn$ grep dev *.conf
+client-ca.conf:dev tun1
+client-fr.conf:dev tun0
+</pre></div>
+
+
+<p>In <code>rc.conf.local</code>, I set the correct config file:</p>
+<div class="codehilite"><pre><span></span>openvpn_fr_flags=&quot;--config /etc/openvpn/client-fr.conf&quot;
+openvpn_ca_flags=&quot;--config /etc/openvpn/client-ca.conf&quot;
+</pre></div>
+
+
+<p>now I can <code>rcctl start openvpn_fr</code> and <code>rcctl start openvpn_ca</code></p>
+<h3 id="routing"><a href="#routing">routing</a></h3>
+<p>Spoiler alert, everything is done with pf.</p>
+<p>I won't put my whole pf.conf but only the needed parts. First let's
+describe the interface.</p>
+<div class="codehilite"><pre><span></span>vpnfr_if = &quot;tun0&quot;
+vpnca_if = &quot;tun1&quot;
+</pre></div>
+
+
+<p>I have vlan-capable switch and wifi AP, so I have multiple networks.</p>
+<div class="codehilite"><pre><span></span>lan_net = $lan_if:network
+wifilap_net = $wifilap_if:network
+wifitel_net = $wifitel_if:network
+windows_net = $windows_if:network
+tel_net = $tel_if:network
+</pre></div>
+
+
+<p>I need some tables (don't worry, you'll understand later what purpose
+they have).</p>
+<div class="codehilite"><pre><span></span>table &lt;softvpnfr&gt; { 10.20.20.20 } persist
+table &lt;vpnfr&gt; { $phone } persist
+table &lt;vpnca&gt; { 10.10.10.60 } persist
+table &lt;bypassfr&gt; { 129.128.197.20, 129.128.5.191, 185.19.29.62, 167.114.216.84 } persist
+table &lt;forcevpnfr&gt; { $mrs-fw2 }
+table &lt;nousautres&gt; { 10.0.0.0/8, $home_ip } persist
+</pre></div>
+
+
+<p>Now we can see the ruleset. I let everything from the lan, that doesn't
+go on the router itself or to another lan (so the traffic will need
+another rules to be allowed) come through.</p>
+<div class="codehilite"><pre><span></span>pass in     on $lan_if     from $lan_net     to ! &lt;nousautres&gt;
+pass in     on $wifilap_if from $wifilap_net to ! &lt;nousautres&gt;
+pass in     on $wifitel_if from $wifitel_net to ! &lt;nousautres&gt;
+pass in     on $tel_if     from $tel         to ! &lt;nousautres&gt;
+pass in log on $windows_if proto { tcp, udp } from $windows_net to ! &lt;nousautres&gt;
+</pre></div>
+
+
+<p>I let everything going out</p>
+<div class="codehilite"><pre><span></span>pass out log on $ext_if proto { tcp, udp } all modulate state
+pass out on $vpnfr_if proto { tcp, udp } all modulate state
+pass out on $vpnca_if proto { tcp, udp } all modulate state
+</pre></div>
+
+
+<p>Now's the fun part.</p>
+<ul>
+<li><code>&lt;softvpn&gt;</code> is the hosts that can you the routes pushed by the VPN but
+it doesn't use the VPN as the gw</li>
+<li><code>&lt;vpnfr&gt;</code> and <code>&lt;vpnca&gt;</code> everything from the hosts in it goes through
+the VPN (French or Canadian)</li>
+<li><code>&lt;bypassfr&gt;</code> any traffic to host in the table won't go through the VPN</li>
+<li><code>&lt;forcevpnfr&gt;</code> host that must be accessed through the VPN</li>
+</ul>
+<div class="codehilite"><pre><span></span># disable the use of the routes if you&#39;re not in &lt;softvpn&gt;
+pass in on { $lan_if, $wifilap_if, $wifitel_if, $atlas_if } \
+     from !&lt;softvpnfr&gt; to ! &lt;nousautres&gt;  route-to ($ext_if $home_ip)
+
+# force traffic through the French VPN
+pass in on { $lan_if, $wifilap_if, $wifitel_if, $tel_if } \
+     from &lt;vpnfr&gt; to ! &lt;nousautres&gt; route-to ($vpnfr_if 192.168.125.61)
+
+# traffic to hosts in &lt;bypass&gt; must not go through the VPN
+pass in on { $lan_if, $wifilap_if, $wifitel_if, $tel_if } \
+     from &lt;vpnfr&gt; to &lt;bypassfr&gt; route-to ($ext_if $home_ip)
+
+# force traffic through the Canadian VPN
+pass in on { $lan_if, $wifilap_if, $wifitel_if, $tel_if } \
+     from &lt;vpnca&gt; to ! &lt;nousautres&gt; route-to ($vpnca_if 192.168.251.10)
+
+# traffic from &lt;softvpnfr&gt; to hosts in &lt;forcevpnfr&gt; should really go through the VPN
+pass in on { $lan_if, $wifilap_if, $wifitel_if } \
+     from &lt;softvpnfr&gt; to &lt;forcevpnfr&gt; route-to ($vpnfr_if 192.168.125.61)
+</pre></div>
+
+
+<p>But the real magic with pf, is that I can <strong>very easily</strong> change the
+routing for any host :</p>
+<div class="codehilite"><pre><span></span># if I want everything to go through the Canadian VPN
+root@pancake:~# pfctl -t vpnca -Ta 10.1.2.3
+# or not
+root@pancake:~# pfctl -t vpnca -Td 10.1.2.3
+# through the French VPN
+root@pancake:~# pfctl -t vpnfr -Ta 10.1.2.3
+# ok not everything, just use the route pushed by the VPN
+root@pancake:~# pfctl -t vpnfr -Td 10.1.2.3
+root@pancake:~# pfctl -t softvpn -Ta 10.1.2.3
+</pre></div>
+
+
+<p>That's all! Of course, if anything goes wrong, I have
+<a href="https://chown.me/iota/pics/IMG_0551.JPG">Jean Canard's Advanced Paws System (APS)</a>
+that checks for anything.</p>
+  <br>
+  <footer>
+    <p>This website is best viewed on the exact same screen as mine. <a href="https://github.com/danieljakots/chownmeblog">Source code</a></p>
+  </footer>
+  </div>
+</body>
+</html>

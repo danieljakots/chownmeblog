@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://pre-prod.chown.me/style.css" type="text/css"/>
+  <link rel="stylesheet" href="https://pre-prod.chown.me/pygmentize.css" type="text/css"/>
+  <link rel="icon" type="image/png" href="https://pre-prod.chown.me/favicon.png">
+  <title>Upgrading OpenBSD with Ansible' blog</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <a href="https://pre-prod.chown.me" style="background-color:inherit;"><h1>Hi, I'm Daniel Jakots!</h1></a>
+    <br>
+    <a href="https://pre-prod.chown.me">Home</a>
+    <a href="https://pre-prod.chown.me/about">About</a>
+    <a href="https://px.chown.me">Pictures</a>
+    <a href="https://oldblog.chown.me">Old blog</a>
+    <a href="https://pre-prod.chown.me/blog/feeds/atom.xml">RSS Feed</a>
+  </div>
+  <div class="notsidebar">
+<a href="./upgrading-openbsd-with-ansible"><h1>Upgrading OpenBSD with Ansible</h1></a>
+<p><b>Posted on 2018-10-19</b></p>
+<p>This article is best enjoyed with basic knowledge of <a href="https://man.openbsd.org/autoinstall">OpenBSD
+autoinstall</a> and <a href="https://www.ansible.com/">Ansible</a></p>
+<h2 id="router"><a href="#router">My router runs OpenBSD -current</a></h2>
+<p>A few months ago, I needed software that had just hit the ports tree. I didn't
+want to wait for the next release, so I upgraded my router to use -current.
+Since then, I've continued running -current, which means upgrading to a newer
+snapshot every so often. Running -current is great, but the process of updating
+to a newer snapshot was cumbersome.  Initially, I had to plug in a serial cable
+and then reboot into <em>bsd.rd</em>, hit enter ten times, then reboot, run <code>sysmerge</code>
+and update packages.</p>
+<p>I eventually switched to <a href="https://bitbucket.org/semarie/upobsd">upobsd</a> to be
+able to upgrade without the need for a serial connection. The process was
+better, but still tiresome. Usually, I would prepare the special version of
+<em>bsd.rd</em>, boot on <em>bsd.rd</em>, and do something like wash the dishes in the
+meantime. After about ten minutes, I would dry my hands and then go back to my
+workstation to see whether the <em>bsd.rd</em> part had finished so I could run
+<code>sysmerge</code> and <code>pkg_add</code>, and then return to the dishes while it upgraded
+packages.</p>
+<p>Out of laziness, I thought: "I should automate this," but what happened instead
+is that I simply didn't upgrade that machine very often. (Yes, laziness).  With
+my router out of commission, life is very dull, because it is my gateway to the
+Internet. Even services hosted at my place (like my Mastodon instance) are not
+reachable when the router is down because I use multiple VLANs (so I need the
+router to <em>jump</em> across VLANs).</p>
+<h2 id="ansiblereboot"><a href="#ansiblereboot">Ansible Reboot Module</a></h2>
+<p>I recently got a new job, and one of my first tasks was auditing the <em>Ansible</em>
+roles written by my predecessors. In one role, the machine rebooted and they
+used the
+<a href="https://docs.ansible.com/ansible/2.5/modules/wait_for_module.html"><em>wait_for_connection</em></a>
+module to wait for it to come back up. That sounded quite hackish to me, so out
+of curiosity, I tried to determine whether there was a better way. I also
+thought I might be able to use something similar to further automate my OpenBSD
+upgrades, and wanted to assess the cleanliness of this method. ;-)</p>
+<p>I learned that with the then-upcoming 2.7 Ansible release, a proper <em>reboot</em>
+module would be included. I went to the docs, which stated that for a certain
+parameter:</p>
+<div class="codehilite"><pre><span></span>- On Linux and macOS, this is converted to minutes and
+  rounded down. If less than 60, it will be set to 0.
+- On Solaris and FreeBSD, this will be seconds.
+</pre></div>
+
+
+<p>I took this to mean that there was no support for OpenBSD. I looked at the code
+and, indeed, there was not. However, I believed that it wouldn't be too hard
+to add it. I added the missing pieces for OpenBSD, tested it on my poor Pine64
+and then submitted it upstream. After a quick back and forth, the module's
+author <a href="https://github.com/ansible/ansible/commit/2769a4e2cc3aadbf91e7f4f83ef57b7ebe43442a">merged it into
+devel</a>
+(having a friend working at Red Hat helped the process, merci Cyril !) A couple
+days later, the release engineer <a href="https://github.com/ansible/ansible/commit/26de4f97493adeb388c1c8fad7a266bb7652bac6">merged it into
+stable-2.7</a>.</p>
+<p>I proceeded to actually write the playbook, and then I hit a bug. The parameter
+<em>reboot_timeout</em> was not recognized by Ansible. This feature would definitely
+be useful on a slow machine (such as the Pine64 and its dying SD card). Again,
+my fix was <a href="https://github.com/ansible/ansible/commit/0105b4aeadb94dd12b921ed6c427b21cd31182fa">merged into
+master</a>
+by the module's author and then <a href="https://github.com/ansible/ansible/commit/a0f38bdab5ae0e183cb960fe9e964bf1edf7c326">merged into
+stable-2.7</a>.
+2.7.1 will be the first release to feature these fixes, but if you use OpenBSD
+-current, you already have access to them. I backported the patches when I
+<a href="https://marc.info/?l=openbsd-ports-cvs&amp;m=153994960724056&amp;w=2">updated
+ansible</a>.</p>
+<p>Fun fact about Ansible and reboots: "The win_reboot module was [...] included
+with Ansible 2.1," while for unix systems it wasn't added until 2.7. :D For
+more details, you can read the <a href="http://samdoran.com/ansible-reboot-plugin/">module's author blog
+article</a>.</p>
+<h2 id="playbook"><a href="#playbook">The Playbook</a></h2>
+<p>Initially, my playbook did the upgrade as usual (i.e., it fetched the sets in
+<em>bsd.rd</em>). During this process, of course, my machine is not performing its
+function as a router. My Internet access is not super great, so fetching the
+sets takes awhile. I got frustrated while I was testing it and looked into
+lessening the amount of time spent inside <em>bsd.rd</em>.</p>
+<p>To speed up the process, I wrote <a href="https://chown.me/iota/blog/fetch-sets">a basic shell
+script</a> to fetch the sets <strong>before</strong>
+rebooting into <em>bsd.rd</em>. It enabled me to remove some <em>tasks</em> I had to do in
+order to get working Internet access in <em>bsd.rd</em>. (This is specific to my
+case).</p>
+<h3 id="playbookitself"><a href="#playbookitself">The playbook itself</a></h3>
+<div class="codehilite"><pre><span></span><span class="x">---</span>
+<span class="x">- name: Upgrade OpenBSD</span>
+<span class="x">  hosts: apu-root</span>
+<span class="x">  vars:</span>
+<span class="x">    arch: amd64</span>
+<span class="x">    date: &quot;</span><span class="cp">{{</span> <span class="nv">lookup</span><span class="o">(</span><span class="s1">&#39;pipe&#39;</span><span class="o">,</span> <span class="s1">&#39;date +%Y-%m-%d&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">    disk: &quot;sd0&quot;</span>
+<span class="x">    mirror: &quot;fastly.cdn.openbsd.org&quot;</span>
+<span class="x">    path_sets: &quot;/home/danj/sets&quot;</span>
+
+<span class="x">  tasks:</span>
+<span class="x">    - name: fetch sets</span>
+<span class="x">      command: /home/danj/bin/fetch-sets</span>
+<span class="x">      when: path_sets is defined</span>
+<span class="x">    - name: create answer file for upobsd</span>
+<span class="x">      template:</span>
+<span class="x">        src: answer.j2</span>
+<span class="x">        dest: answer</span>
+<span class="x">      delegate_to: localhost</span>
+<span class="x">    - name: create kernel with upobsd</span>
+<span class="x">      command: &quot;upobsd -v -a </span><span class="cp">{{</span> <span class="nv">arch</span> <span class="cp">}}</span><span class="x"> -u ./answer -m https://</span><span class="cp">{{</span> <span class="nv">mirror</span> <span class="cp">}}</span><span class="x">/pub/OpenBSD -V snapshots&quot;</span>
+<span class="x">      delegate_to: localhost</span>
+<span class="x">    - name: copy bsd.rd created by upobsd</span>
+<span class="x">      copy:</span>
+<span class="x">        src: bsd.rd</span>
+<span class="x">        dest: /bsd</span>
+<span class="x">    - name: reboot host</span>
+<span class="x">      reboot:</span>
+<span class="x">        msg: &quot;rebooting into bsd.rd to upgrade&quot;</span>
+<span class="x">        reboot_timeout: 900</span>
+<span class="x">    - name: archive kernel</span>
+<span class="x">      copy:</span>
+<span class="x">        src: &quot;/bsd&quot;</span>
+<span class="x">        dest: &quot;/bsd-</span><span class="cp">{{</span> <span class="nv">date</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">        mode: 0700</span>
+<span class="x">        remote_src: &quot;yes&quot;</span>
+<span class="x">    - name: upgrade all packages</span>
+<span class="x">      command: &quot;pkg_add -u -Dsnap&quot;</span>
+</pre></div>
+
+
+<h3 id="answerfile"><a href="#answerfile">The answer file</a></h3>
+<p>The answer file is automatically <a href="https://github.com/openbsd/src/blob/master/distrib/miniroot/install.sub#L2811-L2812">mailed to root at the end of the
+upgrade</a>,
+so it's easy to get it!</p>
+<p>In my case, the answer file transformed into a jinja2 template is:</p>
+<div class="codehilite"><pre><span></span><span class="x">Which disk is the root disk = sd0</span>
+<span class="x">Force checking of clean non-root filesystems = no</span>
+<span class="cp">{%</span> <span class="k">if</span> <span class="nv">path_sets</span> <span class="k">is</span> <span class="nf">defined</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">Location of sets = disk</span>
+<span class="x">Is the disk partition already mounted = yes</span>
+<span class="x">Pathname to the sets = </span><span class="cp">{{</span> <span class="nv">path_sets</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">Location of sets = http</span>
+<span class="x">HTTP proxy URL = none</span>
+<span class="x">HTTP Server = </span><span class="cp">{{</span> <span class="nv">mirror</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">Server directory = pub/OpenBSD/snapshots/</span><span class="cp">{{</span> <span class="nv">arch</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">Set name(s) = done</span>
+<span class="x">Location of sets = done</span>
+</pre></div>
+
+
+<h3 id="explanations"><a href="#explanations">The explanations</a></h3>
+<p>Ansible runs my script on the remote host to fetch the sets. It creates an
+answer file from the template and then gives it to <em>upobsd</em>. Once <em>upobsd</em> has
+created the kernel, Ansible copies it in place of <code>/bsd</code> on the host. The
+router reboots and boots on <code>/bsd</code>, which is upobsd's <em>bsd.rd</em>. The <em>installer</em>
+runs in <em>auto_update</em> mode. Once it comes back from <em>bsd.rd</em> land, it archives
+the kernel and finishes by upgrading all the packages.</p>
+<p>It also supports upgrading without fetching the sets ahead of time. For
+instance, I upgrade this way on my Pine64 because if I cared about speed, I
+wouldn't use this weak computer with its dying SD card. For this case, I just
+comment out the <em>path_sets</em> variable and Ansible instead creates an answer file
+that will instruct the installer to fetch the sets from the designated mirror.</p>
+<p>I've been archiving my kernels for a few years. It's a nice way to <strike>fill
+up /</strike> keep a history of my upgrades. If I spot a regression, I can
+try a previous kernel ... which may not work with the then-desynchronized
+<em>userland</em>, but that's another story.</p>
+<p><code>sysmerge</code> already runs with
+<a href="https://github.com/openbsd/src/blob/master/etc/rc#L579-L580">rc.sysmerge</a> in
+batch mode and sends the result by email. I don't think there's merit to
+running it again in the playbook. The only perk would be discovering <strong>in the
+terminal</strong> whether any files need to be manually merged, rather than reading
+exactly the same output in the email.</p>
+<p>Initially, I used the <em>openbsd_pkg</em> module, but it doesn't work on -current
+just <strong>before</strong> a release because <code>pkg_add</code> automatically looks for
+<em>pub/OpenBSD/${release}/packages/${arch}</em> (which is empty). I wrote and tested
+this playbook while 6.4 was around the corner, so I switched to <em>command</em> to be
+able to pass the <code>-Dsnap</code> parameter.</p>
+<h2 id="result"><a href="#result">The result</a></h2>
+<p>I'm very happy with the playbook! It performs the upgrade with as little
+intervention as possible and minimal downtime. \o/</p>
+<p><br/></p>
+<p><em>Thanks <a href="https://bsd.network/@pamela">Pamela</a> for the proof-reading!</em></p>
+  <br>
+  <footer>
+    <p>This website is best viewed on the exact same screen as mine. <a href="https://github.com/danieljakots/chownmeblog">Source code</a></p>
+  </footer>
+  </div>
+</body>
+</html>

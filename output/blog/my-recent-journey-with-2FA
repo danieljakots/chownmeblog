@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://pre-prod.chown.me/style.css" type="text/css"/>
+  <link rel="stylesheet" href="https://pre-prod.chown.me/pygmentize.css" type="text/css"/>
+  <link rel="icon" type="image/png" href="https://pre-prod.chown.me/favicon.png">
+  <title>My recent journey with 2FA' blog</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <a href="https://pre-prod.chown.me" style="background-color:inherit;"><h1>Hi, I'm Daniel Jakots!</h1></a>
+    <br>
+    <a href="https://pre-prod.chown.me">Home</a>
+    <a href="https://pre-prod.chown.me/about">About</a>
+    <a href="https://px.chown.me">Pictures</a>
+    <a href="https://oldblog.chown.me">Old blog</a>
+    <a href="https://pre-prod.chown.me/blog/feeds/atom.xml">RSS Feed</a>
+  </div>
+  <div class="notsidebar">
+<a href="./my-recent-journey-with-2FA"><h1>My recent journey with 2FA</h1></a>
+<p><b>Posted on 2017-02-26</b></p>
+<h2 id="2FA"><a href="#2FA">2FA</a></h2>
+<p>Of course by 2FA I mean
+<a href="https://en.wikipedia.org/wiki/Multi-factor_authentication">two-factor authentication</a>.</p>
+<p>I've been using that for a long time for ssh with
+<a href="./yubikey-en.html">my yubikey on OpenBSD</a> but I've never enabled 2FA
+on the online services I use. The main reason for not doing it before was
+that I thought that my phone had to play a central role (which in fact
+is not much the case). While it's the most critical device I have, my
+phone is the device I trust the least.</p>
+<p>However, yesterday I saw a comment on lobste.rs asking about
+<a href="https://lobste.rs/s/1cyltz/two_factor_authentication_now_available/comments/a9xvvg#c_a9xvvg">how to use TOTP on OpenBSD</a>.
+In addition to that, I guess seeing
+<a href="https://blog.cloudflare.com/incident-report-on-memory-leak-caused-by-cloudflare-parser-bug/">what happened to cloudflare</a>
+and everything what's happening if you want to cross the US border
+made me more interested in 2FA than before.</p>
+<p>So I began to look into how it works.</p>
+<h2 id="how"><a href="#how">How it works</a></h2>
+<p>The concept of 2FA is that you may lose your password (or your ssh
+key) and in that case the person who takes control of it can
+successfully impersonate you. The goal is that a login system will
+require something else to verify that it's really you.</p>
+<p>One way to achieve this is to use SMS but that sucks: <a href="http://www.baltimoresun.com/features/baltimore-insider-blog/bal-black-lives-matter-activist-deray-mckesson-s-twitter-hacked-friday-morning-20160610-story.html">circumventing it
+is not even restricted to Nation State Actors</a>.</p>
+<p>Another can be something biometric but then users need to access to a
+scanner which is quite impractical in every day life. Even if iPhones
+have a fingerprint reader, it's not usable by third parties.</p>
+<p>It must be something that keeps changing otherwise it's both
+subject to replay attack and it's just another password.</p>
+<p>Here comes the OTP.</p>
+<h2 id="OTP"><a href="#OTP">One Time Password</a></h2>
+<p>One Time Password was defined in
+<a href="https://tools.ietf.org/html/rfc2289">RFC2289</a> (which is quite old:
+February 1998). Then they made HOTP (H is for <em>HMAC-Based</em>) in
+<a href="https://tools.ietf.org/html/rfc4226">RFC4226</a> and finally the TOTP (T
+is for <em>Time-Based</em>) in <a href="https://tools.ietf.org/html/rfc6238">RFC</a>
+which is an extension of the HOTP to support the time-based moving
+factor.</p>
+<p>To understand in more details you can either read in the RFC4226
+<a href="https://tools.ietf.org/html/rfc4226#page-7">5.4.  Example of HOTP Computation for Digit = 6</a>
+and then the short RFC6238 or you can just read this <a href="https://pthree.org/2014/04/15/time-based-one-time-passwords-how-it-works/">random blog
+article on the Internet which explains clearly the same thing</a>.</p>
+<h3 id="tldr"><a href="#tldr">tl;dr</a></h3>
+<p>There's a secret shared and then you compute the HMAC-SHA1 of the
+shared secret and epoch.</p>
+<h3 id="sha1"><a href="#sha1">Wait, did you just say sha1?!?1?</a></h3>
+<p>Even if there's now a sha1 collision, it's not really a problem. To
+quote Schneier: "[collision] pretty much puts a bullet into
+SHA-1 as a hash function for digital signatures (although it doesn't
+affect applications such as HMAC where collisions aren't important)."
+(<a href="https://www.schneier.com/blog/archives/2005/02/sha1_broken.html">source</a>)</p>
+<p>And for a more complete answer, see this
+<a href="http://crypto.stackexchange.com/questions/26510/why-is-hmac-sha1-still-considered-secure">answer</a>.</p>
+<h2 id="howuse"><a href="#howuse">How to use it</a></h2>
+<h3 id="lockedout"><a href="#lockedout">Don't be locked out</a></h3>
+<p>I wanted to use my phone (something distinct that my computer to
+compartment things a bit). Obviously the goal is to secure your
+account without losing it so that means that losing your phone
+shouldn't prevent you to retrieve access to your accounts. Unusable
+security is unusable.</p>
+<p>If you read about 2FA, you'll see that some services that provide it,
+give you some backup code to not to be locked out. But I don't want to
+locked out from services don't provide backup codes either.</p>
+<p>So my phone must not be a single point of failure.</p>
+<p>We saw earlier that {T,H}OTP are based on a shared secret so let's
+backup it.</p>
+<h3 id="backups"><a href="#backups">Backuping shared secrets and backup codes</a></h3>
+<p>For my regular passwords, I use keepassx which is shared/backuped across my
+different computers. I created another database to store those. Of
+course you shouldn't use the same database to keep your passwords and the
+other secrets in case of you leak one of the two database's password.</p>
+<h3 id="clients"><a href="#clients">Clients</a></h3>
+<h4 id="android"><a href="#android">Android phone</a></h4>
+<p>Now that I'm ready to activate 2FA, let's see how to use it. The plan
+is to use my android phone. On the
+<a href="https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm">Time-based One-time Password Algorithm Wikipedia page</a>
+there was a list of clients but sadly it was deleted.
+You can still find it
+<a href="https://en.wikipedia.org/w/index.php?title=Time-based_One-time_Password_Algorithm&amp;oldid=724156353#Client_implementations">in the history</a>.</p>
+<p>I wanted a FOSS application and Google Authenticator is now closed
+source so I went with FreeOTP which is not completely dead compared to
+others (but it's not thriving either), so far it works good.</p>
+<h4 id="OpenBSD"><a href="#OpenBSD">OpenBSD</a></h4>
+<p>In the case I don't have a phone, I still want to be able to
+log in my different accounts. In the lobste.rs' link that I gave at the
+beginning of this article, someone mentioned oath-toolkit which works
+very easily:</p>
+<div class="codehilite"><pre><span></span>$ oathtool --totp -b deafcafe
+<span class="m">405723</span>
+</pre></div>
+
+
+<p>(with deafcafe being the shared secret).</p>
+<h2 id="activation"><a href="#activation">Activating it</a></h2>
+<p>Now that we're ready to use it, let's do it. So where to activate
+it? Actually, there's <a href="https://twofactorauth.org/">a cool site</a> that
+lists services that provide or not (and then you can shame them on
+twitter) 2FA with a link to the service's documentation.</p>
+<h3 id="feedback"><a href="#feedback">My Feedback</a></h3>
+<p>So far I activated 2FA on about half a dozen of website. The first one was
+the <a href="https://www.ripe.net/">RIPE NCC</a> (if you don't want people to
+steal your precious IP addresses and/or your atlas credit) and it was
+actually a good one to try it.</p>
+<p>To activate it usually the website gives you a qrcode which is in fact
+just a URL looking like:</p>
+<div class="codehilite"><pre><span></span>otpauth://totp/Example:foo@example.com?secret=DEAFCAFE&amp;issuer=Example
+</pre></div>
+
+
+<p>which is fine for my phone but sadly my eyes can't decode qrcode and I
+need the shared secret to put it my keepassx. Most of the time
+websites gives you by default the qrcode but also gives you the
+possibility to access the shared secret.</p>
+<p>For now, everything works fine, I use my phone to unlock my different
+accounts and if anything happens to it, I can just unlock my second
+keepassx database and use oathtool (or use a backup code) to get my
+account back.</p>
+  <br>
+  <footer>
+    <p>This website is best viewed on the exact same screen as mine. <a href="https://github.com/danieljakots/chownmeblog">Source code</a></p>
+  </footer>
+  </div>
+</body>
+</html>

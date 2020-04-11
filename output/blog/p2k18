@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://pre-prod.chown.me/style.css" type="text/css"/>
+  <link rel="stylesheet" href="https://pre-prod.chown.me/pygmentize.css" type="text/css"/>
+  <link rel="icon" type="image/png" href="https://pre-prod.chown.me/favicon.png">
+  <title>Hackathon report - p2k18' blog</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <a href="https://pre-prod.chown.me" style="background-color:inherit;"><h1>Hi, I'm Daniel Jakots!</h1></a>
+    <br>
+    <a href="https://pre-prod.chown.me">Home</a>
+    <a href="https://pre-prod.chown.me/about">About</a>
+    <a href="https://px.chown.me">Pictures</a>
+    <a href="https://oldblog.chown.me">Old blog</a>
+    <a href="https://pre-prod.chown.me/blog/feeds/atom.xml">RSS Feed</a>
+  </div>
+  <div class="notsidebar">
+<a href="./p2k18"><h1>Hackathon report - p2k18</h1></a>
+<p><b>Posted on 2018-05-03</b></p>
+<p>After two mostly boring flights, I was in Nantes on Sunday. I didn't do much
+because I wanted to get some rest after an exhausting week and tried to get my
+body into this new timezone. After a long night of sleep, I went to the hackroom.
+It was already well crowded for the first morning.</p>
+<p>On Friday the week before, I asked my boss at 5 pm if I had to take days off. He said
+"no" as a way to support my work on Open Source—it had been the same for
+<a href="./t2k17.html">t2k17</a>. I made a deal with myself that I would finish what I was
+working on for a customer instead of asking my coworker. So a large part of my
+Monday was finishing that stuff. Still, <a href="https://github.com/openbsd/ports/commit/a322d2ddc88df925eb9c719578e9f6aca0096298">I updated a port I maintain,
+pqiv</a>.
+I received a <a href="https://chown.me/iota/dmesg/dmesg-x1.txt">generous donation</a> from <a href="https://twitter.com/mischapeters">Mischa
+Peters</a> so I installed OpenBSD on it (thanks
+to jasper@ for carrying it!).</p>
+<p>Installing OpenBSD was not that trivial because I didn't have any USB key and
+the wired NIC required an adapter which I didn't have and the wifi NIC required
+a firmware to work. Thanks to <a href="https://twitter.com/poolporg">our marvelous
+organizer</a> for providing me a USB key and stsp@ for
+lending me a USB NIC (which later <a href="https://undeadly.org/cgi?action=article;sid=20180430190108">krw@ used to debug a dhclient
+bug</a>!). After that,
+I installed the packages I use, rsync'ed my home from my work laptop I was
+using until then like a lil' pig and felt immediately at home!</p>
+<p>I really begin the ports hackathon on Tuesday when I committed an update for
+py-setuptools. I had already <a href="./b2k16.html">updated them</a> 18 months ago. It was
+easy to do it because I already did all the work a few weeks ago. My plan was
+to commit it before the hackathon but the clang6 fallout decided otherwise. I
+needed this setuptools to port upt. <a href="https://framagit.org/upt">upt</a> is a
+"modular tool that helps people package software from PyPI/CPAN/etc. to
+OpenBSD/GNU Guix/etc". It's made by a <a href="https://perso.aquilenet.fr/~steap/">very good friend of
+mine</a> so I sent him a bunch of <a href="https://framagit.org/upt/upt-rubygems/commit/ccb5c2c1f9df2c383a02b2297f0354c3692757b4">really
+nice</a>
+<a href="https://framagit.org/upt/upt-cpan/commit/893ef4aed42a121fb2adb6412dd9c91f81a8e8f0">diffs</a>.</p>
+<p>I imported spdx and spdx-lookup which are a database of licenses and a tool to
+query it. That's the tool upt is using to
+<a href="https://framagit.org/upt/upt/blob/master/upt/licenses.py#L702">guess</a> the
+license used. Then, I decided to call it a day. The morning was stressful, and rain was forecasted for the next few days. This pushed me to go see the city. I went to
+see <a href="https://www.lesmachines-nantes.fr/en/"><em>Les Machines De L'Île</em></a>. Sadly the
+Elephant was sick so I couldn't ride him. He was fine enough to spit water on
+kids though. What makes me even sadder is that I didn't photograph the
+billboard saying it was sick. It would have been such a cool error page
+for when PostgreSQL is down!</p>
+<p>I also visited <em>Le Chateau des Ducs de Bretagne</em> and <em>Le Jardin des Plantes</em>
+which both were awesome with the nice blue sky I had. It was also funny to
+notice that the people of Nantes try to trick people, with putting "de Bretagne"
+in various names, into thinking that Nantes is in Bretagne while it is not.
+Yup, I'm pretty happy to have a static blog without any comments system so
+there won't be any hateful reactions visible here :-)</p>
+<p>Once I got back to the hackroom, I review-n-committed a couple of diffs for
+python ports. I updated again pqiv as they released another bugfix release and
+did some reviews for the <a href="https://undeadly.org/cgi?action=article;sid=20180429101745">boar port from solene@</a>.</p>
+<p>I spent Wednesday only doing reviews for other devs—facette, influxdb for
+landry@, and several python ports for pvk@. At 5 pm I was fed up, so I went to
+the supermarket and bought some Belgian beers (<em>Trappe Quadrupel</em> and
+<em>Westmalle</em> mainly but also some <em>Chimay</em>). Once drunk I went to play ping-pong
+with other French hackers. A few hours—and less alcohol in my blood—later, I
+finally updated my main server to OpenBSD 6.3 which went fine.</p>
+<p>I also looked at setting <code>PORTS_PRIVSEP=Yes</code> being one of the <a href="https://undeadly.org/cgi?action=article;sid=20180429190200">"new
+converts"</a>, but I
+had some <a href="https://marc.info/?l=openbsd-ports-cvs&amp;m=152466817003263&amp;w=2">problems</a>
+(this commit message actually makes me laugh so much) so I eventually decided to
+rollback. Now, however, I know which permissions to set if I want to enable it
+again so that's cool!</p>
+<p>Thursday was low-hanging-fruit day. One of the commits renamed a package and so
+I needed to add a quirks entry. I did all of it on my own and I was glad to see
+how much more comfortable I was after two years (I got my <em>commit bit</em> shortly
+before p2k16 which happened 2 years ago).</p>
+<p>Until Friday, I didn't submit upt because I was waiting for Cyril to send an
+email about it. He finally sent
+<a href="https://marc.info/?l=openbsd-ports&amp;m=152478073001511&amp;w=2">it</a> so I submitted
+it while replying to his email. I had already talked about it to landry@
+because he wanted to port a dozen of python ports. I told him this tool
+could help him so he was eager to try it. I finally imported it after a couple
+of back and forth between landry@ and I.</p>
+<p>Saturday was my last day as I was traveling on Sunday. I reviewed
+collectd/liboping for landry@, looked at the new
+<a href="https://www.palletsprojects.com/blog/flask-1-0-released/">Flask</a>. During
+p2k16, I talked with eric@ about ports where he was listed as maintainer. This
+time I succeeded in convincing him that his time was better spent on OpenSMTPD so
+there was no need to for him to be listed as maintainer. My final commit for
+p2k18 was freeing him from the ports tree :-) </p>
+<p>A while ago, I bought two <a href="./playing-with-the-pine64.html">pine64</a> but they
+were not that useful for my use cases—too slow and unreliable. For a few weeks,
+semarie was using one of them remotely to work on rust/arm64. But when it
+stopped working, I had to investigate which didn't please my laziness. I offered
+him to take one and give it to him. He gladly accepted and then it was quickly <a href="https://marc.info/?l=openbsd-bugs&amp;m=152526381422932&amp;w=2">put to
+use</a>!</p>
+<p>It was very nice to see Nantes and my fellow OpenBSD hackers again. I could commit
+the diffs I had for a few weeks and reviewed some submissions that enhance what
+you can <code>pkg_add</code> on OpenBSD. Thanks to gilles@ for all the organization and to
+Epitech for hosting us again and to the OpenBSD Foundation for the fundings!</p>
+  <br>
+  <footer>
+    <p>This website is best viewed on the exact same screen as mine. <a href="https://github.com/danieljakots/chownmeblog">Source code</a></p>
+  </footer>
+  </div>
+</body>
+</html>

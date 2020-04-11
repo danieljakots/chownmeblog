@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://pre-prod.chown.me/style.css" type="text/css"/>
+  <link rel="stylesheet" href="https://pre-prod.chown.me/pygmentize.css" type="text/css"/>
+  <link rel="icon" type="image/png" href="https://pre-prod.chown.me/favicon.png">
+  <title>Locking OpenBSD when it's sleeping' blog</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <a href="https://pre-prod.chown.me" style="background-color:inherit;"><h1>Hi, I'm Daniel Jakots!</h1></a>
+    <br>
+    <a href="https://pre-prod.chown.me">Home</a>
+    <a href="https://pre-prod.chown.me/about">About</a>
+    <a href="https://px.chown.me">Pictures</a>
+    <a href="https://oldblog.chown.me">Old blog</a>
+    <a href="https://pre-prod.chown.me/blog/feeds/atom.xml">RSS Feed</a>
+  </div>
+  <div class="notsidebar">
+<a href="./locking-openbsd-when-sleeping"><h1>Locking OpenBSD when it's sleeping</h1></a>
+<p><b>Posted on 2018-10-08</b></p>
+<p>I frequent the #openbsd IRC channel in order to help people. A question
+commonly asked is how to automatically lock your machine when
+putting it to sleep with zzz(1). I answered this question in a
+previous article (which was actually written four years ago; time flies!) but
+it was written in French, so here's a new one, also covering additional related topics.</p>
+<h2 id="locking"><a href="#locking">Locking the machine when it is put to sleep</a></h2>
+<p>If you read <a href="https://man.openbsd.org/apmd.8">apmd(8)</a>:</p>
+<div class="codehilite"><pre><span></span>FILES
+     /etc/apm/suspend
+     /etc/apm/hibernate
+     /etc/apm/standby
+     /etc/apm/resume
+     /etc/apm/powerup
+     /etc/apm/powerdown    These files contain the host&#39;s customized actions.
+                           Each file must be an executable binary or shell
+                           script.  A single program or script can be used to
+                           control all transitions by examining the name by
+                           which it was called, which is one of suspend,
+                           hibernate, standby, resume, powerup, or powerdown.
+</pre></div>
+
+
+<p>The trick is to write a script for 'etc/apm/suspend' to run when zzz is called
+(either directly or by <a href="https://github.com/openbsd/src/blob/master/etc/etc.amd64/sysctl.conf#L3">closing the
+lid</a>).
+For instance, the script I'm using is:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/sh</span>
+doas -u danj env <span class="nv">DISPLAY</span><span class="o">=</span>:0 <span class="nv">XAUTHORITY</span><span class="o">=</span>/home/danj/.Xauthority xlock <span class="p">&amp;</span>
+</pre></div>
+</td></tr></table>
+
+<p>It requires:</p>
+<ul>
+<li>configuring doas, <em>left as an exercise to the reader</em> ;)</li>
+<li>running apmd (hashtag rcctl)</li>
+<li>an executable script</li>
+</ul>
+<h2 id="lockingfurther"><a href="#lockingfurther">Locking it further</a></h2>
+<p>This is off to a good start, but if you are a <em>startx</em> user (versus using xenodm), be sure to run <code>exec startx</code> and not just <code>startx</code>. Otherwise, it is possible to kill X and then access the shell.</p>
+<p>If you don't set a maximum lifetime for your <code>ssh-agent</code>, you should clear your identities using <code>ssh-add -D</code>. You should also revoke any <code>sudo</code> permissions with <code>sudo -K</code>. <code>doas</code> doesn't work the same way, so <code>doas -L</code> won't help you much. (You have elevated permissions only in the current shell, not account-wide).</p>
+<p>You might want to clear your clipboards, as well. Use something like: <code>xsel -c -p; xsel -c -s; xsel -c -b</code>.</p>
+<p>Of course, if you use other authentication mechanisms (GNOME keyring, ssh's
+Control*, etc.), you should handle those as well.</p>
+<h2 id="cat"><a href="#cat">Beware of the cat</a></h2>
+<p>Now that I have a <a href="https://awoo.chown.me/@jeancanard">Captive Advanced
+Threat</a>, I feel the need to automatically lock the screen after it has been idle for a short while. You can achieve this using <code>xidle</code>. The <a href="https://man.openbsd.org/xidle.1">man
+page</a> is sufficiently descriptive that I won't talk about that further.</p>
+<p><br/></p>
+<p><em>Thanks <a href="https://maly.io/@semarie">semarie</a> for the technical proof-reading and <a href="https://bsd.network/@pamela">Pamela</a> for the English proof-reading!</em></p>
+  <br>
+  <footer>
+    <p>This website is best viewed on the exact same screen as mine. <a href="https://github.com/danieljakots/chownmeblog">Source code</a></p>
+  </footer>
+  </div>
+</body>
+</html>
