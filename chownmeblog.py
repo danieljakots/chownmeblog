@@ -17,7 +17,7 @@ CONTENT_PATH = "content/*"
 SITE = {}
 SITE["author"] = "Daniel Jakots"
 SITE["name"] = SITE["author"]
-SITE["url"] = "https://oldblog.chown.me"
+SITE["url"] = "https://chown.me"
 OUTPUT_DIR = "output"
 
 
