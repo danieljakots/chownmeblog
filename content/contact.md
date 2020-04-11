@@ -3,8 +3,8 @@ Date: nope
 Category: othercontent
 
 Please refrain from contacting me for any offer. I'm not interested in linking any
-of your shitty content anywhere in my web presence nor in whatever that
-includes the words "guests posts".
+of your shitty content anywhere in my web presence nor I want to hear about
+anything that includes the words "guest post".
 
 If you are friendly and not seeking profit, you can contact me by email with
 the local part being "blog". Otherwise you can `/query` me on irc under the
