@@ -110,7 +110,7 @@ def main():
         feed_items.append(
             create_feed_item(
                 article["title"],
-                f"{SITE['url']}/{article['file']}",
+                f"{SITE['url']}/blog/{article['file']}",
                 date,
                 article["html"],
             )
