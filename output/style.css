@@ -4,7 +4,7 @@ h1,h2,h3{line-height:1.2;text-align:left}
 h1{text-transform:uppercase;color:#CD0006}
 a:link{color:#CD0006;text-decoration:none;}
 a:hover{text-decoration:underline;}
-.sidebar{padding-top: 100px;width:280px;background-color:#8f0006;position:fixed;height:100%;overflow:auto;text-align:center;top:0}
+.sidebar{padding-top: 80px;width:280px;background-color:#8f0006;position:fixed;height:100%;overflow:auto;text-align:center;top:0}
 .sidebar h1{padding:0 15px 0;color:white;font-size:24px;text-align:center}
 .sidebar a{display:block;color:white;padding:18px;}
 .sidebar a:hover{background-color:#CD0006;text-decoration: none}
