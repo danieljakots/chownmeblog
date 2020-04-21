@@ -22,19 +22,20 @@
   <div class="notsidebar">
 <a href="./contact"><h1>Contact</h1></a>
 <br>
-<p>Please refrain from contacting me for any offer. I'm not interested in linking any
-of your shitty content anywhere in my web presence nor I want to hear about
-anything that includes the words "guest post".</p>
-<p>If you are friendly and not seeking profit, you can contact me by email with
-the local part being "blog". Otherwise you can <code>/query</code> me on irc under the
-nick Vigdis (but I may be connected only to freenode). I'm also on the
-<a href="https://awoo.chown.me/@vigdis">fediverse</a>.</p>
-<p>While I have a twitter account, it is not actively monitored so for emergency,
-please dial 911 or the <a href="https://en.wikipedia.org/wiki/Emergency_telephone_number">appropriate
+<p>Please refrain from contacting me with offers. I'm not interested in linking to
+any of your shitty content as part of my web presence, nor do I want to receive
+anything that includes the words "guest post."</p>
+<p>If you are friendly and not seeking profit, you can contact me by email, using
+"blog" as the
+<a href="https://en.wikipedia.org/wiki/Email_address#Local-part">local-part</a>. Otherwise
+you can <code>/query</code> me on irc under the nick Vigdis (but I may be connected only
+to freenode). I'm also on the <a href="https://awoo.chown.me/@vigdis">fediverse</a>.</p>
+<p>While I have a twitter account, it is not actively monitored, so for
+emergencies, please dial 911 or the <a href="https://en.wikipedia.org/wiki/Emergency_telephone_number">appropriate
 number</a>.</p>
   <br>
   <footer>
-    <p>This website is best viewed on the exact same screen as mine. <a href="https://github.com/danieljakots/chownmeblog">Source code</a></p>
+    <p>This website is best viewed on a screen identical to my own. <a href="https://github.com/danieljakots/chownmeblog">Source code</a></p>
   </footer>
   </div>
 </body>
