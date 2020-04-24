@@ -82,7 +82,7 @@ def create_feed():
         title=SITE["name"],
         link=f'{SITE["url"]}/',
         feed_url=f'{SITE["url"]}/{SITE["feed_path"]}',
-        description=f"RSS feed for {SITE['url']}",
+        description=f"Feed for {SITE['url']}",
     )
 
 

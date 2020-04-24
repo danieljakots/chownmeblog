@@ -1,7 +1,7 @@
 # chown.me blog
 
 This repository contains everything (articles in markdown, script to make
-the html + RSS feeds, the CSS, and the results).
+the html + feeds, the CSS, and the results).
 
 # Requirements
 
