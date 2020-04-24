@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Daniel Jakots</title><link>https://pre-prod.chown.me</link><description>RSS feed for https://pre-prod.chown.me</description><language>en-US</language><lastBuildDate>Tue, 21 Apr 2020 10:50:53 GMT</lastBuildDate><generator>rfeed v1.1.1</generator><docs>https://github.com/svpino/rfeed/blob/master/README.md</docs><item><title>How I accidentally wrote a static site generator</title><link>https://pre-prod.chown.me/blog/pics2html</link><description>&lt;h2 id="context"&gt;&lt;a href="#context"&gt;Some context first&lt;/a&gt;&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Daniel Jakots</title><link href="https://pre-prod.chown.me/" rel="alternate"></link><link href="https://pre-prod.chown.me/blog/feeds/atom.xml" rel="self"></link><id>https://pre-prod.chown.me/</id><updated>2020-04-08T10:00:00Z</updated><entry><title>How I accidentally wrote a static site generator</title><link href="https://pre-prod.chown.me/blog/pics2html" rel="alternate"></link><published>2020-04-08T10:00:00Z</published><updated>2020-04-08T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2020-04-08:/blog/pics2html</id><summary type="html">&lt;h2 id="context"&gt;&lt;a href="#context"&gt;Some context first&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;I bought my
 &lt;a href="https://en.wikipedia.org/wiki/Digital_single-lens_reflex_camera"&gt;DSLR&lt;/a&gt; at the
 end of 2014. I wanted to host the resulting pictures somewhere. I never liked
@@ -94,7 +94,7 @@ discovered that creating a RSS feed is actually not that hard, etc). I'm really
 happy with how the website looks. Doing web design is completely out of the
 ordinary for me, so it was nice to do something different!&lt;/p&gt;
 &lt;p&gt;And it's funny... I do things that are 1000x times more complicated, but
-generating 200 html files with a single command really feels like magic!&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Wed, 08 Apr 2020 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/pics2html</guid></item><item><title>My infrastructure as of 2019</title><link>https://pre-prod.chown.me/blog/infrastructure-2019</link><description>&lt;p&gt;I've wanted to write about my infrastructure for a while, but I kept thinking,
+generating 200 html files with a single command really feels like magic!&lt;/p&gt;</summary></entry><entry><title>My infrastructure as of 2019</title><link href="https://pre-prod.chown.me/blog/infrastructure-2019" rel="alternate"></link><published>2020-03-06T10:00:00Z</published><updated>2020-03-06T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2020-03-06:/blog/infrastructure-2019</id><summary type="html">&lt;p&gt;I've wanted to write about my infrastructure for a while, but I kept thinking,
 "I'll wait until after I've done $next_thing_on_my_todo." Of course this cycle
 never ends, so I decided to write about its state at the end of 2019. Maybe
 I'll write an update on it in a couple of moons; who knows?&lt;/p&gt;
@@ -279,7 +279,7 @@ lists of threats.&lt;/p&gt;
 course, and it's a perpetual work in progress. But it's stable, and usually the
 most I need to do is quickly patch some security vulnerabilities.  Since most
 of the resources I use come from reused computers hosted at my place, I'm able
-to keep the cost (both financial and ecological) really low.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Fri, 06 Mar 2020 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/infrastructure-2019</guid></item><item><title>Launching my newsletter</title><link>https://pre-prod.chown.me/blog/launching-my-newsletter</link><description>&lt;h2 id="socialmedia"&gt;&lt;a href="#socialmedia"&gt;Social media&lt;/a&gt;&lt;/h2&gt;
+to keep the cost (both financial and ecological) really low.&lt;/p&gt;</summary></entry><entry><title>Launching my newsletter</title><link href="https://pre-prod.chown.me/blog/launching-my-newsletter" rel="alternate"></link><published>2019-01-25T10:00:00Z</published><updated>2019-01-25T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2019-01-25:/blog/launching-my-newsletter</id><summary type="html">&lt;h2 id="socialmedia"&gt;&lt;a href="#socialmedia"&gt;Social media&lt;/a&gt;&lt;/h2&gt;
 &lt;h3 id="blogging"&gt;&lt;a href="#blogging"&gt;Blogging...&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I created this blog a few years ago because I wanted to talk about the stuff I
 was experimenting with, and in my opinion it was cool to have a blog. I still have
@@ -339,7 +339,7 @@ subsequent ones. (Maybe the previous one?)&lt;/p&gt;
 &lt;p&gt;If you're curious about this experiment and want to be part of it, please send an email
 to newsletter at chown dot me!&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Fri, 25 Jan 2019 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/launching-my-newsletter</guid></item><item><title>Upgrading OpenBSD with Ansible</title><link>https://pre-prod.chown.me/blog/upgrading-openbsd-with-ansible</link><description>&lt;p&gt;This article is best enjoyed with basic knowledge of &lt;a href="https://man.openbsd.org/autoinstall"&gt;OpenBSD
+&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>Upgrading OpenBSD with Ansible</title><link href="https://pre-prod.chown.me/blog/upgrading-openbsd-with-ansible" rel="alternate"></link><published>2018-10-19T10:00:00Z</published><updated>2018-10-19T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-10-19:/blog/upgrading-openbsd-with-ansible</id><summary type="html">&lt;p&gt;This article is best enjoyed with basic knowledge of &lt;a href="https://man.openbsd.org/autoinstall"&gt;OpenBSD
 autoinstall&lt;/a&gt; and &lt;a href="https://www.ansible.com/"&gt;Ansible&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id="router"&gt;&lt;a href="#router"&gt;My router runs OpenBSD -current&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;A few months ago, I needed software that had just hit the ports tree. I didn't
@@ -511,7 +511,7 @@ able to pass the &lt;code&gt;-Dsnap&lt;/code&gt; parameter.&lt;/p&gt;
 &lt;p&gt;I'm very happy with the playbook! It performs the upgrade with as little
 intervention as possible and minimal downtime. \o/&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Fri, 19 Oct 2018 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/upgrading-openbsd-with-ansible</guid></item><item><title>Locking OpenBSD when it's sleeping</title><link>https://pre-prod.chown.me/blog/locking-openbsd-when-sleeping</link><description>&lt;p&gt;I frequent the #openbsd IRC channel in order to help people. A question
+&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>Locking OpenBSD when it's sleeping</title><link href="https://pre-prod.chown.me/blog/locking-openbsd-when-sleeping" rel="alternate"></link><published>2018-10-08T10:00:00Z</published><updated>2018-10-08T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-10-08:/blog/locking-openbsd-when-sleeping</id><summary type="html">&lt;p&gt;I frequent the #openbsd IRC channel in order to help people. A question
 commonly asked is how to automatically lock your machine when
 putting it to sleep with zzz(1). I answered this question in a
 previous article (which was actually written four years ago; time flies!) but
@@ -560,7 +560,7 @@ Control*, etc.), you should handle those as well.&lt;/p&gt;
 Threat&lt;/a&gt;, I feel the need to automatically lock the screen after it has been idle for a short while. You can achieve this using &lt;code&gt;xidle&lt;/code&gt;. The &lt;a href="https://man.openbsd.org/xidle.1"&gt;man
 page&lt;/a&gt; is sufficiently descriptive that I won't talk about that further.&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://maly.io/@semarie"&gt;semarie&lt;/a&gt; for the technical proof-reading and &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the English proof-reading!&lt;/em&gt;&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Mon, 08 Oct 2018 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/locking-openbsd-when-sleeping</guid></item><item><title>2FA with ssh on OpenBSD</title><link>https://pre-prod.chown.me/blog/2FA-with-ssh-on-OpenBSD</link><description>&lt;p&gt;Five years ago I wrote about &lt;a href="./yubikey.html"&gt;using a yubikey&lt;/a&gt; on OpenBSD.  The
+&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://maly.io/@semarie"&gt;semarie&lt;/a&gt; for the technical proof-reading and &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the English proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>2FA with ssh on OpenBSD</title><link href="https://pre-prod.chown.me/blog/2FA-with-ssh-on-OpenBSD" rel="alternate"></link><published>2018-08-31T10:00:00Z</published><updated>2018-08-31T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-08-31:/blog/2FA-with-ssh-on-OpenBSD</id><summary type="html">&lt;p&gt;Five years ago I wrote about &lt;a href="./yubikey.html"&gt;using a yubikey&lt;/a&gt; on OpenBSD.  The
 only problem with doing this is that there's no validation server available on
 OpenBSD, so you need to use a different OTP slot for each machine. (You don't
 want to risk a &lt;a href="https://en.wikipedia.org/wiki/Replay_attack"&gt;replay attack&lt;/a&gt; if
@@ -797,7 +797,7 @@ the TOTP login system, and we told sshd to ask for both the public key and the
 Time-based One-Time Password. Now you should be all set to use two-factor
 ssh authentication on OpenBSD!&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Fri, 31 Aug 2018 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/2FA-with-ssh-on-OpenBSD</guid></item><item><title>The Effective Manager</title><link>https://pre-prod.chown.me/blog/the-effective-manager</link><description>&lt;p&gt;&lt;em&gt;Note: this is also available in audio format: 3:49
+&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>The Effective Manager</title><link href="https://pre-prod.chown.me/blog/the-effective-manager" rel="alternate"></link><published>2018-08-13T10:00:00Z</published><updated>2018-08-13T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-08-13:/blog/the-effective-manager</id><summary type="html">&lt;p&gt;&lt;em&gt;Note: this is also available in audio format: 3:49
 &lt;a href="https://chown.me/iota/blog/the-effective-manager.mp3"&gt;(1.6MB mp3)&lt;/a&gt;
 &lt;a href="https://chown.me/iota/blog/the-effective-manager.ogg"&gt;(1.3MB ogg)&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
@@ -873,7 +873,7 @@ found this a valuable read, as it allows for some management in reverse.&lt;/p&g
 &lt;p&gt;Finally, remember the saying: "people don't quit their jobs; they quit their
 managers." ;)&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading and the audio recording!&lt;/em&gt;&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Mon, 13 Aug 2018 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/the-effective-manager</guid></item><item><title>The Checklist Manifesto</title><link>https://pre-prod.chown.me/blog/the-checklist-manifesto</link><description>&lt;p&gt;What is the best way to improve the quality of your actions? According to the
+&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading and the audio recording!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>The Checklist Manifesto</title><link href="https://pre-prod.chown.me/blog/the-checklist-manifesto" rel="alternate"></link><published>2018-06-01T10:00:00Z</published><updated>2018-06-01T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-06-01:/blog/the-checklist-manifesto</id><summary type="html">&lt;p&gt;What is the best way to improve the quality of your actions? According to the
 author of the book &lt;a href="https://en.wikipedia.org/wiki/The_Checklist_Manifesto"&gt;&lt;em&gt;The Checklist
 Manifesto&lt;/em&gt;&lt;/a&gt;, it's with
 checklists.&lt;/p&gt;
@@ -916,7 +916,7 @@ through the checklist to verify you didn't forget anything&lt;/li&gt;
 &lt;p&gt;Checklists can be done during team briefing and it has the added benefit that it
 improves communication among the team.&lt;/p&gt;
 &lt;p&gt;I liked this book and if you're curious about stories behind checklists, you
-should definitely read it!&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Fri, 01 Jun 2018 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/the-checklist-manifesto</guid></item><item><title>Hackathon report - p2k18</title><link>https://pre-prod.chown.me/blog/p2k18</link><description>&lt;p&gt;After two mostly boring flights, I was in Nantes on Sunday. I didn't do much
+should definitely read it!&lt;/p&gt;</summary></entry><entry><title>Hackathon report - p2k18</title><link href="https://pre-prod.chown.me/blog/p2k18" rel="alternate"></link><published>2018-05-03T10:00:00Z</published><updated>2018-05-03T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-05-03:/blog/p2k18</id><summary type="html">&lt;p&gt;After two mostly boring flights, I was in Nantes on Sunday. I didn't do much
 because I wanted to get some rest after an exhausting week and tried to get my
 body into this new timezone. After a long night of sleep, I went to the hackroom.
 It was already well crowded for the first morning.&lt;/p&gt;
@@ -1004,7 +1004,7 @@ use&lt;/a&gt;!&lt;/p&gt;
 &lt;p&gt;It was very nice to see Nantes and my fellow OpenBSD hackers again. I could commit
 the diffs I had for a few weeks and reviewed some submissions that enhance what
 you can &lt;code&gt;pkg_add&lt;/code&gt; on OpenBSD. Thanks to gilles@ for all the organization and to
-Epitech for hosting us again and to the OpenBSD Foundation for the fundings!&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Thu, 03 May 2018 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/p2k18</guid></item><item><title>New design</title><link>https://pre-prod.chown.me/blog/new-design</link><description>&lt;p&gt;In June this blog will be five years old. Since &lt;a href="./blog.html"&gt;I created it&lt;/a&gt;, it
+Epitech for hosting us again and to the OpenBSD Foundation for the fundings!&lt;/p&gt;</summary></entry><entry><title>New design</title><link href="https://pre-prod.chown.me/blog/new-design" rel="alternate"></link><published>2018-04-13T10:00:00Z</published><updated>2018-04-13T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-04-13:/blog/new-design</id><summary type="html">&lt;p&gt;In June this blog will be five years old. Since &lt;a href="./blog.html"&gt;I created it&lt;/a&gt;, it
 has had the same design. A few weeks ago I looked for a new theme. I found
 &lt;a href="https://github.com/Parbhat/pelican-blue"&gt;pelican-blue&lt;/a&gt; which I liked. For my
 first theme, I took it from someone and shortly after someone took it from me.
@@ -1031,7 +1031,7 @@ feeling to read my younger self. I wouldn't advise to read them haha. They're in
 French anyway.&lt;/p&gt;
 &lt;p&gt;One of my 2018 New Year's resolution was to write more blog articles. With not a
 single one for the first quarter, you can guess it's not my best
-accomplishment. But hopefully, I'll finally do it.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Fri, 13 Apr 2018 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/new-design</guid></item><item><title>Routing traffic with multiple OpenVPN</title><link>https://pre-prod.chown.me/blog/routing-traffic-with-multiple-openvpn</link><description>&lt;h2 id="openvpn"&gt;&lt;a href="#openvpn"&gt;Why OpenVPN?&lt;/a&gt;&lt;/h2&gt;
+accomplishment. But hopefully, I'll finally do it.&lt;/p&gt;</summary></entry><entry><title>Routing traffic with multiple OpenVPN</title><link href="https://pre-prod.chown.me/blog/routing-traffic-with-multiple-openvpn" rel="alternate"></link><published>2017-11-21T10:00:00Z</published><updated>2017-11-21T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2017-11-21:/blog/routing-traffic-with-multiple-openvpn</id><summary type="html">&lt;h2 id="openvpn"&gt;&lt;a href="#openvpn"&gt;Why OpenVPN?&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;For &lt;a href="https://evolix.ca/en"&gt;my dayjob&lt;/a&gt; we access the servers we manage
 through OpenVPN. Of course it's not the only security measure, it's
 yet another layer and it helps to cut a part of the
@@ -1185,7 +1185,7 @@ root@pancake:~# pfctl -t softvpn -Ta 10.1.2.3
 
 &lt;p&gt;That's all! Of course, if anything goes wrong, I have
 &lt;a href="https://chown.me/iota/pics/IMG_0551.JPG"&gt;Jean Canard's Advanced Paws System (APS)&lt;/a&gt;
-that checks for anything.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Tue, 21 Nov 2017 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/routing-traffic-with-multiple-openvpn</guid></item><item><title>Dumping pics</title><link>https://pre-prod.chown.me/blog/dumping-pics</link><description>&lt;p&gt;A few years ago I bought a camera (a Canon 100D) and since that I take
+that checks for anything.&lt;/p&gt;</summary></entry><entry><title>Dumping pics</title><link href="https://pre-prod.chown.me/blog/dumping-pics" rel="alternate"></link><published>2017-11-04T10:00:00Z</published><updated>2017-11-04T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2017-11-04:/blog/dumping-pics</id><summary type="html">&lt;p&gt;A few years ago I bought a camera (a Canon 100D) and since that I take
 pictures from time to time. I go through all the pics I take and I
 pick the best then I enhance them a bit with rawtherapee and finally I
 post them on &lt;a href="http://piks.chown.me"&gt;500px&lt;/a&gt;. This process is a bit
@@ -1203,7 +1203,7 @@ gallery there very few static generators. Finally I found
 &lt;a href="https://github.com/saimn/sigal"&gt;sigal&lt;/a&gt; which is maintained, written
 in python, quite nice and very straight forward to use.&lt;/p&gt;
 &lt;p&gt;Here's the result: &lt;a href="https://pics.chown.me/"&gt;https://pics.chown.me/&lt;/a&gt; (with among other themes,
-as of now, 229 pics of my delicious kitten &lt;em&gt;Jean Canard&lt;/em&gt;).&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Sat, 04 Nov 2017 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/dumping-pics</guid></item><item><title>Playing with the pine64</title><link>https://pre-prod.chown.me/blog/playing-with-the-pine64</link><description>&lt;h2 id="installwhat"&gt;&lt;a href="#installwhat"&gt;Finding something to install on it&lt;/a&gt;&lt;/h2&gt;
+as of now, 229 pics of my delicious kitten &lt;em&gt;Jean Canard&lt;/em&gt;).&lt;/p&gt;</summary></entry><entry><title>Playing with the pine64</title><link href="https://pre-prod.chown.me/blog/playing-with-the-pine64" rel="alternate"></link><published>2017-10-19T10:00:00Z</published><updated>2017-10-19T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2017-10-19:/blog/playing-with-the-pine64</id><summary type="html">&lt;h2 id="installwhat"&gt;&lt;a href="#installwhat"&gt;Finding something to install on it&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;6 weeks ago, I ordered two pine64 units. I didn't (and still don't)
 have much plan for them, but I wanted to play with some cheap
 boards. I finally received them this week. Initially I wanted to
@@ -1798,7 +1798,7 @@ pin. Guess why I'm telling you that!&lt;/p&gt;
 
 &lt;p&gt;And now, I just have to wait for
 &lt;a href="https://chown.me/iota/pics/IMG_0675.JPG"&gt;Jean Canard&lt;/a&gt; to destroy the
-whole thing.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Thu, 19 Oct 2017 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/playing-with-the-pine64</guid></item><item><title>Hackathon report - t2k17</title><link>https://pre-prod.chown.me/blog/t2k17</link><description>&lt;p&gt;I also wrote &lt;a href="http://undeadly.org/cgi?action=article&amp;amp;sid=20170821231153"&gt;a shorter and less personal report on undeadly&lt;/a&gt;, feel free
+whole thing.&lt;/p&gt;</summary></entry><entry><title>Hackathon report - t2k17</title><link href="https://pre-prod.chown.me/blog/t2k17" rel="alternate"></link><published>2017-08-21T10:00:00Z</published><updated>2017-08-21T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2017-08-21:/blog/t2k17</id><summary type="html">&lt;p&gt;I also wrote &lt;a href="http://undeadly.org/cgi?action=article&amp;amp;sid=20170821231153"&gt;a shorter and less personal report on undeadly&lt;/a&gt;, feel free
 to read it rather than this one if you don't want to know about other things than
 the hackathon.&lt;/p&gt;
 &lt;p&gt;August was a busy month events-wise. I had the visit of coworkers who
@@ -1858,7 +1858,7 @@ ease than I thought. I had the opportunity to have really interesting
 discussions with a lot of other developers (during &lt;a href="https://twitter.com/Vigdis_/status/895794041450897408"&gt;our social event&lt;/a&gt; but not only). Thanks a lot to the
 University of Toronto for hosting us (in a
 &lt;a href="https://twitter.com/Vigdis_/status/896356797988167681"&gt;very nice part of the city&lt;/a&gt;
-and krw@ for organizing!&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Mon, 21 Aug 2017 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/t2k17</guid></item><item><title>My recent journey with 2FA</title><link>https://pre-prod.chown.me/blog/my-recent-journey-with-2FA</link><description>&lt;h2 id="2FA"&gt;&lt;a href="#2FA"&gt;2FA&lt;/a&gt;&lt;/h2&gt;
+and krw@ for organizing!&lt;/p&gt;</summary></entry><entry><title>My recent journey with 2FA</title><link href="https://pre-prod.chown.me/blog/my-recent-journey-with-2FA" rel="alternate"></link><published>2017-02-26T10:00:00Z</published><updated>2017-02-26T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2017-02-26:/blog/my-recent-journey-with-2FA</id><summary type="html">&lt;h2 id="2FA"&gt;&lt;a href="#2FA"&gt;2FA&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Of course by 2FA I mean
 &lt;a href="https://en.wikipedia.org/wiki/Multi-factor_authentication"&gt;two-factor authentication&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I've been using that for a long time for ssh with
@@ -1973,7 +1973,7 @@ possibility to access the shared secret.&lt;/p&gt;
 &lt;p&gt;For now, everything works fine, I use my phone to unlock my different
 accounts and if anything happens to it, I can just unlock my second
 keepassx database and use oathtool (or use a backup code) to get my
-account back.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Sun, 26 Feb 2017 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/my-recent-journey-with-2FA</guid></item><item><title>Hackathon report - p2k16</title><link>https://pre-prod.chown.me/blog/p2k16</link><description>&lt;h2 id="account"&gt;&lt;a href="#account"&gt;Getting an account&lt;/a&gt;&lt;/h2&gt;
+account back.&lt;/p&gt;</summary></entry><entry><title>Hackathon report - p2k16</title><link href="https://pre-prod.chown.me/blog/p2k16" rel="alternate"></link><published>2016-08-11T10:00:00Z</published><updated>2016-08-11T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2016-08-11:/blog/p2k16</id><summary type="html">&lt;h2 id="account"&gt;&lt;a href="#account"&gt;Getting an account&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Since end of March I have had an OpenBSD account which means that I can do
 some commits on my own, the login I use is &lt;em&gt;danj&lt;/em&gt;. I was then invited
 to &lt;a href="https://www.openbsd.org/images/hackathons/p2k16.gif"&gt;p2k16&lt;/a&gt; which
@@ -2039,4 +2039,4 @@ quite fond of. The meals were goods, with lots of
 &lt;a href="https://fr.wikipedia.org/wiki/Galette_de_sarrasin"&gt;galettes&lt;/a&gt; and
 &lt;a href="https://en.wikipedia.org/wiki/Cr%C3%AApe"&gt;crepes&lt;/a&gt; (even though we
 were not in Brittany). Thanks to all who made it possible! Would
-definitely do again.&lt;/p&gt;</description><author>Daniel Jakots</author><pubDate>Thu, 11 Aug 2016 10:00:00 GMT</pubDate><guid isPermaLink="true">https://pre-prod.chown.me/blog/p2k16</guid></item></channel></rss>
+definitely do again.&lt;/p&gt;</summary></entry></feed>

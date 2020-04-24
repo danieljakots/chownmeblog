@@ -11,7 +11,7 @@ import sys
 import jinja2
 import markdown
 
-import rfeed
+import feedgenerator
 
 CONTENT_PATH = "content/*"
 SITE = {}
@@ -77,47 +77,34 @@ def generate_website(content):
             f.write(result)
 
 
-def create_feed(feed_items):
-    return rfeed.Feed(
+def create_feed():
+    return feedgenerator.Atom1Feed(
         title=SITE["name"],
-        link=SITE["url"],
+        link=f'{SITE["url"]}/',
+        feed_url=f'{SITE["url"]}/{SITE["feed_path"]}',
         description=f"RSS feed for {SITE['url']}",
-        language="en-US",
-        lastBuildDate=datetime.datetime.now(),
-        items=feed_items,
-    )
-
-
-def create_feed_item(title, link, date, content):
-    return rfeed.Item(
-        title=title,
-        link=link,
-        description=content,
-        author=SITE["author"],
-        guid=rfeed.Guid(link),
-        pubDate=date,
     )
 
 
 def main():
     content = parse_articles(CONTENT_PATH)
-    feed_items = []
+    feed = create_feed()
     for article in content:
         article["html"] = md2html(article.pop("markdown"))
         if article["category"] == "othercontent":
             continue
         date = [int(i) for i in article["date"].split("-")]
         date = datetime.datetime(*date, 10, 0, 0)
-        feed_items.append(
-            create_feed_item(
-                article["title"],
-                f"{SITE['url']}/blog/{article['file']}",
-                date,
-                article["html"],
-            )
+
+        feed.add_item(
+            title=article["title"],
+            link=f"{SITE['url']}/blog/{article['file']}",
+            author_name=SITE["author"],
+            pubdate=date,
+            description=article["html"],
         )
-    with open(f"{OUTPUT_DIR}/SITE['feed_path']", "w") as f:
-        f.write(create_feed(feed_items).rss())
+    with open(f"{OUTPUT_DIR}/{SITE['feed_path']}", "w") as f:
+        feed.write(f, "utf-8")
     generate_website(content)
 
 
