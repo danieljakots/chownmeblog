@@ -18,6 +18,7 @@ SITE = {}
 SITE["author"] = "Daniel Jakots"
 SITE["name"] = SITE["author"]
 SITE["url"] = "https://pre-prod.chown.me"
+SITE["feed_path"] = "blog/feeds/atom.xml"
 OUTPUT_DIR = "output"
 
 
@@ -115,7 +116,7 @@ def main():
                 article["html"],
             )
         )
-    with open(f"{OUTPUT_DIR}/blog/feeds/atom.xml", "w") as f:
+    with open(f"{OUTPUT_DIR}/SITE['feed_path']", "w") as f:
         f.write(create_feed(feed_items).rss())
     generate_website(content)
 
