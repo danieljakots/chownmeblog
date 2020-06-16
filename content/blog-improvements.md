@@ -1,5 +1,5 @@
 Title: Improvements to this blog
-Date: 2020-06-10
+Date: 2020-06-16
 Category: Tech
 
 This article announces a new version of this blog. Available right now!
