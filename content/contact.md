@@ -8,7 +8,7 @@ anything that includes the words "guest post."
 
 If you are friendly and not seeking profit, you can contact me by email, using
 "blog" as the
-[local-part](https://en.wikipedia.org/wiki/Email_address#Local-part). Otherwise
+[local-part](https://en.wikipedia.org/wiki/Email_address#Syntax). Otherwise
 you can `/query` me on irc under the nick Vigdis (but I may be connected only
 to freenode). I'm also on the [fediverse](https://awoo.chown.me/@vigdis).
 
