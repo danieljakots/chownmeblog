@@ -21,14 +21,14 @@ One of multiple ways to achieve this goal would have used
 The problem with this approach is that I wanted all exchanges between my
 machines to be encrypted. I could have met this requirement with a VPN, but I
 would have had to set up too many sessions for my taste. And I wanted to
-develop a REST API, just for it's own sake.
+develop a REST API, just for its own sake.
 
 ## [The REST API](#rest) {: #rest }
 
 I wanted some boring technology so I went with Flask and PostgreSQL. This
-worked quite well and I enjoyed writing it. I also wrote a client (written in
-Python). The client reads the locally blocked IP addresses, sends them to the
-API, and then fetches the complete block list from the API and feeds it to
+worked quite well and I enjoyed writing it. I also wrote a client in Python.
+The client reads the locally blocked IP addresses, sends them to the API, and
+then fetches the complete block list from the API and feeds it to
 [pf(4)](https://man.openbsd.org/pf.4)
 
 At the beginning, my code was very unoptimized. I definitely didn't want to run
@@ -77,7 +77,7 @@ thought that would be more accessible.
 
 Indeed, I painlessly achieved what I wanted. The new daemon is much more
 reliable (I haven't been able to disconnect it while it thinks it's connected)
-and I have a `/status  http endpoint to monitor it anyway.
+and I have a `/status`  http endpoint to monitor it anyway.
 
 I thought maybe people might want to do more stuff or other stuff with this
 daemon so I made it generic. You can specify any number of channels, each with
@@ -123,7 +123,9 @@ I also have on each machine these two cron jobs:
 * * * * * /usr/share/scripts/acacia_client -q cron --only-pubsub
 ~~~
 
-### [The REST API part](#apimode) {: #apimode }
+Let's dive into each of these two modes!
+
+### [The REST API mode](#apimode) {: #apimode }
 
 In API mode, the script gets the IP addresses from the *brute\** tables and
 sends them to the API. Then it fetches the whole list of IP addresses and loads
