@@ -1,5 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Daniel Jakots</title><link href="https://chown.me/" rel="alternate"></link><link href="https://chown.me/blog/feeds/atom.xml" rel="self"></link><id>https://chown.me/</id><updated>2020-06-16T10:00:00Z</updated><entry><title>Improvements to this blog</title><link href="https://chown.me/blog/blog-improvements" rel="alternate"></link><published>2020-06-16T10:00:00Z</published><updated>2020-06-16T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2020-06-16:/blog/blog-improvements</id><summary type="html">&lt;p&gt;This article announces a new version of this blog. Available right now!&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Daniel Jakots</title><link href="https://chown.me/" rel="alternate"></link><link href="https://chown.me/blog/feeds/atom.xml" rel="self"></link><id>https://chown.me/</id><updated>2020-09-15T10:00:00Z</updated><entry><title>Firewall ban-sharing across machines</title><link href="https://chown.me/blog/acacia" rel="alternate"></link><published>2020-09-15T10:00:00Z</published><updated>2020-09-15T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2020-09-15:/blog/acacia</id><summary type="html">&lt;p&gt;How can you block one IP simultaneously on multiple machines?&lt;/p&gt;
+&lt;h2 id="goal"&gt;&lt;a href="#goal"&gt;The goal&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As described in &lt;a href="./infrastructure-2019"&gt;My infrastructure as of 2019&lt;/a&gt;, my
+machines are located in three different sites and are loosely coupled.
+Nonetheless, I wanted to set things up so that if an IP address is acting
+maliciously toward one machine, all my machines block that IP at once so the
+meanie won't get to try one machine after another.&lt;/p&gt;
+&lt;p&gt;This isn't exactly new, with computers or even in
+&lt;a href="https://www.newscientist.com/article/mg12717361-200-antelope-activate-the-acacias-alarm-system/"&gt;nature&lt;/a&gt;.
+That's why I named this &lt;em&gt;acacia&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;One of multiple ways to achieve this goal would have used
+&lt;a href="https://en.wikipedia.org/wiki/Border_Gateway_Protocol"&gt;BGP&lt;/a&gt; and communities.
+The problem with this approach is that I wanted all exchanges between my
+machines to be encrypted. I could have met this requirement with a VPN, but I
+would have had to set up too many sessions for my taste. And I wanted to
+develop a REST API, just for its own sake.&lt;/p&gt;
+&lt;h2 id="rest"&gt;&lt;a href="#rest"&gt;The REST API&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;I wanted some boring technology so I went with Flask and PostgreSQL. This
+worked quite well and I enjoyed writing it. I also wrote a client in Python.
+The client reads the locally blocked IP addresses, sends them to the API, and
+then fetches the complete block list from the API and feeds it to
+&lt;a href="https://man.openbsd.org/pf.4"&gt;pf(4)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;At the beginning, my code was very unoptimized. I definitely didn't want to run
+the polling too frequently, so I set it to &lt;code&gt;*/5&lt;/code&gt;. The new problem was that a
+lot can happen in 5 minutes. I thought I could get closer to &lt;em&gt;real-time&lt;/em&gt; with
+some &lt;a href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern"&gt;Pubsub&lt;/a&gt;.
+And I wanted to play with Pubsub.&lt;/p&gt;
+&lt;h2 id="pubsub"&gt;&lt;a href="#pubsub"&gt;Pubsub&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;I initially tried to use a light &lt;a href="https://en.wikipedia.org/wiki/MQTT"&gt;MQTT&lt;/a&gt;
+implementation. However I was only left with &lt;a href="https://mosquitto.org/"&gt;an itch to
+scratch&lt;/a&gt;, as I couldn't get the examples to work.&lt;/p&gt;
+&lt;p&gt;While reviewing tb@'s work to update our &lt;a href="https://github.com/openbsd/ports/commit/e9670716ad4afb5aa92c9e35ed08fe526ad1a15c"&gt;Redis port to the 6.x
+branch&lt;/a&gt;,
+I noticed they had finally added TLS support. Well, that was great: I already
+had a Redis instance running and I like the software, so much that &lt;a href="https://university.redislabs.com/certificates/user/51165/course/course-v1:redislabs+RU101+2020_03"&gt;I went
+through&lt;/a&gt;
+their &lt;a href="https://university.redislabs.com/courses/ru101/"&gt;RU101 online course&lt;/a&gt;
+(and also, I had a lot of free time).&lt;/p&gt;
+&lt;p&gt;I got a proof of concept to work really easily (in Python as well). I made it
+evolve into a simple daemon. It worked well... when it was correctly connected
+to Redis.&lt;/p&gt;
+&lt;p&gt;The problem is that I often need to reboot my infra to
+&lt;a href="./upgrading-openbsd-with-ansible"&gt;upgrade&lt;/a&gt; it. That daemon didn't always
+detect it had lost the connection to the Redis server. To make the problem
+worse, I couldn't check at any given time whether the script was correctly
+connected to Redis. Redis can tell me how many listeners a channel has, but
+that may not reflect reality.&lt;/p&gt;
+&lt;p&gt;Only currently connected clients receive a Pubsub message. Therefore, I
+couldn't ditch my API. Instead, I use the Pubsub system as a light and near
+real-time system, and use the REST API to be confident no server misses any
+data.&lt;/p&gt;
+&lt;h2 id="go"&gt;&lt;a href="#go"&gt;Rewriting the pubsub daemon in go&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Initially, what motivated me the most was to have a web status page so I could
+check whether it was connected to Redis with any http client. Doing that in
+Python would not have been simple. Based on what I had heard about Golang, I
+thought that would be more accessible.&lt;/p&gt;
+&lt;p&gt;Indeed, I painlessly achieved what I wanted. The new daemon is much more
+reliable (I haven't been able to disconnect it while it thinks it's connected)
+and I have a &lt;code&gt;/status&lt;/code&gt;  http endpoint to monitor it anyway.&lt;/p&gt;
+&lt;p&gt;I thought maybe people might want to do more stuff or other stuff with this
+daemon so I made it generic. You can specify any number of channels, each with
+an associated command you want it to execute.&lt;/p&gt;
+&lt;h2 id="usage"&gt;&lt;a href="#usage"&gt;How do I use it&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="infra"&gt;&lt;a href="#infra"&gt;Infrastructure&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;I recently published on Github one repository for the &lt;a href="https://github.com/danieljakots/acacia_api"&gt;API (+ the
+client)&lt;/a&gt; and another one for the
+&lt;a href="https://github.com/danieljakots/acacia_pubsub"&gt;Pubsub daemon&lt;/a&gt;. Each has a
+README, but here's how I use the whole:&lt;/p&gt;
+&lt;p&gt;I run the flask API under docker because I didn't find a way I liked under
+OpenBSD. While Redis uses an internal PKI, for the API I just use Let's
+Encrypt. For Redis' PKI, I use a basic shell wrapper based on
+&lt;a href="https://github.com/Evolix/shellpki"&gt;shellpki&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here's an excerpt of my &lt;code&gt;pf.conf&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;table &amp;lt;api_bans&amp;gt; persist file &amp;quot;/etc/pf.api&amp;quot;
+table &amp;lt;bruteweb&amp;gt; persist
+[...]
+block drop in quick from &amp;lt;api_bans&amp;gt;
+block drop in quick from &amp;lt;bruteweb&amp;gt;
+[...]
+pass in on vio0 proto tcp to port { www, https } keep state \
+  (max-src-conn XXX, max-src-conn-rate YYY, \
+  overload &amp;lt;bruteweb&amp;gt; flush global)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I use a table per protocol (e.g. &lt;em&gt;bruteweb&lt;/em&gt;, &lt;em&gt;brutessh&lt;/em&gt; and so on). This allows
+me to identify why an IP has been banned.&lt;/p&gt;
+&lt;p&gt;I also have on each machine these two cron jobs:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#Ansible: acacia_client cron api
+*/5 * * * * /usr/share/scripts/acacia_client -q cron --only-api
+#Ansible: acacia_client cron pubsub
+* * * * * /usr/share/scripts/acacia_client -q cron --only-pubsub
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's dive into each of these two modes!&lt;/p&gt;
+&lt;h3 id="apimode"&gt;&lt;a href="#apimode"&gt;The REST API mode&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;In API mode, the script gets the IP addresses from the &lt;em&gt;brute*&lt;/em&gt; tables and
+sends them to the API. Then it fetches the whole list of IP addresses and loads
+it into pf. Finally, the script expires the IP addresses in &lt;em&gt;brute*&lt;/em&gt; so it
+doesn't process them eternally.&lt;/p&gt;
+&lt;h3 id="pubsub"&gt;&lt;a href="#pubsubmode"&gt;Pubsub Mode&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;In pubsub mode, the script gets the IP addresses from the &lt;em&gt;brute*&lt;/em&gt; tables and
+shares them over Pubsub. Nothing more, to keep it light.&lt;/p&gt;
+&lt;p&gt;On each machine I also have a simple script that will ban a given IP address:&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ch"&gt;#!/usr/bin/env python3&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;ipaddress&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;subprocess&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;ip&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;ipaddress&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ip_address&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="ne"&gt;ValueError&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;{ip}&lt;/span&gt;&lt;span class="s2"&gt; is not valid&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stderr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;subprocess&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/sbin/pfctl&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;-t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;api_bans&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;-T&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;add&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;subprocess&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PIPE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;stderr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;subprocess&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;STDOUT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Since acacia_pubsub is dropping privileges, I need a
+&lt;a href="https://man.openbsd.org/doas"&gt;doas(1)&lt;/a&gt; rule:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;permit nopass _acacia as root cmd /usr/share/scripts/acacia_ban
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And then acacia_pubsub can call the script to ban it.&lt;/p&gt;
+&lt;h3 id="frequency"&gt;&lt;a href="#frequency"&gt;Cron job execution frequency&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Pubsub is lighter than doing the REST dance so it runs each minute. It's not
+perfect but there is no way to get a "notification" from pf when an IP address
+is banned. (Even using OpenBGPD, AFAIK, you can automatically fill a pf table
+from a community but you can't get it to automatically update a community from
+a pf table).&lt;/p&gt;
+&lt;h2 id="conclusion"&gt;&lt;a href="#conclusion"&gt;Conclusion&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;With these different bricks, any IP that gets blocked by one machine will
+automatically get blocked by my other machines, in near real-time. And all
+traffic still benefits from TLS.&lt;/p&gt;</summary></entry><entry><title>Improvements to this blog</title><link href="https://chown.me/blog/blog-improvements" rel="alternate"></link><published>2020-06-16T10:00:00Z</published><updated>2020-06-16T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2020-06-16:/blog/blog-improvements</id><summary type="html">&lt;p&gt;This article announces a new version of this blog. Available right now!&lt;/p&gt;
 &lt;p&gt;In my &lt;a href="./pics2html"&gt;previous article&lt;/a&gt;, I said that "seeing how easy writing a
 static site generator was made me want to write one for my blog," and that's
 what I did! I initially wrote a very long article to tell the whole story, but
