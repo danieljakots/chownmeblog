@@ -579,7 +579,6 @@ parameter:&lt;/p&gt;
 - On Solaris and FreeBSD, this will be seconds.
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;I took this to mean that there was no support for OpenBSD. I looked at the code
 and, indeed, there was not. However, I believed that it wouldn't be too hard
 to add it. I added the missing pieces for OpenBSD, tested it on my poor Pine64
@@ -656,7 +655,6 @@ case).&lt;/p&gt;
 &lt;span class="x"&gt;      command: &amp;quot;pkg_add -u -Dsnap&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3 id="answerfile"&gt;&lt;a href="#answerfile"&gt;The answer file&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;The answer file is automatically &lt;a href="https://github.com/openbsd/src/blob/master/distrib/miniroot/install.sub#L2811-L2812"&gt;mailed to root at the end of the
 upgrade&lt;/a&gt;,
@@ -677,7 +675,6 @@ so it's easy to get it!&lt;/p&gt;
 &lt;span class="x"&gt;Set name(s) = done&lt;/span&gt;
 &lt;span class="x"&gt;Location of sets = done&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;h3 id="explanations"&gt;&lt;a href="#explanations"&gt;The explanations&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Ansible runs my script on the remote host to fetch the sets. It creates an
@@ -731,7 +728,6 @@ it was written in French, so here's a new one, also covering additional related 
                            hibernate, standby, resume, powerup, or powerdown.
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;The trick is to write a script for 'etc/apm/suspend' to run when zzz is called
 (either directly or by &lt;a href="https://github.com/openbsd/src/blob/master/etc/etc.amd64/sysctl.conf#L3"&gt;closing the
 lid&lt;/a&gt;).
@@ -741,7 +737,6 @@ For instance, the script I'm using is:&lt;/p&gt;
 doas -u danj env &lt;span class="nv"&gt;DISPLAY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;:0 &lt;span class="nv"&gt;XAUTHORITY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/home/danj/.Xauthority xlock &lt;span class="p"&gt;&amp;amp;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-
 &lt;p&gt;It requires:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;configuring doas, &lt;em&gt;left as an exercise to the reader&lt;/em&gt; ;)&lt;/li&gt;
@@ -779,14 +774,12 @@ verify the OTPs we submit.&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# pkg_add login_oath
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;We need to create a &lt;em&gt;secret&lt;/em&gt; - aka, the &lt;em&gt;seed&lt;/em&gt; - that will be used to calculate
 the Time-based One-Time Passwords. We should make sure no one can read or
 change it.&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ openssl rand -hex &lt;span class="m"&gt;20&lt;/span&gt; &amp;gt; ~/.totp-key
 $ chmod &lt;span class="m"&gt;400&lt;/span&gt; ~/.totp-key
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;Now we have a hexadecimal key, but apps usually &lt;a href="https://github.com/mattrubin/Authenticator/blob/develop/Authenticator/Source/TokenEntryForm.swift#L214"&gt;want a base32
 secret&lt;/a&gt;.
@@ -876,7 +869,6 @@ mobile app using the QR code will be super easy!&lt;/p&gt;
 &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;image_file&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-
 &lt;p&gt;You can fetch this script using &lt;code&gt;ftp
 https://chown.me/iota/blog/totp-hex-to-qrcode.py&lt;/code&gt;.  (The code isn't in any of
 my public repositories for
@@ -892,7 +884,6 @@ $ oathtool --totp -b AERUKZ4JVPG66AJD
 &lt;span class="m"&gt;054640&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;&lt;em&gt;0123456789abcdef0123&lt;/em&gt; is the &lt;em&gt;seed&lt;/em&gt; in hexadecimal format (as in
 &lt;code&gt;~/.totp-key&lt;/code&gt;) and &lt;em&gt;AERUKZ4JVPG66AJD&lt;/em&gt; is the same data, but base32-encoded.&lt;/p&gt;
 &lt;p&gt;Alternatively, if you just want to do the hex -&amp;gt; b32 conversion, &lt;em&gt;login_oath&lt;/em&gt;'s
@@ -906,7 +897,6 @@ not want to use it):&lt;/p&gt;
 &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;encode_base32&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h2 id="sysconfig"&gt;&lt;a href="#sysconfig"&gt;System configuration&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;We can now move to the configuration of the system to put our new TOTP to use.
 As you might guess, it's going to be quite close to what we did with the
@@ -919,12 +909,10 @@ without showing enough care.&lt;/p&gt;
 auth-ftp-defaults:auth-ftp=passwd:
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;we add:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# Default allowed authentication styles for authentication type ssh
 auth-ssh-defaults:auth-ssh=-totp:
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;and inside the class of the user account for which TOTP is being set, we add
 the line &lt;code&gt;:tc=auth-ssh-defaults:\&lt;/code&gt;. For instance, in my case it's:&lt;/p&gt;
@@ -938,7 +926,6 @@ the line &lt;code&gt;:tc=auth-ssh-defaults:\&lt;/code&gt;. For instance, in my c
         :tc=auth-ssh-defaults:\
         :tc=default:
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;(Hint: it's the penultimate line). You can check the class of your user using
 &lt;code&gt;id -c&lt;/code&gt;.&lt;/p&gt;
@@ -968,7 +955,6 @@ sshd immediately declining your attempt.&lt;/p&gt;
 &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nl"&gt;debug1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Authentication&lt;/span&gt; &lt;span class="n"&gt;succeeded&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h2 id="nouximpact"&gt;&lt;a href="#nouximpact"&gt;Improving security without impacting UX&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;My phone has a long enough password that most of the time, I fail to type it
 correctly on the first try. Of course, if I had to unlock my phone, launch my
@@ -982,11 +968,9 @@ through 2FA. For some users, I might not even enable 2FA.&lt;/p&gt;
     AuthenticationMethods publickey
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Match Address 203.0.113.47 # VPN
     AuthenticationMethods publickey
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;To sum up, we covered how to create a seed, how to perform a hexadecimal to
@@ -1274,7 +1258,6 @@ server side&lt;/p&gt;
 client-ca.conf  client-fr.conf  private-stuff/
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;Config files are as usual, the only special thing is that I force
 the tun device used by the VPN (so I can use it in pf.conf):&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;danj@pancake:/etc/openvpn$ grep dev *.conf
@@ -1282,12 +1265,10 @@ client-ca.conf:dev tun1
 client-fr.conf:dev tun0
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;In &lt;code&gt;rc.conf.local&lt;/code&gt;, I set the correct config file:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;openvpn_fr_flags=&amp;quot;--config /etc/openvpn/client-fr.conf&amp;quot;
 openvpn_ca_flags=&amp;quot;--config /etc/openvpn/client-ca.conf&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;now I can &lt;code&gt;rcctl start openvpn_fr&lt;/code&gt; and &lt;code&gt;rcctl start openvpn_ca&lt;/code&gt;&lt;/p&gt;
 &lt;h3 id="routing"&gt;&lt;a href="#routing"&gt;routing&lt;/a&gt;&lt;/h3&gt;
@@ -1298,7 +1279,6 @@ describe the interface.&lt;/p&gt;
 vpnca_if = &amp;quot;tun1&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;I have vlan-capable switch and wifi AP, so I have multiple networks.&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;lan_net = $lan_if:network
 wifilap_net = $wifilap_if:network
@@ -1306,7 +1286,6 @@ wifitel_net = $wifitel_if:network
 windows_net = $windows_if:network
 tel_net = $tel_if:network
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;I need some tables (don't worry, you'll understand later what purpose
 they have).&lt;/p&gt;
@@ -1318,7 +1297,6 @@ table &amp;lt;forcevpnfr&amp;gt; { $mrs-fw2 }
 table &amp;lt;nousautres&amp;gt; { 10.0.0.0/8, $home_ip } persist
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;Now we can see the ruleset. I let everything from the lan, that doesn't
 go on the router itself or to another lan (so the traffic will need
 another rules to be allowed) come through.&lt;/p&gt;
@@ -1329,13 +1307,11 @@ pass in     on $tel_if     from $tel         to ! &amp;lt;nousautres&amp;gt;
 pass in log on $windows_if proto { tcp, udp } from $windows_net to ! &amp;lt;nousautres&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;I let everything going out&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pass out log on $ext_if proto { tcp, udp } all modulate state
 pass out on $vpnfr_if proto { tcp, udp } all modulate state
 pass out on $vpnca_if proto { tcp, udp } all modulate state
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;Now's the fun part.&lt;/p&gt;
 &lt;ul&gt;
@@ -1367,7 +1343,6 @@ pass in on { $lan_if, $wifilap_if, $wifitel_if } \
      from &amp;lt;softvpnfr&amp;gt; to &amp;lt;forcevpnfr&amp;gt; route-to ($vpnfr_if 192.168.125.61)
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;But the real magic with pf, is that I can &lt;strong&gt;very easily&lt;/strong&gt; change the
 routing for any host :&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# if I want everything to go through the Canadian VPN
@@ -1380,7 +1355,6 @@ root@pancake:~# pfctl -t vpnfr -Ta 10.1.2.3
 root@pancake:~# pfctl -t vpnfr -Td 10.1.2.3
 root@pancake:~# pfctl -t softvpn -Ta 10.1.2.3
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;That's all! Of course, if anything goes wrong, I have
 &lt;a href="https://chown.me/iota/pics/IMG_0551.JPG"&gt;Jean Canard's Advanced Paws System (APS)&lt;/a&gt;
@@ -1446,7 +1420,6 @@ pin. Guess why I'm telling you that!&lt;/p&gt;
 &lt;p&gt;Then you can connect with the usual&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ cu -dl /dev/cuaU0 -s &lt;span class="m"&gt;115200&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;You can now install it and the reboot it:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nl"&gt;INFO&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;    &lt;span class="n"&gt;PSCI&lt;/span&gt; &lt;span class="n"&gt;Affinity&lt;/span&gt; &lt;span class="nl"&gt;Map&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
@@ -1994,7 +1967,6 @@ pin. Guess why I'm telling you that!&lt;/p&gt;
 &lt;span class="nl"&gt;login&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;And now, I just have to wait for
 &lt;a href="https://chown.me/iota/pics/IMG_0675.JPG"&gt;Jean Canard&lt;/a&gt; to destroy the
 whole thing.&lt;/p&gt;</summary></entry><entry><title>Hackathon report - t2k17</title><link href="https://chown.me/blog/t2k17" rel="alternate"></link><published>2017-08-21T10:00:00Z</published><updated>2017-08-21T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2017-08-21:/blog/t2k17</id><summary type="html">&lt;p&gt;I also wrote &lt;a href="http://undeadly.org/cgi?action=article&amp;amp;sid=20170821231153"&gt;a shorter and less personal report on undeadly&lt;/a&gt;, feel free
@@ -2147,7 +2119,6 @@ very easily:&lt;/p&gt;
 &lt;span class="m"&gt;405723&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;(with deafcafe being the shared secret).&lt;/p&gt;
 &lt;h2 id="activation"&gt;&lt;a href="#activation"&gt;Activating it&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Now that we're ready to use it, let's do it. So where to activate
@@ -2163,7 +2134,6 @@ actually a good one to try it.&lt;/p&gt;
 just a URL looking like:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;otpauth://totp/Example:foo@example.com?secret=DEAFCAFE&amp;amp;issuer=Example
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;which is fine for my phone but sadly my eyes can't decode qrcode and I
 need the shared secret to put it my keepassx. Most of the time

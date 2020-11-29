@@ -66,7 +66,6 @@ server side</p>
 client-ca.conf  client-fr.conf  private-stuff/
 </pre></div>
 
-
 <p>Config files are as usual, the only special thing is that I force
 the tun device used by the VPN (so I can use it in pf.conf):</p>
 <div class="codehilite"><pre><span></span>danj@pancake:/etc/openvpn$ grep dev *.conf
@@ -74,12 +73,10 @@ client-ca.conf:dev tun1
 client-fr.conf:dev tun0
 </pre></div>
 
-
 <p>In <code>rc.conf.local</code>, I set the correct config file:</p>
 <div class="codehilite"><pre><span></span>openvpn_fr_flags=&quot;--config /etc/openvpn/client-fr.conf&quot;
 openvpn_ca_flags=&quot;--config /etc/openvpn/client-ca.conf&quot;
 </pre></div>
-
 
 <p>now I can <code>rcctl start openvpn_fr</code> and <code>rcctl start openvpn_ca</code></p>
 <h3 id="routing"><a href="#routing">routing</a></h3>
@@ -90,7 +87,6 @@ describe the interface.</p>
 vpnca_if = &quot;tun1&quot;
 </pre></div>
 
-
 <p>I have vlan-capable switch and wifi AP, so I have multiple networks.</p>
 <div class="codehilite"><pre><span></span>lan_net = $lan_if:network
 wifilap_net = $wifilap_if:network
@@ -98,7 +94,6 @@ wifitel_net = $wifitel_if:network
 windows_net = $windows_if:network
 tel_net = $tel_if:network
 </pre></div>
-
 
 <p>I need some tables (don't worry, you'll understand later what purpose
 they have).</p>
@@ -110,7 +105,6 @@ table &lt;forcevpnfr&gt; { $mrs-fw2 }
 table &lt;nousautres&gt; { 10.0.0.0/8, $home_ip } persist
 </pre></div>
 
-
 <p>Now we can see the ruleset. I let everything from the lan, that doesn't
 go on the router itself or to another lan (so the traffic will need
 another rules to be allowed) come through.</p>
@@ -121,13 +115,11 @@ pass in     on $tel_if     from $tel         to ! &lt;nousautres&gt;
 pass in log on $windows_if proto { tcp, udp } from $windows_net to ! &lt;nousautres&gt;
 </pre></div>
 
-
 <p>I let everything going out</p>
 <div class="codehilite"><pre><span></span>pass out log on $ext_if proto { tcp, udp } all modulate state
 pass out on $vpnfr_if proto { tcp, udp } all modulate state
 pass out on $vpnca_if proto { tcp, udp } all modulate state
 </pre></div>
-
 
 <p>Now's the fun part.</p>
 <ul>
@@ -159,7 +151,6 @@ pass in on { $lan_if, $wifilap_if, $wifitel_if } \
      from &lt;softvpnfr&gt; to &lt;forcevpnfr&gt; route-to ($vpnfr_if 192.168.125.61)
 </pre></div>
 
-
 <p>But the real magic with pf, is that I can <strong>very easily</strong> change the
 routing for any host :</p>
 <div class="codehilite"><pre><span></span># if I want everything to go through the Canadian VPN
@@ -172,7 +163,6 @@ root@pancake:~# pfctl -t vpnfr -Ta 10.1.2.3
 root@pancake:~# pfctl -t vpnfr -Td 10.1.2.3
 root@pancake:~# pfctl -t softvpn -Ta 10.1.2.3
 </pre></div>
-
 
 <p>That's all! Of course, if anything goes wrong, I have
 <a href="https://chown.me/iota/pics/IMG_0551.JPG">Jean Canard's Advanced Paws System (APS)</a>

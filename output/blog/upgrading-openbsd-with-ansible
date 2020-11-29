@@ -63,7 +63,6 @@ parameter:</p>
 - On Solaris and FreeBSD, this will be seconds.
 </pre></div>
 
-
 <p>I took this to mean that there was no support for OpenBSD. I looked at the code
 and, indeed, there was not. However, I believed that it wouldn't be too hard
 to add it. I added the missing pieces for OpenBSD, tested it on my poor Pine64
@@ -140,7 +139,6 @@ case).</p>
 <span class="x">      command: &quot;pkg_add -u -Dsnap&quot;</span>
 </pre></div>
 
-
 <h3 id="answerfile"><a href="#answerfile">The answer file</a></h3>
 <p>The answer file is automatically <a href="https://github.com/openbsd/src/blob/master/distrib/miniroot/install.sub#L2811-L2812">mailed to root at the end of the
 upgrade</a>,
@@ -161,7 +159,6 @@ so it's easy to get it!</p>
 <span class="x">Set name(s) = done</span>
 <span class="x">Location of sets = done</span>
 </pre></div>
-
 
 <h3 id="explanations"><a href="#explanations">The explanations</a></h3>
 <p>Ansible runs my script on the remote host to fetch the sets. It creates an
