@@ -7,11 +7,15 @@
   <link rel="stylesheet" href="{{ site.url }}/pygmentize.css" type="text/css"/>
   <link rel="alternate" type="application/atom+xml" title="Feed" href="{{ site.url}}/{{ site.feed_path }}" />
   <link rel="icon" type="image/png" href="{{ site.url }}/favicon.png">
+  <meta property="og:image" content="{{ site.url }}/favicon.png">
 {% if article is defined %}
   <title>{{ article.title }}</title>
+  <meta property="og:title" content="{{ article.title }}">
 {% else %}
   <title>{{ site.author }}</title>
+  <meta property="og:title" content="{{ site.author }}">
 {% endif %}
+
 </head>
 
 <body>
