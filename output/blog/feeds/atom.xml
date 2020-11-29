@@ -533,6 +533,7 @@ subsequent ones. (Maybe the previous one?)&lt;/p&gt;
 &lt;h3 id="subscribe"&gt;&lt;a href="#subscribe"&gt;How can I subscribe?&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;If you're curious about this experiment and want to be part of it, please send an email
 to newsletter at chown dot me!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Edit on 2020-11-29: The newsletter has been discontinued.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>Upgrading OpenBSD with Ansible</title><link href="https://chown.me/blog/upgrading-openbsd-with-ansible" rel="alternate"></link><published>2018-10-19T10:00:00Z</published><updated>2018-10-19T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2018-10-19:/blog/upgrading-openbsd-with-ansible</id><summary type="html">&lt;p&gt;This article is best enjoyed with basic knowledge of &lt;a href="https://man.openbsd.org/autoinstall"&gt;OpenBSD
 autoinstall&lt;/a&gt; and &lt;a href="https://www.ansible.com/"&gt;Ansible&lt;/a&gt;&lt;/p&gt;
