@@ -83,7 +83,6 @@ pass in on vio0 proto tcp to port { www, https } keep state \
   overload &amp;lt;bruteweb&amp;gt; flush global)
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;I use a table per protocol (e.g. &lt;em&gt;bruteweb&lt;/em&gt;, &lt;em&gt;brutessh&lt;/em&gt; and so on). This allows
 me to identify why an IP has been banned.&lt;/p&gt;
 &lt;p&gt;I also have on each machine these two cron jobs:&lt;/p&gt;
@@ -92,7 +91,6 @@ me to identify why an IP has been banned.&lt;/p&gt;
 #Ansible: acacia_client cron pubsub
 * * * * * /usr/share/scripts/acacia_client -q cron --only-pubsub
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;Let's dive into each of these two modes!&lt;/p&gt;
 &lt;h3 id="apimode"&gt;&lt;a href="#apimode"&gt;The REST API mode&lt;/a&gt;&lt;/h3&gt;
@@ -153,12 +151,10 @@ shares them over Pubsub. Nothing more, to keep it light.&lt;/p&gt;
     &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-
 &lt;p&gt;Since acacia_pubsub is dropping privileges, I need a
 &lt;a href="https://man.openbsd.org/doas"&gt;doas(1)&lt;/a&gt; rule:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;permit nopass _acacia as root cmd /usr/share/scripts/acacia_ban
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;p&gt;And then acacia_pubsub can call the script to ban it.&lt;/p&gt;
 &lt;h3 id="frequency"&gt;&lt;a href="#frequency"&gt;Cron job execution frequency&lt;/a&gt;&lt;/h3&gt;
