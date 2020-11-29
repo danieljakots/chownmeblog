@@ -79,6 +79,8 @@ subsequent ones. (Maybe the previous one?)
 If you're curious about this experiment and want to be part of it, please send an email
 to newsletter at chown dot me!
 
+**Edit on 2020-11-29: The newsletter has been discontinued.**
+
 <br/>
 
 *Thanks [Pamela](https://bsd.network/@pamela) for the proof-reading!*
