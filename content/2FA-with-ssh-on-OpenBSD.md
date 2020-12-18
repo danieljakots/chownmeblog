@@ -2,7 +2,7 @@ Title: 2FA with ssh on OpenBSD
 Date: 2018-08-31
 Category: Tech
 
-Five years ago I wrote about [using a yubikey](./yubikey.html) on OpenBSD.  The
+Five years ago I wrote about [using a yubikey](https://oldblog.chown.me/blog/yubikey.html) on OpenBSD.  The
 only problem with doing this is that there's no validation server available on
 OpenBSD, so you need to use a different OTP slot for each machine. (You don't
 want to risk a [replay attack](https://en.wikipedia.org/wiki/Replay_attack) if
