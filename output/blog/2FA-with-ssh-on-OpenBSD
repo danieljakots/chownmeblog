@@ -45,12 +45,14 @@ verify the OTPs we submit.</p>
 <div class="codehilite"><pre><span></span># pkg_add login_oath
 </pre></div>
 
+
 <p>We need to create a <em>secret</em> - aka, the <em>seed</em> - that will be used to calculate
 the Time-based One-Time Passwords. We should make sure no one can read or
 change it.</p>
 <div class="codehilite"><pre><span></span>$ openssl rand -hex <span class="m">20</span> &gt; ~/.totp-key
 $ chmod <span class="m">400</span> ~/.totp-key
 </pre></div>
+
 
 <p>Now we have a hexadecimal key, but apps usually <a href="https://github.com/mattrubin/Authenticator/blob/develop/Authenticator/Source/TokenEntryForm.swift#L214">want a base32
 secret</a>.
@@ -140,6 +142,7 @@ mobile app using the QR code will be super easy!</p>
 <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">image_file</span><span class="p">)</span>
 </pre></div>
 </td></tr></table>
+
 <p>You can fetch this script using <code>ftp
 https://chown.me/iota/blog/totp-hex-to-qrcode.py</code>.  (The code isn't in any of
 my public repositories for
@@ -155,6 +158,7 @@ $ oathtool --totp -b AERUKZ4JVPG66AJD
 <span class="m">054640</span>
 </pre></div>
 
+
 <p><em>0123456789abcdef0123</em> is the <em>seed</em> in hexadecimal format (as in
 <code>~/.totp-key</code>) and <em>AERUKZ4JVPG66AJD</em> is the same data, but base32-encoded.</p>
 <p>Alternatively, if you just want to do the hex -&gt; b32 conversion, <em>login_oath</em>'s
@@ -168,6 +172,7 @@ not want to use it):</p>
 <span class="k">print</span> <span class="n">encode_base32</span><span class="p">(</span><span class="nv">$s</span><span class="p">)</span><span class="o">.</span><span class="s">&quot;\n&quot;</span><span class="p">;</span>
 </pre></div>
 
+
 <h2 id="sysconfig"><a href="#sysconfig">System configuration</a></h2>
 <p>We can now move to the configuration of the system to put our new TOTP to use.
 As you might guess, it's going to be quite close to what we did with the
@@ -180,10 +185,12 @@ without showing enough care.</p>
 auth-ftp-defaults:auth-ftp=passwd:
 </pre></div>
 
+
 <p>we add:</p>
 <div class="codehilite"><pre><span></span># Default allowed authentication styles for authentication type ssh
 auth-ssh-defaults:auth-ssh=-totp:
 </pre></div>
+
 
 <p>and inside the class of the user account for which TOTP is being set, we add
 the line <code>:tc=auth-ssh-defaults:\</code>. For instance, in my case it's:</p>
@@ -197,6 +204,7 @@ the line <code>:tc=auth-ssh-defaults:\</code>. For instance, in my case it's:</p
         :tc=auth-ssh-defaults:\
         :tc=default:
 </pre></div>
+
 
 <p>(Hint: it's the penultimate line). You can check the class of your user using
 <code>id -c</code>.</p>
@@ -226,6 +234,7 @@ sshd immediately declining your attempt.</p>
 <span class="o">+</span><span class="nl">debug1</span><span class="p">:</span> <span class="n">Authentication</span> <span class="n">succeeded</span> <span class="p">(</span><span class="n">password</span><span class="p">).</span>
 </pre></div>
 
+
 <h2 id="nouximpact"><a href="#nouximpact">Improving security without impacting UX</a></h2>
 <p>My phone has a long enough password that most of the time, I fail to type it
 correctly on the first try. Of course, if I had to unlock my phone, launch my
@@ -239,9 +248,11 @@ through 2FA. For some users, I might not even enable 2FA.</p>
     AuthenticationMethods publickey
 </pre></div>
 
+
 <div class="codehilite"><pre><span></span>Match Address 203.0.113.47 # VPN
     AuthenticationMethods publickey
 </pre></div>
+
 
 <p><br/></p>
 <p>To sum up, we covered how to create a seed, how to perform a hexadecimal to

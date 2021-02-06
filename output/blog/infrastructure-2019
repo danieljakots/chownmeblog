@@ -191,11 +191,13 @@ to get it working that I'm not willing to look into it more than that.</p>
 <p>Nginx also acts as a reverse proxy for the docker containers that run on
 another machine. Finally, it hosts <em>minio</em> for <em>mastodon</em>.</p>
 <h3 id="docker2"><a href="#docker2">docker2 (Ubuntu, obviously)</a></h3>
-<p>This machine runs a few docker containers through <em>docker-compose</em>:
-- 3 containers for <em>mastodon</em> (<em>ruby on rails</em> stuff, a node api and <em>sidekiq</em>)
-- container running the code I wrote for api.chown.me; it's a <em>flask</em>
-  application
-- registry:v2 that I have simply to ease the transfer of docker images</p>
+<p>This machine runs a few docker containers through <em>docker-compose</em>:</p>
+<ul>
+<li>3 containers for <em>mastodon</em> (<em>ruby on rails</em> stuff, a node api and <em>sidekiq</em>)</li>
+<li>container running the code I wrote for api.chown.me; it's a <em>flask</em>
+  application</li>
+<li>registry:v2 that I have simply to ease the transfer of docker images</li>
+</ul>
 <p>I build all the docker images I run myself (except for the registry one).</p>
 <p>My policy regarding those containers is that they must not store any data
 locally (i.e. they don't have a <em>docker volume</em>). This allows me not to care
