@@ -217,10 +217,11 @@ another machine. Finally, it hosts *minio* for *mastodon*.
 ### [docker2 (Ubuntu, obviously)](#docker2) {: #docker2 }
 
 This machine runs a few docker containers through *docker-compose*:
-- 3 containers for *mastodon* (*ruby on rails* stuff, a node api and *sidekiq*)
-- container running the code I wrote for api.chown.me; it's a *flask*
+
+* 3 containers for *mastodon* (*ruby on rails* stuff, a node api and *sidekiq*)
+* container running the code I wrote for api.chown.me; it's a *flask*
   application
-- registry:v2 that I have simply to ease the transfer of docker images
+* registry:v2 that I have simply to ease the transfer of docker images
 
 I build all the docker images I run myself (except for the registry one).
 
