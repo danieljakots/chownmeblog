@@ -165,8 +165,7 @@ server disappears, rsync will remove it on zfs1 as well. But I will still have
 the data in the snapshots.
 
 I had been reluctant to get a NAS because I thought the machine would do
-nothing most of the time. With this machine that's clearly not the case, and
-I'm still puzzled by this fact.
+nothing most of the time. With this machine, it's clearly the case.
 
 ## [That's it for now](#end) {: #end }
 
