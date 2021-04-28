@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://chown.me/style.css" type="text/css"/>
+  <link rel="stylesheet" href="https://chown.me/pygmentize.css" type="text/css"/>
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="https://chown.me/blog/feeds/atom.xml" />
+  <link rel="icon" type="image/png" href="https://chown.me/favicon.png">
+  <meta property="og:image" content="https://chown.me/favicon.png">
+  <title>My infrastructure as of 2020</title>
+  <meta property="og:title" content="My infrastructure as of 2020">
+
+</head>
+
+<body>
+  <div class="sidebar">
+    <a href="https://chown.me" style="background-color:inherit;"><h1>Hi, I'm Daniel Jakots!</h1></a>
+    <a href="https://chown.me">Home</a>
+    <a href="https://chown.me/about">About</a>
+    <a href="https://chown.me/contact">Contact</a>
+    <a href="https://chown.me/blog/feeds/atom.xml">Atom Feed</a>
+    <a href="https://px.chown.me">Pictures</a>
+  </div>
+  <div class="notsidebar">
+<a href="./infrastructure-2020"><h1>My infrastructure as of 2020</h1></a>
+<p><b>Posted on 2021-04-27</b></p>
+<p>Last year, I wrote about my infrastructure as of 2019. Here's
+the update for 2020! I would advise that you first (re)read
+last year's article, since this one will be more like a
+<a href="https://en.wikipedia.org/wiki/Diff">diff</a>.</p>
+<h2 id="goal"><a href="#goal">Goal for this infrastructure</a></h2>
+<p>Goals stayed the same.</p>
+<h2 id="machines"><a href="#machines">Machines</a></h2>
+<p>My machines are still hosted in the same 3 different places. The first is
+<a href="https://www.exoscale.com/">Exoscale</a>, the second is
+<a href="https://www.vultr.com/">Vultr</a> and the third is... my flat.</p>
+<p>My choice for OS didn't change, as in I still use the last LTS-or-not Ubuntu,
+which at the end of the year was Ubuntu 20.10. And OpenBSD -current, of course.</p>
+<p>I made 446 commits during 2020 in my Ansible repository, according to <code>git
+rev-list --count HEAD --since="Jan 1 2020" --before="Jan 1 2021"</code> (I'm giving
+the command mostly for my next-year self). But keep in mind I really care about
+commits doing one thing, and one thing only. While this number may seem high,
+I'm sure some people would have been fine with making only one commit
+:trollface:.</p>
+<p>Infrastructure-wise, I added a system to share blocked IP addresses among
+my machines. You can read more about it in <a href="https://chown.me/blog/acacia">its dedicated
+article</a>.</p>
+<h3 id="ns4"><a href="#ns4">ns4.chown.me (OpenBSD)</a></h3>
+<p>This used to be ns3. I wanted to get more use out of this machine, so I needed
+to repartition (i.e. reinstall) the OS. I could have gone with ns2, but I
+planned to move my irc client from virtie to this one. Latency over ssh is
+annoying, and ns4 is 30ms away while virtie is 130ms away. The reverse of the
+IP address (i.e. the DNS PTR record) appears on irc, so I wanted to trick
+people into thinking I have at least four nameservers :D</p>
+<p>Since my irc logs (and more) are on it, I'm now backing up this machine.</p>
+<p>I implemented a VPN. Initially it was IPSEC with
+<a href="https://man.openbsd.org/ipsec.conf.5">ipsec.conf(5)</a> and
+<a href="https://man.openbsd.org/npppd.8">npppd(8)</a>. I'm surprised I didn't mention it
+in my article from last year because I've had this VPN since 2017, I think.
+During 2020, I moved to Wireguard® with its <a href="https://man.openbsd.org/wg.4">kernel
+implementation</a>.</p>
+<h3 id="virtie"><a href="#virtie">virtie.chown.me (OpenBSD)</a></h3>
+<p>A couple times I thought about dropping the HAProxy + httpd setup and moving
+all my web presence to web1 with its nginx. Out of laziness, I didn't do it.</p>
+<p>The only thing that changed for this machine is my irc client, which moved to
+ns4.</p>
+<h3 id="pancake"><a href="#pancake">pancake.chown.me (OpenBSD)</a></h3>
+<p>I'm using VLANs again on my home infrastructure. I've been using VLANs for a
+few years to limit interactions between my devices. At the end of 2019, the
+<a href="https://en.wikipedia.org/wiki/Power-line_flicker">power flickered</a>, and I had
+troubles with my "manageable" switch. For a few months after that, I used a
+"simple" switch so everything was on the same network. I wrote last year's
+article during this time, which is why I didn't mention the VLANs.</p>
+<p>After a few months, I tried the switch one last time, and this time it worked,
+so I went back to using VLANs. I've since bought an "APC Back-UPS BE600M1"
+to protect my home infrastructure.  The switch I have is a TP-LINK TL-SG3216. I
+have a TL-WA901ND, a VLAN-capable Wifi Access Point, so I can create up
+to 4 SSIDs, and each is on a given VLAN.</p>
+<p>As mentioned, I use many VLANs to restrict how devices can interact with each
+other. For instance, if I were to share my Internet uplink with my neighbor (I
+don't, because I assume my ISP's Terms of Service forbid it), she would have
+her own SSID on her own VLAN so her devices wouldn't interact with mine.</p>
+<p>I use <a href="https://man.openbsd.org/aggr.4">aggr(4)</a>, which is a modern LACP driver.
+I doubt this improves the forwarding performance of the router, but I like the
+look of the three cables plugged into the switch, and I don't have to figure
+out which interface on the apu is em0 or em2 (em1 obviously being the one in
+the middle).</p>
+<h3 id="kvm"><a href="#kvm">kvm1, and sometimes kvm2 (Ubuntu)</a></h3>
+<p>No change on the KVM side, other than that they're now running Ubuntu 20.10.</p>
+<p>I further automated the post-reinstall step. Reinstalling them frequently is
+always nice, allowing me to find things I did manually and forgot to add to my
+ansible repository.</p>
+<p>The virtual machines it hosts are the same four as before:</p>
+<h4 id="manicouagan1"><a href="#manicouagan1">manicouagan1 (OpenBSD)</a></h4>
+<p>This machine doesn't actually hold the backups any longer. I set up a NAS, so I
+moved the backup system there. The only role of this machine now is to receive
+all the logs via syslogd.</p>
+<h4 id="db1"><a href="#db1">db1 (OpenBSD)</a></h4>
+<p>Other than the usual updates, nothing changed.</p>
+<h4 id="web1"><a href="#web1">web1 (OpenBSD)</a></h4>
+<p>Very little change here. I've only added <a href="https://px.chown.me">https://px.chown.me</a> to it.</p>
+<h4 id="docker4"><a href="#docker4">docker4 (Ubuntu, obviously)</a></h4>
+<p>In the previous article, it was docker2 (Ubuntu 19.10). I recreated this as
+docker3 (Ubuntu 20.04), and now as docker4 (Ubuntu 20.10).</p>
+<p>This machine still runs containers through <em>docker-compose</em>. I'm still running
+docker registry, mastodon and my API. In addition to these, I now have:</p>
+<ul>
+<li>etherpad</li>
+<li>two containers for <a href="https://github.com/zedeus/nitter">nitter</a> (nitter itself and redis)</li>
+<li><a href="https://github.com/danieljakots/openbsd-commits-to-mastodon">openbsd-commits-to-mastodon</a></li>
+</ul>
+<p>My policy about not having data on the machine didn't change. The redis used by
+nitter is just for caching.</p>
+<p>A few days ago, I accidentally broke the booting system of the machine, and I
+chose to reinstall it rather than trying to fix it. This was a good test, since
+I still don't have backups for this one. Other than the short period of
+unavailability, it went fine.</p>
+<p>I considered switching to k3s, but since this setup works fine, I didn't
+bother.</p>
+<h3 id="zfs1"><a href="#zfs1">zfs1 (Ubuntu)</a></h3>
+<p>As briefly mentioned in my article from last year, kvm1 and 2 replaced a
+machine called kvm0. Since I still had the hardware around, I decided to use it
+as a NAS. I'm using Ubuntu installed on an SSD. Contrary to the other Ubuntu
+machines, this one stayed at 20.04. I didn't know if I wanted to switch to
+20.10, and doing nothing was the easier path.</p>
+<p>A NAS is obviously nothing without storage, and I bought two 4TB Iron Wolf hard
+drives. I have a plan to buy two more disks and to change it from a mirror to a
+striped mirror. The current computer case and motherboard don't support 5 disks
+(4 disks for zfs, and the SSD for the OS). However, I want to reuse hardware
+rather than buying, which requires me to do some shuffling with the hardware I
+have. This complicates things so it hasn't happened yet (and the remaining
+space on the current system is not critically low, so I'm slacking).</p>
+<p>The ZFS disks are encrypted through LUKS. While zfs added support for
+encryption, I wasn't sure about the details. I'm used to LUKS so this was the
+easier path.</p>
+<p>As mentioned in the manicouagan part, this machine is now the one fetching the
+backups from the other machines and uploading them to the Cloud™.</p>
+<p>With the previous setup, my backups were at risk of deletion. Let's say someone
+broke into my database server. They could rm -rf the backups. Then my server
+would "synchronize" the directory, which would delete everything. Then it would
+"synchronize" with the Cloud™, which would remove the data there as well. The
+attacker could then rm the data, or encrypt it for a ransom, and there would be
+nothing I could do.</p>
+<p>Now, I'm taking zfs snapshots every hour. If the backups directory on the
+server disappears, rsync will remove it on zfs1 as well. But I will still have
+the data in the snapshots.</p>
+<p>I had been reluctant to get a NAS because I thought the machine would do
+nothing most of the time. With this machine, it's clearly the case.</p>
+<h2 id="end"><a href="#end">That's it for now</a></h2>
+<p>As I said in the introduction, there were no major changes. This is not a
+surprise since this setup works well.</p>
+  <br>
+  <footer>
+    <p>This website is best viewed on a screen identical to my own. <a href="https://github.com/danieljakots/chownmeblog">Source code</a></p>
+  </footer>
+  </div>
+</body>
+</html>

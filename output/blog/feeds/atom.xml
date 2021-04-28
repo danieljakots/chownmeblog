@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Daniel Jakots</title><link href="https://pre-prod.chown.me/" rel="alternate"></link><link href="https://pre-prod.chown.me/blog/feeds/atom.xml" rel="self"></link><id>https://pre-prod.chown.me/</id><updated>2021-02-06T10:00:00Z</updated><entry><title>My infrastructure as of 2020</title><link href="https://pre-prod.chown.me/blog/infrastructure-2020" rel="alternate"></link><published>2021-02-06T10:00:00Z</published><updated>2021-02-06T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2021-02-06:/blog/infrastructure-2020</id><summary type="html">&lt;p&gt;Last year, I wrote about my infrastructure as of 2019. Here's the update for
-2020! I would advise to first (re)read the last-year article since this article
-will be more like a &lt;a href="https://en.wikipedia.org/wiki/Diff"&gt;diff&lt;/a&gt;.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Daniel Jakots</title><link href="https://chown.me/" rel="alternate"></link><link href="https://chown.me/blog/feeds/atom.xml" rel="self"></link><id>https://chown.me/</id><updated>2021-04-27T10:00:00Z</updated><entry><title>My infrastructure as of 2020</title><link href="https://chown.me/blog/infrastructure-2020" rel="alternate"></link><published>2021-04-27T10:00:00Z</published><updated>2021-04-27T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2021-04-27:/blog/infrastructure-2020</id><summary type="html">&lt;p&gt;Last year, I wrote about my infrastructure as of 2019. Here's
+the update for 2020! I would advise that you first (re)read
+last year's article, since this one will be more like a
+&lt;a href="https://en.wikipedia.org/wiki/Diff"&gt;diff&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id="goal"&gt;&lt;a href="#goal"&gt;Goal for this infrastructure&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Goals stayed the same.&lt;/p&gt;
 &lt;h2 id="machines"&gt;&lt;a href="#machines"&gt;Machines&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;My machines are still hosted in the same 3 different places. First is at
-&lt;a href="https://www.exoscale.com/"&gt;Exoscale&lt;/a&gt;, second is
+&lt;p&gt;My machines are still hosted in the same 3 different places. The first is
+&lt;a href="https://www.exoscale.com/"&gt;Exoscale&lt;/a&gt;, the second is
 &lt;a href="https://www.vultr.com/"&gt;Vultr&lt;/a&gt; and the third is... my flat.&lt;/p&gt;
 &lt;p&gt;My choice for OS didn't change, as in I still use the last LTS-or-not Ubuntu,
-so at the end of the year, Ubuntu 20.10. And OpenBSD -current, of course.&lt;/p&gt;
-&lt;p&gt;I did 446 commits during 2020 in my Ansible repository, according to &lt;code&gt;git
-rev-list --count HEAD --since="Jan 1 2020" --before="Jan 1 2021"&lt;/code&gt; (giving the
-command mostly for my next-year self). But keep in mind I really care about
+which at the end of the year was Ubuntu 20.10. And OpenBSD -current, of course.&lt;/p&gt;
+&lt;p&gt;I made 446 commits during 2020 in my Ansible repository, according to &lt;code&gt;git
+rev-list --count HEAD --since="Jan 1 2020" --before="Jan 1 2021"&lt;/code&gt; (I'm giving
+the command mostly for my next-year self). But keep in mind I really care about
 commits doing one thing, and one thing only. While this number may seem high,
-I'm sure some people would have been fine with doing only one commit
+I'm sure some people would have been fine with making only one commit
 :trollface:.&lt;/p&gt;
-&lt;p&gt;Infrastructure wide, I added a system to share the blocked IP addresses between
+&lt;p&gt;Infrastructure-wise, I added a system to share blocked IP addresses among
 my machines. You can read more about it in &lt;a href="https://chown.me/blog/acacia"&gt;its dedicated
 article&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id="ns4"&gt;&lt;a href="#ns4"&gt;ns4.chown.me (OpenBSD)&lt;/a&gt;&lt;/h3&gt;
@@ -26,103 +27,103 @@ planned to move my irc client from virtie to this one. Latency over ssh is
 annoying, and ns4 is 30ms away while virtie is 130ms away. The reverse of the
 IP address (i.e. the DNS PTR record) appears on irc, so I wanted to trick
 people into thinking I have at least four nameservers :D&lt;/p&gt;
-&lt;p&gt;Since there is my irc logs (and more) on it, I'm now backing up this machine.&lt;/p&gt;
-&lt;p&gt;I put some VPN. Initially it was IPSEC with
+&lt;p&gt;Since my irc logs (and more) are on it, I'm now backing up this machine.&lt;/p&gt;
+&lt;p&gt;I implemented a VPN. Initially it was IPSEC with
 &lt;a href="https://man.openbsd.org/ipsec.conf.5"&gt;ipsec.conf(5)&lt;/a&gt; and
 &lt;a href="https://man.openbsd.org/npppd.8"&gt;npppd(8)&lt;/a&gt;. I'm surprised I didn't mention it
-in my last-year article because I had this VPN since 2017, I think. During
-2020, I moved to Wireguard® with its &lt;a href="https://man.openbsd.org/wg.4"&gt;kernel
+in my article from last year because I've had this VPN since 2017, I think.
+During 2020, I moved to Wireguard® with its &lt;a href="https://man.openbsd.org/wg.4"&gt;kernel
 implementation&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id="virtie"&gt;&lt;a href="#virtie"&gt;virtie.chown.me (OpenBSD)&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;A couple of times I thought about dropping the HAProxy + httpd setup, and move
-all my web presence to web1 with its nginx. Out of lazyness I didn't do it.&lt;/p&gt;
-&lt;p&gt;The only thing that changed for this machine is my irc client that moved to ns4.&lt;/p&gt;
+&lt;p&gt;A couple times I thought about dropping the HAProxy + httpd setup and moving
+all my web presence to web1 with its nginx. Out of laziness, I didn't do it.&lt;/p&gt;
+&lt;p&gt;The only thing that changed for this machine is my irc client, which moved to
+ns4.&lt;/p&gt;
 &lt;h3 id="pancake"&gt;&lt;a href="#pancake"&gt;pancake.chown.me (OpenBSD)&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I'm using VLANs again on my home infrastructure. I've been using VLANs for a
-few years to limit interactions between my devices. At the end of 2019, the &lt;a href="https://en.wikipedia.org/wiki/Power-line_flicker"&gt;power
-flickered&lt;/a&gt;, and I had
+few years to limit interactions between my devices. At the end of 2019, the
+&lt;a href="https://en.wikipedia.org/wiki/Power-line_flicker"&gt;power flickered&lt;/a&gt;, and I had
 troubles with my "manageable" switch. For a few months after that, I used a
-"simple" switch so everything was on the same network. I wrote the last-year
+"simple" switch so everything was on the same network. I wrote last year's
 article during this time, which is why I didn't mention the VLANs.&lt;/p&gt;
-&lt;p&gt;After a few months I tried one last time the switch, and this time it worked,
-so I went back to using VLANs. I've since then bought an "APC Back-UPS BE600M1"
+&lt;p&gt;After a few months, I tried the switch one last time, and this time it worked,
+so I went back to using VLANs. I've since bought an "APC Back-UPS BE600M1"
 to protect my home infrastructure.  The switch I have is a TP-LINK TL-SG3216. I
-have a TL-WA901ND which is a VLAN-capable Wifi Access Point, so I can create up
+have a TL-WA901ND, a VLAN-capable Wifi Access Point, so I can create up
 to 4 SSIDs, and each is on a given VLAN.&lt;/p&gt;
 &lt;p&gt;As mentioned, I use many VLANs to restrict how devices can interact with each
-other. For instance if I were to share my Internet uplink with my neighbor (I
+other. For instance, if I were to share my Internet uplink with my neighbor (I
 don't, because I assume my ISP's Terms of Service forbid it), she would have
-her own SSID on her own VLAN so her devices wouldn't interact with mines.&lt;/p&gt;
-&lt;p&gt;I use &lt;a href="https://man.openbsd.org/aggr.4"&gt;aggr(4)&lt;/a&gt; which is a modern LACP driver.
+her own SSID on her own VLAN so her devices wouldn't interact with mine.&lt;/p&gt;
+&lt;p&gt;I use &lt;a href="https://man.openbsd.org/aggr.4"&gt;aggr(4)&lt;/a&gt;, which is a modern LACP driver.
 I doubt this improves the forwarding performance of the router, but I like the
-look of the three cables plugged on the switch, and I don't have to figure out
-which interface on the apu is em0 or em2 (em1 being obviously the one in the
-middle).&lt;/p&gt;
+look of the three cables plugged into the switch, and I don't have to figure
+out which interface on the apu is em0 or em2 (em1 obviously being the one in
+the middle).&lt;/p&gt;
 &lt;h3 id="kvm"&gt;&lt;a href="#kvm"&gt;kvm1, and sometimes kvm2 (Ubuntu)&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;No change on the KVM side, other than they're now running Ubuntu 20.10.&lt;/p&gt;
-&lt;p&gt;I automated further the post-reinstall step. Reinstalling them frequently is
-always nice to find what I did manually and forgot to add to my ansible
-repository.&lt;/p&gt;
-&lt;p&gt;The virtual machines it hosts are the same four than before:&lt;/p&gt;
+&lt;p&gt;No change on the KVM side, other than that they're now running Ubuntu 20.10.&lt;/p&gt;
+&lt;p&gt;I further automated the post-reinstall step. Reinstalling them frequently is
+always nice, allowing me to find things I did manually and forgot to add to my
+ansible repository.&lt;/p&gt;
+&lt;p&gt;The virtual machines it hosts are the same four as before:&lt;/p&gt;
 &lt;h4 id="manicouagan1"&gt;&lt;a href="#manicouagan1"&gt;manicouagan1 (OpenBSD)&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;This machine doesn't actually the backups anymore. I setup a NAS so I moved the
-backup system there. The only role of this machine now is receiving all the
-logs through syslog.&lt;/p&gt;
+&lt;p&gt;This machine doesn't actually hold the backups any longer. I set up a NAS, so I
+moved the backup system there. The only role of this machine now is to receive
+all the logs via syslogd.&lt;/p&gt;
 &lt;h4 id="db1"&gt;&lt;a href="#db1"&gt;db1 (OpenBSD)&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;Other than the usual updates, nothing changed.&lt;/p&gt;
 &lt;h4 id="web1"&gt;&lt;a href="#web1"&gt;web1 (OpenBSD)&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;Very little change here. I've only added &lt;a href="https://px.chown.me"&gt;https://px.chown.me&lt;/a&gt; on it.&lt;/p&gt;
+&lt;p&gt;Very little change here. I've only added &lt;a href="https://px.chown.me"&gt;https://px.chown.me&lt;/a&gt; to it.&lt;/p&gt;
 &lt;h4 id="docker4"&gt;&lt;a href="#docker4"&gt;docker4 (Ubuntu, obviously)&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;In the previous article, it was docker2 (Ubuntu 19.10). I recreated as docker3
-(Ubuntu 20.04) and now as docker4 (Ubuntu 20.10).&lt;/p&gt;
-&lt;p&gt;This machine still runs container through &lt;em&gt;docker-compose&lt;/em&gt;. I'm still running
-docker registry, mastodon and my API. In addition to these, I have now:&lt;/p&gt;
+&lt;p&gt;In the previous article, it was docker2 (Ubuntu 19.10). I recreated this as
+docker3 (Ubuntu 20.04), and now as docker4 (Ubuntu 20.10).&lt;/p&gt;
+&lt;p&gt;This machine still runs containers through &lt;em&gt;docker-compose&lt;/em&gt;. I'm still running
+docker registry, mastodon and my API. In addition to these, I now have:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;etherpad&lt;/li&gt;
-&lt;li&gt;two containers for &lt;a href="https://github.com/zedeus/nitter"&gt;nitter&lt;/a&gt; (nitter itself, and redis)&lt;/li&gt;
+&lt;li&gt;two containers for &lt;a href="https://github.com/zedeus/nitter"&gt;nitter&lt;/a&gt; (nitter itself and redis)&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/danieljakots/openbsd-commits-to-mastodon"&gt;openbsd-commits-to-mastodon&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;My policy about not having data on the machine didn't change. The redis used by
-nitter is just for cache.&lt;/p&gt;
+nitter is just for caching.&lt;/p&gt;
 &lt;p&gt;A few days ago, I accidentally broke the booting system of the machine, and I
-chose to reinstall rather than trying to fix. This was a good test since I
-still don't have any backup for this one. Other than the short unavailability,
-it went fine.&lt;/p&gt;
+chose to reinstall it rather than trying to fix it. This was a good test, since
+I still don't have backups for this one. Other than the short period of
+unavailability, it went fine.&lt;/p&gt;
 &lt;p&gt;I considered switching to k3s, but since this setup works fine, I didn't
 bother.&lt;/p&gt;
 &lt;h3 id="zfs1"&gt;&lt;a href="#zfs1"&gt;zfs1 (Ubuntu)&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;As briefly mentioned in my last-year article, kvm1 and 2 replaced a machine
-called kvm0. Since I still had the hardware around, I decided to use it as a
-NAS. I'm using Ubuntu, which is installed on a SSD. Contrary to the other Ubuntu
-machines, this one stayed with 20.04. I didn't know if I wanted to switch to
-20.10 and doing nothing was the easy path.&lt;/p&gt;
-&lt;p&gt;A NAS is obviously nothing without storage, I bought two 4TB Iron Wolf hard
-drives. I have a plan to buy two other disks and to move from a mirror to a
-striped mirror. The current computer case and the motherboard doesn't support 5
-disks (4 disks for zfs, and the SSD for the OS). However, I want to reuse
-hardware rather than buying, which requires to do some shuffling with the
-hardware I have. This complicates things so it hasn't happened yet (and the
-remaining space on the current system is not critically low, so I'm slacking).&lt;/p&gt;
+&lt;p&gt;As briefly mentioned in my article from last year, kvm1 and 2 replaced a
+machine called kvm0. Since I still had the hardware around, I decided to use it
+as a NAS. I'm using Ubuntu installed on an SSD. Contrary to the other Ubuntu
+machines, this one stayed at 20.04. I didn't know if I wanted to switch to
+20.10, and doing nothing was the easier path.&lt;/p&gt;
+&lt;p&gt;A NAS is obviously nothing without storage, and I bought two 4TB Iron Wolf hard
+drives. I have a plan to buy two more disks and to change it from a mirror to a
+striped mirror. The current computer case and motherboard don't support 5 disks
+(4 disks for zfs, and the SSD for the OS). However, I want to reuse hardware
+rather than buying, which requires me to do some shuffling with the hardware I
+have. This complicates things so it hasn't happened yet (and the remaining
+space on the current system is not critically low, so I'm slacking).&lt;/p&gt;
 &lt;p&gt;The ZFS disks are encrypted through LUKS. While zfs added support for
 encryption, I wasn't sure about the details. I'm used to LUKS so this was the
-easy path.&lt;/p&gt;
-&lt;p&gt;As mentioned in the manicouagan part, this machine is the one now fetching the
-backups from the other machines and uploading it to the Cloud™.&lt;/p&gt;
-&lt;p&gt;With the previous setup, my backups was at risk of deletion. Let's say someone
-broke in my database server. They could rm -rf the backups. Then my server
+easier path.&lt;/p&gt;
+&lt;p&gt;As mentioned in the manicouagan part, this machine is now the one fetching the
+backups from the other machines and uploading them to the Cloud™.&lt;/p&gt;
+&lt;p&gt;With the previous setup, my backups were at risk of deletion. Let's say someone
+broke into my database server. They could rm -rf the backups. Then my server
 would "synchronize" the directory, which would delete everything. Then it would
-"synchronize" the Cloud™, which would remove the data there as well. The
-attacker could then rm the data, or encrypt it for a ransom, and there's
-nothing I can do.&lt;/p&gt;
-&lt;p&gt;Now, I'm taking zfs snapshots every hour. Even if the backups directory on the
-servers disappear, rsync will remove it on zfs1 as well. But, I will still have
+"synchronize" with the Cloud™, which would remove the data there as well. The
+attacker could then rm the data, or encrypt it for a ransom, and there would be
+nothing I could do.&lt;/p&gt;
+&lt;p&gt;Now, I'm taking zfs snapshots every hour. If the backups directory on the
+server disappears, rsync will remove it on zfs1 as well. But I will still have
 the data in the snapshots.&lt;/p&gt;
 &lt;p&gt;I had been reluctant to get a NAS because I thought the machine would do
-nothing for most of the time. With this machine it's clearly the case, and I'm
-still puzzled by this fact.&lt;/p&gt;
+nothing most of the time. With this machine, it's clearly the case.&lt;/p&gt;
 &lt;h2 id="end"&gt;&lt;a href="#end"&gt;That's it for now&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;As I said in the introduction, there was no major change. This is not a
-surprise since this setup works well.&lt;/p&gt;</summary></entry><entry><title>Firewall ban-sharing across machines</title><link href="https://pre-prod.chown.me/blog/acacia" rel="alternate"></link><published>2020-09-15T10:00:00Z</published><updated>2020-09-15T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2020-09-15:/blog/acacia</id><summary type="html">&lt;p&gt;How can you block one IP simultaneously on multiple machines?&lt;/p&gt;
+&lt;p&gt;As I said in the introduction, there were no major changes. This is not a
+surprise since this setup works well.&lt;/p&gt;</summary></entry><entry><title>Firewall ban-sharing across machines</title><link href="https://chown.me/blog/acacia" rel="alternate"></link><published>2020-09-15T10:00:00Z</published><updated>2020-09-15T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2020-09-15:/blog/acacia</id><summary type="html">&lt;p&gt;How can you block one IP simultaneously on multiple machines?&lt;/p&gt;
 &lt;h2 id="goal"&gt;&lt;a href="#goal"&gt;The goal&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;As described in &lt;a href="./infrastructure-2019"&gt;My infrastructure as of 2019&lt;/a&gt;, my
 machines are located in three different sites and are loosely coupled.
@@ -293,7 +294,7 @@ a pf table).&lt;/p&gt;
 &lt;h2 id="conclusion"&gt;&lt;a href="#conclusion"&gt;Conclusion&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;With these different bricks, any IP that gets blocked by one machine will
 automatically get blocked by my other machines, in near real-time. And all
-traffic still benefits from TLS.&lt;/p&gt;</summary></entry><entry><title>Improvements to this blog</title><link href="https://pre-prod.chown.me/blog/blog-improvements" rel="alternate"></link><published>2020-06-16T10:00:00Z</published><updated>2020-06-16T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2020-06-16:/blog/blog-improvements</id><summary type="html">&lt;p&gt;This article announces a new version of this blog. Available right now!&lt;/p&gt;
+traffic still benefits from TLS.&lt;/p&gt;</summary></entry><entry><title>Improvements to this blog</title><link href="https://chown.me/blog/blog-improvements" rel="alternate"></link><published>2020-06-16T10:00:00Z</published><updated>2020-06-16T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2020-06-16:/blog/blog-improvements</id><summary type="html">&lt;p&gt;This article announces a new version of this blog. Available right now!&lt;/p&gt;
 &lt;p&gt;In my &lt;a href="./pics2html"&gt;previous article&lt;/a&gt;, I said that "seeing how easy writing a
 static site generator was made me want to write one for my blog," and that's
 what I did! I initially wrote a very long article to tell the whole story, but
@@ -321,7 +322,7 @@ so it's an improvement.&lt;/li&gt;
   working as before, all pages will be reachable with the .html extension as
   well.&lt;/li&gt;
 &lt;li&gt;New pygment style (for inline code), which I think is nicer.&lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>How I accidentally wrote a static site generator</title><link href="https://pre-prod.chown.me/blog/pics2html" rel="alternate"></link><published>2020-04-08T10:00:00Z</published><updated>2020-04-08T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2020-04-08:/blog/pics2html</id><summary type="html">&lt;h2 id="context"&gt;&lt;a href="#context"&gt;Some context first&lt;/a&gt;&lt;/h2&gt;
+&lt;/ul&gt;</summary></entry><entry><title>How I accidentally wrote a static site generator</title><link href="https://chown.me/blog/pics2html" rel="alternate"></link><published>2020-04-08T10:00:00Z</published><updated>2020-04-08T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2020-04-08:/blog/pics2html</id><summary type="html">&lt;h2 id="context"&gt;&lt;a href="#context"&gt;Some context first&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;I bought my
 &lt;a href="https://en.wikipedia.org/wiki/Digital_single-lens_reflex_camera"&gt;DSLR&lt;/a&gt; at the
 end of 2014. I wanted to host the resulting pictures somewhere. I never liked
@@ -416,7 +417,7 @@ discovered that creating a RSS feed is actually not that hard, etc). I'm really
 happy with how the website looks. Doing web design is completely out of the
 ordinary for me, so it was nice to do something different!&lt;/p&gt;
 &lt;p&gt;And it's funny... I do things that are 1000x times more complicated, but
-generating 200 html files with a single command really feels like magic!&lt;/p&gt;</summary></entry><entry><title>My infrastructure as of 2019</title><link href="https://pre-prod.chown.me/blog/infrastructure-2019" rel="alternate"></link><published>2020-03-06T10:00:00Z</published><updated>2020-03-06T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2020-03-06:/blog/infrastructure-2019</id><summary type="html">&lt;p&gt;I've wanted to write about my infrastructure for a while, but I kept thinking,
+generating 200 html files with a single command really feels like magic!&lt;/p&gt;</summary></entry><entry><title>My infrastructure as of 2019</title><link href="https://chown.me/blog/infrastructure-2019" rel="alternate"></link><published>2020-03-06T10:00:00Z</published><updated>2020-03-06T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2020-03-06:/blog/infrastructure-2019</id><summary type="html">&lt;p&gt;I've wanted to write about my infrastructure for a while, but I kept thinking,
 "I'll wait until after I've done $next_thing_on_my_todo." Of course this cycle
 never ends, so I decided to write about its state at the end of 2019. Maybe
 I'll write an update on it in a couple of moons; who knows?&lt;/p&gt;
@@ -603,7 +604,7 @@ lists of threats.&lt;/p&gt;
 course, and it's a perpetual work in progress. But it's stable, and usually the
 most I need to do is quickly patch some security vulnerabilities.  Since most
 of the resources I use come from reused computers hosted at my place, I'm able
-to keep the cost (both financial and ecological) really low.&lt;/p&gt;</summary></entry><entry><title>Launching my newsletter</title><link href="https://pre-prod.chown.me/blog/launching-my-newsletter" rel="alternate"></link><published>2019-01-25T10:00:00Z</published><updated>2019-01-25T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2019-01-25:/blog/launching-my-newsletter</id><summary type="html">&lt;h2 id="socialmedia"&gt;&lt;a href="#socialmedia"&gt;Social media&lt;/a&gt;&lt;/h2&gt;
+to keep the cost (both financial and ecological) really low.&lt;/p&gt;</summary></entry><entry><title>Launching my newsletter</title><link href="https://chown.me/blog/launching-my-newsletter" rel="alternate"></link><published>2019-01-25T10:00:00Z</published><updated>2019-01-25T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2019-01-25:/blog/launching-my-newsletter</id><summary type="html">&lt;h2 id="socialmedia"&gt;&lt;a href="#socialmedia"&gt;Social media&lt;/a&gt;&lt;/h2&gt;
 &lt;h3 id="blogging"&gt;&lt;a href="#blogging"&gt;Blogging...&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I created this blog a few years ago because I wanted to talk about the stuff I
 was experimenting with, and in my opinion it was cool to have a blog. I still have
@@ -664,7 +665,7 @@ subsequent ones. (Maybe the previous one?)&lt;/p&gt;
 to newsletter at chown dot me!&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Edit on 2020-11-29: The newsletter has been discontinued.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>Upgrading OpenBSD with Ansible</title><link href="https://pre-prod.chown.me/blog/upgrading-openbsd-with-ansible" rel="alternate"></link><published>2018-10-19T10:00:00Z</published><updated>2018-10-19T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-10-19:/blog/upgrading-openbsd-with-ansible</id><summary type="html">&lt;p&gt;This article is best enjoyed with basic knowledge of &lt;a href="https://man.openbsd.org/autoinstall"&gt;OpenBSD
+&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>Upgrading OpenBSD with Ansible</title><link href="https://chown.me/blog/upgrading-openbsd-with-ansible" rel="alternate"></link><published>2018-10-19T10:00:00Z</published><updated>2018-10-19T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2018-10-19:/blog/upgrading-openbsd-with-ansible</id><summary type="html">&lt;p&gt;This article is best enjoyed with basic knowledge of &lt;a href="https://man.openbsd.org/autoinstall"&gt;OpenBSD
 autoinstall&lt;/a&gt; and &lt;a href="https://www.ansible.com/"&gt;Ansible&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id="router"&gt;&lt;a href="#router"&gt;My router runs OpenBSD -current&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;A few months ago, I needed software that had just hit the ports tree. I didn't
@@ -836,7 +837,7 @@ able to pass the &lt;code&gt;-Dsnap&lt;/code&gt; parameter.&lt;/p&gt;
 &lt;p&gt;I'm very happy with the playbook! It performs the upgrade with as little
 intervention as possible and minimal downtime. \o/&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>Locking OpenBSD when it's sleeping</title><link href="https://pre-prod.chown.me/blog/locking-openbsd-when-sleeping" rel="alternate"></link><published>2018-10-08T10:00:00Z</published><updated>2018-10-08T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-10-08:/blog/locking-openbsd-when-sleeping</id><summary type="html">&lt;p&gt;I frequent the #openbsd IRC channel in order to help people. A question
+&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>Locking OpenBSD when it's sleeping</title><link href="https://chown.me/blog/locking-openbsd-when-sleeping" rel="alternate"></link><published>2018-10-08T10:00:00Z</published><updated>2018-10-08T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2018-10-08:/blog/locking-openbsd-when-sleeping</id><summary type="html">&lt;p&gt;I frequent the #openbsd IRC channel in order to help people. A question
 commonly asked is how to automatically lock your machine when
 putting it to sleep with zzz(1). I answered this question in a
 previous article (which was actually written four years ago; time flies!) but
@@ -885,7 +886,7 @@ Control*, etc.), you should handle those as well.&lt;/p&gt;
 Threat&lt;/a&gt;, I feel the need to automatically lock the screen after it has been idle for a short while. You can achieve this using &lt;code&gt;xidle&lt;/code&gt;. The &lt;a href="https://man.openbsd.org/xidle.1"&gt;man
 page&lt;/a&gt; is sufficiently descriptive that I won't talk about that further.&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://maly.io/@semarie"&gt;semarie&lt;/a&gt; for the technical proof-reading and &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the English proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>2FA with ssh on OpenBSD</title><link href="https://pre-prod.chown.me/blog/2FA-with-ssh-on-OpenBSD" rel="alternate"></link><published>2018-08-31T10:00:00Z</published><updated>2018-08-31T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-08-31:/blog/2FA-with-ssh-on-OpenBSD</id><summary type="html">&lt;p&gt;Five years ago I wrote about &lt;a href="https://oldblog.chown.me/blog/yubikey.html"&gt;using a yubikey&lt;/a&gt; on OpenBSD.  The
+&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://maly.io/@semarie"&gt;semarie&lt;/a&gt; for the technical proof-reading and &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the English proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>2FA with ssh on OpenBSD</title><link href="https://chown.me/blog/2FA-with-ssh-on-OpenBSD" rel="alternate"></link><published>2018-08-31T10:00:00Z</published><updated>2018-08-31T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2018-08-31:/blog/2FA-with-ssh-on-OpenBSD</id><summary type="html">&lt;p&gt;Five years ago I wrote about &lt;a href="https://oldblog.chown.me/blog/yubikey.html"&gt;using a yubikey&lt;/a&gt; on OpenBSD.  The
 only problem with doing this is that there's no validation server available on
 OpenBSD, so you need to use a different OTP slot for each machine. (You don't
 want to risk a &lt;a href="https://en.wikipedia.org/wiki/Replay_attack"&gt;replay attack&lt;/a&gt; if
@@ -1122,7 +1123,7 @@ the TOTP login system, and we told sshd to ask for both the public key and the
 Time-based One-Time Password. Now you should be all set to use two-factor
 ssh authentication on OpenBSD!&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>The Effective Manager</title><link href="https://pre-prod.chown.me/blog/the-effective-manager" rel="alternate"></link><published>2018-08-13T10:00:00Z</published><updated>2018-08-13T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-08-13:/blog/the-effective-manager</id><summary type="html">&lt;p&gt;&lt;em&gt;Note: this is also available in audio format: 3:49
+&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>The Effective Manager</title><link href="https://chown.me/blog/the-effective-manager" rel="alternate"></link><published>2018-08-13T10:00:00Z</published><updated>2018-08-13T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2018-08-13:/blog/the-effective-manager</id><summary type="html">&lt;p&gt;&lt;em&gt;Note: this is also available in audio format: 3:49
 &lt;a href="https://chown.me/iota/blog/the-effective-manager.mp3"&gt;(1.6MB mp3)&lt;/a&gt;
 &lt;a href="https://chown.me/iota/blog/the-effective-manager.ogg"&gt;(1.3MB ogg)&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
@@ -1198,7 +1199,7 @@ found this a valuable read, as it allows for some management in reverse.&lt;/p&g
 &lt;p&gt;Finally, remember the saying: "people don't quit their jobs; they quit their
 managers." ;)&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading and the audio recording!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>The Checklist Manifesto</title><link href="https://pre-prod.chown.me/blog/the-checklist-manifesto" rel="alternate"></link><published>2018-06-01T10:00:00Z</published><updated>2018-06-01T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-06-01:/blog/the-checklist-manifesto</id><summary type="html">&lt;p&gt;What is the best way to improve the quality of your actions? According to the
+&lt;p&gt;&lt;em&gt;Thanks &lt;a href="https://bsd.network/@pamela"&gt;Pamela&lt;/a&gt; for the proof-reading and the audio recording!&lt;/em&gt;&lt;/p&gt;</summary></entry><entry><title>The Checklist Manifesto</title><link href="https://chown.me/blog/the-checklist-manifesto" rel="alternate"></link><published>2018-06-01T10:00:00Z</published><updated>2018-06-01T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2018-06-01:/blog/the-checklist-manifesto</id><summary type="html">&lt;p&gt;What is the best way to improve the quality of your actions? According to the
 author of the book &lt;a href="https://en.wikipedia.org/wiki/The_Checklist_Manifesto"&gt;&lt;em&gt;The Checklist
 Manifesto&lt;/em&gt;&lt;/a&gt;, it's with
 checklists.&lt;/p&gt;
@@ -1241,7 +1242,7 @@ through the checklist to verify you didn't forget anything&lt;/li&gt;
 &lt;p&gt;Checklists can be done during team briefing and it has the added benefit that it
 improves communication among the team.&lt;/p&gt;
 &lt;p&gt;I liked this book and if you're curious about stories behind checklists, you
-should definitely read it!&lt;/p&gt;</summary></entry><entry><title>Hackathon report - p2k18</title><link href="https://pre-prod.chown.me/blog/p2k18" rel="alternate"></link><published>2018-05-03T10:00:00Z</published><updated>2018-05-03T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-05-03:/blog/p2k18</id><summary type="html">&lt;p&gt;After two mostly boring flights, I was in Nantes on Sunday. I didn't do much
+should definitely read it!&lt;/p&gt;</summary></entry><entry><title>Hackathon report - p2k18</title><link href="https://chown.me/blog/p2k18" rel="alternate"></link><published>2018-05-03T10:00:00Z</published><updated>2018-05-03T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2018-05-03:/blog/p2k18</id><summary type="html">&lt;p&gt;After two mostly boring flights, I was in Nantes on Sunday. I didn't do much
 because I wanted to get some rest after an exhausting week and tried to get my
 body into this new timezone. After a long night of sleep, I went to the hackroom.
 It was already well crowded for the first morning.&lt;/p&gt;
@@ -1329,7 +1330,7 @@ use&lt;/a&gt;!&lt;/p&gt;
 &lt;p&gt;It was very nice to see Nantes and my fellow OpenBSD hackers again. I could commit
 the diffs I had for a few weeks and reviewed some submissions that enhance what
 you can &lt;code&gt;pkg_add&lt;/code&gt; on OpenBSD. Thanks to gilles@ for all the organization and to
-Epitech for hosting us again and to the OpenBSD Foundation for the fundings!&lt;/p&gt;</summary></entry><entry><title>New design</title><link href="https://pre-prod.chown.me/blog/new-design" rel="alternate"></link><published>2018-04-13T10:00:00Z</published><updated>2018-04-13T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2018-04-13:/blog/new-design</id><summary type="html">&lt;p&gt;In June this blog will be five years old. Since &lt;a href="./blog.html"&gt;I created it&lt;/a&gt;, it
+Epitech for hosting us again and to the OpenBSD Foundation for the fundings!&lt;/p&gt;</summary></entry><entry><title>New design</title><link href="https://chown.me/blog/new-design" rel="alternate"></link><published>2018-04-13T10:00:00Z</published><updated>2018-04-13T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2018-04-13:/blog/new-design</id><summary type="html">&lt;p&gt;In June this blog will be five years old. Since &lt;a href="./blog.html"&gt;I created it&lt;/a&gt;, it
 has had the same design. A few weeks ago I looked for a new theme. I found
 &lt;a href="https://github.com/Parbhat/pelican-blue"&gt;pelican-blue&lt;/a&gt; which I liked. For my
 first theme, I took it from someone and shortly after someone took it from me.
@@ -1356,7 +1357,7 @@ feeling to read my younger self. I wouldn't advise to read them haha. They're in
 French anyway.&lt;/p&gt;
 &lt;p&gt;One of my 2018 New Year's resolution was to write more blog articles. With not a
 single one for the first quarter, you can guess it's not my best
-accomplishment. But hopefully, I'll finally do it.&lt;/p&gt;</summary></entry><entry><title>Routing traffic with multiple OpenVPN</title><link href="https://pre-prod.chown.me/blog/routing-traffic-with-multiple-openvpn" rel="alternate"></link><published>2017-11-21T10:00:00Z</published><updated>2017-11-21T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2017-11-21:/blog/routing-traffic-with-multiple-openvpn</id><summary type="html">&lt;h2 id="openvpn"&gt;&lt;a href="#openvpn"&gt;Why OpenVPN?&lt;/a&gt;&lt;/h2&gt;
+accomplishment. But hopefully, I'll finally do it.&lt;/p&gt;</summary></entry><entry><title>Routing traffic with multiple OpenVPN</title><link href="https://chown.me/blog/routing-traffic-with-multiple-openvpn" rel="alternate"></link><published>2017-11-21T10:00:00Z</published><updated>2017-11-21T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2017-11-21:/blog/routing-traffic-with-multiple-openvpn</id><summary type="html">&lt;h2 id="openvpn"&gt;&lt;a href="#openvpn"&gt;Why OpenVPN?&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;For &lt;a href="https://evolix.ca/en"&gt;my dayjob&lt;/a&gt; we access the servers we manage
 through OpenVPN. Of course it's not the only security measure, it's
 yet another layer and it helps to cut a part of the
@@ -1510,7 +1511,7 @@ root@pancake:~# pfctl -t softvpn -Ta 10.1.2.3
 
 &lt;p&gt;That's all! Of course, if anything goes wrong, I have
 &lt;a href="https://chown.me/iota/pics/IMG_0551.JPG"&gt;Jean Canard's Advanced Paws System (APS)&lt;/a&gt;
-that checks for anything.&lt;/p&gt;</summary></entry><entry><title>Dumping pics</title><link href="https://pre-prod.chown.me/blog/dumping-pics" rel="alternate"></link><published>2017-11-04T10:00:00Z</published><updated>2017-11-04T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2017-11-04:/blog/dumping-pics</id><summary type="html">&lt;p&gt;A few years ago I bought a camera (a Canon 100D) and since that I take
+that checks for anything.&lt;/p&gt;</summary></entry><entry><title>Dumping pics</title><link href="https://chown.me/blog/dumping-pics" rel="alternate"></link><published>2017-11-04T10:00:00Z</published><updated>2017-11-04T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2017-11-04:/blog/dumping-pics</id><summary type="html">&lt;p&gt;A few years ago I bought a camera (a Canon 100D) and since that I take
 pictures from time to time. I go through all the pics I take and I
 pick the best then I enhance them a bit with rawtherapee and finally I
 post them on &lt;a href="http://piks.chown.me"&gt;500px&lt;/a&gt;. This process is a bit
@@ -1528,7 +1529,7 @@ gallery there very few static generators. Finally I found
 &lt;a href="https://github.com/saimn/sigal"&gt;sigal&lt;/a&gt; which is maintained, written
 in python, quite nice and very straight forward to use.&lt;/p&gt;
 &lt;p&gt;Here's the result: &lt;a href="https://pics.chown.me/"&gt;https://pics.chown.me/&lt;/a&gt; (with among other themes,
-as of now, 229 pics of my delicious kitten &lt;em&gt;Jean Canard&lt;/em&gt;).&lt;/p&gt;</summary></entry><entry><title>Playing with the pine64</title><link href="https://pre-prod.chown.me/blog/playing-with-the-pine64" rel="alternate"></link><published>2017-10-19T10:00:00Z</published><updated>2017-10-19T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2017-10-19:/blog/playing-with-the-pine64</id><summary type="html">&lt;h2 id="installwhat"&gt;&lt;a href="#installwhat"&gt;Finding something to install on it&lt;/a&gt;&lt;/h2&gt;
+as of now, 229 pics of my delicious kitten &lt;em&gt;Jean Canard&lt;/em&gt;).&lt;/p&gt;</summary></entry><entry><title>Playing with the pine64</title><link href="https://chown.me/blog/playing-with-the-pine64" rel="alternate"></link><published>2017-10-19T10:00:00Z</published><updated>2017-10-19T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2017-10-19:/blog/playing-with-the-pine64</id><summary type="html">&lt;h2 id="installwhat"&gt;&lt;a href="#installwhat"&gt;Finding something to install on it&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;6 weeks ago, I ordered two pine64 units. I didn't (and still don't)
 have much plan for them, but I wanted to play with some cheap
 boards. I finally received them this week. Initially I wanted to
@@ -2123,7 +2124,7 @@ pin. Guess why I'm telling you that!&lt;/p&gt;
 
 &lt;p&gt;And now, I just have to wait for
 &lt;a href="https://chown.me/iota/pics/IMG_0675.JPG"&gt;Jean Canard&lt;/a&gt; to destroy the
-whole thing.&lt;/p&gt;</summary></entry><entry><title>Hackathon report - t2k17</title><link href="https://pre-prod.chown.me/blog/t2k17" rel="alternate"></link><published>2017-08-21T10:00:00Z</published><updated>2017-08-21T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2017-08-21:/blog/t2k17</id><summary type="html">&lt;p&gt;I also wrote &lt;a href="http://undeadly.org/cgi?action=article&amp;amp;sid=20170821231153"&gt;a shorter and less personal report on undeadly&lt;/a&gt;, feel free
+whole thing.&lt;/p&gt;</summary></entry><entry><title>Hackathon report - t2k17</title><link href="https://chown.me/blog/t2k17" rel="alternate"></link><published>2017-08-21T10:00:00Z</published><updated>2017-08-21T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2017-08-21:/blog/t2k17</id><summary type="html">&lt;p&gt;I also wrote &lt;a href="http://undeadly.org/cgi?action=article&amp;amp;sid=20170821231153"&gt;a shorter and less personal report on undeadly&lt;/a&gt;, feel free
 to read it rather than this one if you don't want to know about other things than
 the hackathon.&lt;/p&gt;
 &lt;p&gt;August was a busy month events-wise. I had the visit of coworkers who
@@ -2183,7 +2184,7 @@ ease than I thought. I had the opportunity to have really interesting
 discussions with a lot of other developers (during &lt;a href="https://twitter.com/Vigdis_/status/895794041450897408"&gt;our social event&lt;/a&gt; but not only). Thanks a lot to the
 University of Toronto for hosting us (in a
 &lt;a href="https://twitter.com/Vigdis_/status/896356797988167681"&gt;very nice part of the city&lt;/a&gt;
-and krw@ for organizing!&lt;/p&gt;</summary></entry><entry><title>My recent journey with 2FA</title><link href="https://pre-prod.chown.me/blog/my-recent-journey-with-2FA" rel="alternate"></link><published>2017-02-26T10:00:00Z</published><updated>2017-02-26T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2017-02-26:/blog/my-recent-journey-with-2FA</id><summary type="html">&lt;h2 id="2FA"&gt;&lt;a href="#2FA"&gt;2FA&lt;/a&gt;&lt;/h2&gt;
+and krw@ for organizing!&lt;/p&gt;</summary></entry><entry><title>My recent journey with 2FA</title><link href="https://chown.me/blog/my-recent-journey-with-2FA" rel="alternate"></link><published>2017-02-26T10:00:00Z</published><updated>2017-02-26T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2017-02-26:/blog/my-recent-journey-with-2FA</id><summary type="html">&lt;h2 id="2FA"&gt;&lt;a href="#2FA"&gt;2FA&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Of course by 2FA I mean
 &lt;a href="https://en.wikipedia.org/wiki/Multi-factor_authentication"&gt;two-factor authentication&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I've been using that for a long time for ssh with
@@ -2298,7 +2299,7 @@ possibility to access the shared secret.&lt;/p&gt;
 &lt;p&gt;For now, everything works fine, I use my phone to unlock my different
 accounts and if anything happens to it, I can just unlock my second
 keepassx database and use oathtool (or use a backup code) to get my
-account back.&lt;/p&gt;</summary></entry><entry><title>Hackathon report - p2k16</title><link href="https://pre-prod.chown.me/blog/p2k16" rel="alternate"></link><published>2016-08-11T10:00:00Z</published><updated>2016-08-11T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:pre-prod.chown.me,2016-08-11:/blog/p2k16</id><summary type="html">&lt;h2 id="account"&gt;&lt;a href="#account"&gt;Getting an account&lt;/a&gt;&lt;/h2&gt;
+account back.&lt;/p&gt;</summary></entry><entry><title>Hackathon report - p2k16</title><link href="https://chown.me/blog/p2k16" rel="alternate"></link><published>2016-08-11T10:00:00Z</published><updated>2016-08-11T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2016-08-11:/blog/p2k16</id><summary type="html">&lt;h2 id="account"&gt;&lt;a href="#account"&gt;Getting an account&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Since end of March I have had an OpenBSD account which means that I can do
 some commits on my own, the login I use is &lt;em&gt;danj&lt;/em&gt;. I was then invited
 to &lt;a href="https://www.openbsd.org/images/hackathons/p2k16.gif"&gt;p2k16&lt;/a&gt; which
