@@ -1,5 +1,5 @@
 Title: My infrastructure as of 2020
-Date: 2021-02-06
+Date: 2021-04-27
 Category: Tech
 
 Last year, I wrote about my infrastructure as of 2019. Here's
