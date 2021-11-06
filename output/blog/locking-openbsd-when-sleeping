@@ -46,7 +46,6 @@ it was written in French, so here's a new one, also covering additional related 
                            hibernate, standby, resume, powerup, or powerdown.
 </pre></div>
 
-
 <p>The trick is to write a script for 'etc/apm/suspend' to run when zzz is called
 (either directly or by <a href="https://github.com/openbsd/src/blob/master/etc/etc.amd64/sysctl.conf#L3">closing the
 lid</a>).
@@ -56,7 +55,6 @@ For instance, the script I'm using is:</p>
 doas -u danj env <span class="nv">DISPLAY</span><span class="o">=</span>:0 <span class="nv">XAUTHORITY</span><span class="o">=</span>/home/danj/.Xauthority xlock <span class="p">&amp;</span>
 </pre></div>
 </td></tr></table>
-
 <p>It requires:</p>
 <ul>
 <li>configuring doas, <em>left as an exercise to the reader</em> ;)</li>

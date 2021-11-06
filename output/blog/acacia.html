@@ -109,7 +109,6 @@ pass in on vio0 proto tcp to port { www, https } keep state \
   overload &lt;bruteweb&gt; flush global)
 </pre></div>
 
-
 <p>I use a table per protocol (e.g. <em>bruteweb</em>, <em>brutessh</em> and so on). This allows
 me to identify why an IP has been banned.</p>
 <p>I also have on each machine these two cron jobs:</p>
@@ -118,7 +117,6 @@ me to identify why an IP has been banned.</p>
 #Ansible: acacia_client cron pubsub
 * * * * * /usr/share/scripts/acacia_client -q cron --only-pubsub
 </pre></div>
-
 
 <p>Let's dive into each of these two modes!</p>
 <h3 id="apimode"><a href="#apimode">The REST API mode</a></h3>
@@ -179,12 +177,10 @@ shares them over Pubsub. Nothing more, to keep it light.</p>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </td></tr></table>
-
 <p>Since acacia_pubsub is dropping privileges, I need a
 <a href="https://man.openbsd.org/doas">doas(1)</a> rule:</p>
 <div class="codehilite"><pre><span></span>permit nopass _acacia as root cmd /usr/share/scripts/acacia_ban
 </pre></div>
-
 
 <p>And then acacia_pubsub can call the script to ban it.</p>
 <h3 id="frequency"><a href="#frequency">Cron job execution frequency</a></h3>
