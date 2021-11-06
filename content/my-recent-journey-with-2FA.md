@@ -129,7 +129,7 @@ very easily:
 ## [Activating it](#activation) {: #activation }
 
 Now that we're ready to use it, let's do it. So where to activate
-it? Actually, there's [a cool site](https://twofactorauth.org/) that
+it? Actually, there's [a cool site](https://2fa.directory/) that
 lists services that provide or not (and then you can shame them on
 twitter) 2FA with a link to the service's documentation.
 
