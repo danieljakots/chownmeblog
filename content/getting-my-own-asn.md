@@ -9,19 +9,20 @@ XXX ASN
 In late 2020, I read
 [https://blog.dave.tf/post/new-kubernetes/](https://blog.dave.tf/post/new-kubernetes/).
 In this post, the author said if they were to build something new, they would
-focus on "IPv6 only, mostly". This post got me to thinking about having
-some IPv6 connectivity again.
+focus on "IPv6 only, mostly". This post got me to thinking about having some
+IPv6 connectivity again.
 
-Before I got to Montreal, I used to have access to IPv6 Internet. I
-can't remember for sure, but I think it was through a [Hurricane
+Before I got to Montreal, I used to have access to IPv6 Internet. I can't
+remember for sure, but I think it was through a [Hurricane
 Electric](https://tunnelbroker.net/) tunnel.
 
 ## [No Native IPv6](#native) {: #native }
 
 My Internet Service Provider (ISP) is a small ISP. They don't own the [last
 mile](https://en.wikipedia.org/wiki/Last_mile). They provide native IPv6 for
-some other subscription of theirs, where they can. However, on the service I'm subscribed to, the last mile owner
-is still *in the process of deploying IPv6* (*always-have-been-meme.png*).
+some other subscription of theirs, where they can. However, on the service I'm
+subscribed to, the last mile owner is still *in the process of deploying IPv6*
+(*always-have-been-meme.png*).
 
 No native IPv6 means I'll need to setup some tunnels, one way or another.
 
@@ -29,46 +30,49 @@ No native IPv6 means I'll need to setup some tunnels, one way or another.
 
 The first thing I looked at was Hurrincane Electric, since it was the only
 provider I knew at the time. Unfortunately, they only offer
-[GRE](https://en.wikipedia.org/wiki/Generic_Routing_Encapsulation) tunnels, which
-means no encryption. One could argue that in 2020+, with HTTPS and
+[GRE](https://en.wikipedia.org/wiki/Generic_Routing_Encapsulation) tunnels,
+which means no encryption. One could argue that in 2020+, with HTTPS and
 [DoT](https://en.wikipedia.org/wiki/DNS_over_TLS)/[DoH](https://en.wikipedia.org/wiki/DNS_over_HTTPS),
 there is little unencrypted traffic, but to that I'll reply "meh".
 
 ### [Creating my own tunnel](#hosters) {: #hosters }
 
 I thought I could rent a virtual machine (preferably, since tunnels require
-little resources and VMs are way cheaper than dedicated servers) and
-run my own tunnel with the IPv6 it provides.
+little resources and VMs are way cheaper than dedicated servers) and run my own
+tunnel with the IPv6 it provides.
 
 As mentioned in [my infrastructure blog post](./blog/infrastructure-2020), I
-have multiple networks (VLAN) at home. Because I didn't want to do some *unholy*
-things, I needed to have a /64 per network, meaning multiple /64s for my home.
+have multiple networks (VLAN) at home. Because I didn't want to do some
+*unholy* things, I needed to have a /64 per network, meaning multiple /64s for
+my home.
 
 I went on the hunt for a provider that offers something like a /56 (or the
 option to get multiple /64s). Unfortunately, I didn't find anything reasonable.
-I eventually found some high end servers that came with a /48 but since they cost
-nearly as much as my rent, I'll pass. Most providers give at best a /64, but it
-can also be a /128 (lol) or nothing (yeah who cares about IPv6).
+I eventually found some high end servers that came with a /48 but since they
+cost nearly as much as my rent, I'll pass. Most providers give at best a /64,
+but it can also be a /128 (lol) or nothing (yeah who cares about IPv6).
 
 ### [It will be more complicated](#other) {: #other }
 
 I asked a network engineer friend if he knew any hosting services providing
-more than a /64 with a cheap machine and -well- he gave a network-engineer
-type of answer "just get your IPv6 addresses and announce them".
+more than a /64 with a cheap machine and -well- he gave a network-engineer type
+of answer "just get your IPv6 addresses and announce them".
 
-After inquiring more detail, he kindly answered and I decided to proceed with this.
+After inquiring more detail, he kindly answered and I decided to proceed with
+this.
 
 ### [Some context though](#context) {: #context }
 
-While I don't qualify as a network engineer, I'm not completely ignorant network-wise. I used to work for a [network operator](http://as197696.net/) (so I'm no
-stranger to BGP) and I used to be a volunteer for [a
+While I don't qualify as a network engineer, I'm not completely ignorant
+network-wise. I used to work for a [network operator](http://as197696.net/) (so
+I'm no stranger to BGP) and I used to be a volunteer for [a
 couple](https://www.ffdn.org/) [of non-profit](https://www.franciliens.net/)
 [ISPs](https://gitoyen.net/) back in France.
 
 ## [Getting some resources](#resources) {: #resources }
 
-**Disclaimer**: Keep in mind what follows is my own interpretation. Go read
-the relevant parties' websites and agreements to make your own opinion.
+**Disclaimer**: Keep in mind what follows is my own interpretation. Go read the
+relevant parties' websites and agreements to make your own opinion.
 
 Following my friend's advice, I set out to get some IPv6 addresses and an ASN
 to announce them. I could then create my own (encrypted of course) tunnels to
@@ -79,10 +83,11 @@ I would also be able to achieve what I had wanted for years: play with
 
 ## [Picking a RIR](#RIR) {: #RIR }
 
-IP addresses and an ASN can be obtained through a [RIR](https://en.wikipedia.org/wiki/Regional_Internet_registry).
+IP addresses and an ASN can be obtained through a
+[RIR](https://en.wikipedia.org/wiki/Regional_Internet_registry).
 
-Because of my personal situation (which I won't get into), there are two RIRs I could ask: ARIN and the
-RIPE.
+Because of my personal situation (which I won't get into), there are two RIRs I
+could ask: ARIN and the RIPE.
 
 ### [ARIN](#arin) {: #arin }
 
@@ -91,19 +96,21 @@ the RIR for Corporatist America. If you're not a corporation, well you're not
 going to go very far.
 
 I considered creating my own, but the cost exceeded what I was ready to spend
-on the project. As affordable as it would have been for a corporation, it
-would not be for me.
+on the project. As affordable as it would have been for a corporation, it would
+not be for me.
 
 ### [RIPE](#ripe) {: #ripe }
 
 [RIPE](https://en.wikipedia.org/wiki/RIPE_NCC) is the RIR for Socialist Europe.
 You're an individual and you want some resources? That's totally fine, go ask
 for some. Well, not directly. RIPE doesn't talk to peasants, you'll have to ask
-a [LIR](https://en.wikipedia.org/wiki/Regional_Internet_registry#Local_Internet_registry). If they can provide it directly, they do.
-Otherwise, they act as a proxy between you and the RIPE.
+a
+[LIR](https://en.wikipedia.org/wiki/Regional_Internet_registry#Local_Internet_registry).
+If they can provide it directly, they do.  Otherwise, they act as a proxy
+between you and the RIPE.
 
-I went for this option. From my time volunteering, I know quite a lot of
-people in quite a lot of LIRs.
+I went for this option. From my time volunteering, I know quite a lot of people
+in quite a lot of LIRs.
 
 ### [Grifon](#grifon) {: #grifon }
 
@@ -115,27 +122,29 @@ My initial plan was to get a /48 to get IPv6 at home and a /48 to play with
 anycast (because it is the smallest network you can announce on the Internet).
 I couldn't do anything else with the /48 I would anycast, by design.
 
-So after completing my membership, I requested a /48 IPv6 from the
-RIPE (through my LIR, as explained). A few days after the request and with some
+So after completing my membership, I requested a /48 IPv6 from the RIPE
+(through my LIR, as explained). A few days after the request and with some
 follow-up questions, I got [my first
 prefix](https://bgp.he.net/net/2001:67c:291c::/48). Now that I had some address
-space, I could justify the need for an ASN. I made the request and got [it](https://bgp.he.net/AS211935).
+space, I could justify the need for an ASN. I made the request and got
+[it](https://bgp.he.net/AS211935).
 
 So I requested a /48 to my LIR from its own resources.
 [Alarig](https://www.swordarmor.fr/) kindly carved [my second
 /48](https://bgp.he.net/net/2a0e:f43::/48) out of the LIR reserved address
 space for this purpose.
 
-(For the readers not versed in the RIPE-world technicalities, [the first /48 is a
-PI, the second is a
+(For the readers not versed in the RIPE-world technicalities, [the first /48 is
+a PI, the second is a
 PA](https://www.ripe.net/participate/member-support/copy_of_faqs/isp-related-questions/pa-pi)).
 
 ### [Getting a third /48](#feda) {: #feda }
 
 Shortly after I setup IPv6 at home, I noticed Google believed I was in France.
-[Given that even huge networks struggle to fix problems](https://www.iucc.ac.il/en/blog/2021-05-google-geo-location/),
-I had no hope for myself. I thought that maybe using a netblock from ARIN
-would solve my issue.
+[Given that even huge networks struggle to fix
+problems](https://www.iucc.ac.il/en/blog/2021-05-google-geo-location/), I had
+no hope for myself. I thought that maybe using a netblock from ARIN would solve
+my issue.
 
 At first, I went to ask [a non-profit I contribute to](https://igwan.net/), but
 it didn't work because we hit a technical limitation from a common provider.
@@ -155,7 +164,8 @@ could use to test stuff for anycast.
 
 ### [Using an IPAM](#IPAM) {: #IPAM }
 
-*Are you into IPAM porn? Because if you're into IPAM porn, you're in for a treat!*
+*Are you into IPAM porn? Because if you're into IPAM porn, you're in for a
+treat!*
 
 Now that I had 3 netblocks that I was going to cut into smaller networks, I
 would need a [tool to track
@@ -173,7 +183,7 @@ to see everything??". I created directories for blocks, and files for
 addresses. Here's what it looked like:
 
 ~~~
-~/git/git.chown.me/ipam/ipv6 (master %=)$ tree
+~/git/git.chown.me/ipam/ipv6 (master=)$ tree
 .
 ├── 2001:67c:291c::-48
 │   └── 2001:67c:291c::1
@@ -209,7 +219,8 @@ to move on to something more practical.
 
 #### [IPAM v2](#IPAM2) {: #IPAM2 }
 
-I went for a single text file in a json-inspired format. Here's what it looks like:
+I went for a single text file in a json-inspired format. Here's what it looks
+like:
 
 ~~~
 $ head -n 30 ipam.txt
@@ -247,15 +258,16 @@ ANNOUNCED BY BGP-YYZ, NS4
 Note that here RTBH is **only** how I named the network, it's not related to
 actual RTBH.
 
-I manage the file with vim and I can easily (un)fold any level whether I want an
-overview or a detailed view. Also this may not be entirely up to date haha.
+I manage the file with vim and I can easily (un)fold any level whether I want
+an overview or a detailed view. Also this may not be entirely up to date haha.
 
 ## [The infrastructure](#infrastructure) {: #infrastructure }
 
 ### [For anycast](#anycast) {: #anycast }
 
-My initial plan was to get some VMs around the world and announce the /48 on each.
-Easier said than done, because my requirements are to find a provider which:
+My initial plan was to get some VMs around the world and announce the /48 on
+each.  Easier said than done, because my requirements are to find a provider
+which:
 
 * offers a cheap and small VM (i.e. 1cpu, 1G of ram, 20G of disk)
 * is willing to setup a BGP session so I can announce my IP addresses
@@ -274,17 +286,19 @@ I currently have 4 VMs in this anycast network:
 * bgp-yyz in Toronto, Canada
 * ns4 also in Toronto, Canada
 
-This is a work in progress that probably deserves its own blog post
-when it's fully done, so I won't go further into details.
+This is a work in progress that probably deserves its own blog post when it's
+fully done, so I won't go further into details.
 
 ### [For my IPv6 at home](#athome) {: #athome }
 
 As you just read, I have two VMs in Toronto. I wish I could have a provider in
-Montreal to reduce latency, unfortunately I've not been able to find one quite yet.
+Montreal to reduce latency, unfortunately I've not been able to find one quite
+yet.
 
-I had to choose some tunnelling technology. I picked up WireGuard® because it had
-recently made it into OpenBSD kernels (see [wg(4)](https://man.openbsd.org/wg))
-and my experience with ipsec is as "good" as the next person.
+I had to choose some tunnelling technology. I picked up WireGuard® because it
+had recently made it into OpenBSD kernels (see
+[wg(4)](https://man.openbsd.org/wg)) and my experience with ipsec is as "good"
+as the next person.
 
 My current setup is:
 
@@ -304,7 +318,8 @@ R1 and R2 are my VMs in Toronto, and R3 is my router at home. Yes, my router at
 home uses BGP, both to announce its own netblock over BGP and to choose the
 best route between R1+Upstream 1 and R2+Upstream 2. Isn't that super cool??! :D
 
-R1 and R2 both announce my /48 to their provider. They do so with my public ASN.
+R1 and R2 both announce my /48 to their provider. They do so with my public
+ASN.
 
 They have a wg link between each other. The goal is twofold:
 
@@ -312,8 +327,8 @@ They have a wg link between each other. The goal is twofold:
 2. if wg between R3 and R1 or R2 dies. Traffic will flow through the remaining
    wg link
 
-Case 1 isn't actually a problem. Once the session with the upstream fails,
-it won't get the [full
+Case 1 isn't actually a problem. Once the session with the upstream fails, it
+won't get the [full
 view](https://www.bgp.us/routing-table/full-bgp-table-benefits-and-dangers/)
 anymore, which means R3 won't get the full view from that router, and it will
 *send* traffic only to the other. Traffic *to me* will switch automatically
@@ -325,10 +340,10 @@ lol") to avoid using it in normal condition.
 
 This simple link was actually quite a big change because until then, R1 and R2
 used to do some stateful firewalling (in addition to the one done on R3).
-However, this change meant traffic could flow asymmetrically, so I had to switch
-to stateless firewall (which I restricted to the specific network, the rest of
-the traffic is still checked by [pf(4)](https://man.openbsd.org/pf) with
-stateful rules).
+However, this change meant traffic could flow asymmetrically, so I had to
+switch to stateless firewall (which I restricted to the specific network, the
+rest of the traffic is still checked by [pf(4)](https://man.openbsd.org/pf)
+with stateful rules).
 
 R3 announces the /56 I have at home over BGP to R1 and R2. "But this is inter
 AS, why didn't you use an IGP???". Well wg(4) doesn't support multicast, and
@@ -429,17 +444,18 @@ PID USERNAME PRI NICE  SIZE   RES STATE     WAIT      TIME    CPU COMMAND
 ### [RPKI](#rpki) {: #rpki }
 
 I didn't want to run [rpki-client](https://man.openbsd.org/rpki-client) on each
-and every router. I couldn't either because it uses a truckload of inodes
-and my /var/ partitions couldn't afford it.
+and every router. I couldn't either because it uses a truckload of inodes and
+my /var/ partitions couldn't afford it.
 
-I considered using [RTR](https://datatracker.ietf.org/doc/html/rfc8210), however
-it meant running more software (e.g.
+I considered using [RTR](https://datatracker.ietf.org/doc/html/rfc8210),
+however it meant running more software (e.g.
 [gortr](https://github.com/cloudflare/gortr)/[stayrtr](https://github.com/bgp/stayrtr)).
 
 Also bgpd doesn't support (yet?) encrypted RTR so it would have meant either
 doing RTR unecrypted (yuck), or run even more software.
 
-What I ended up doing is running rpki-client on my web server (on which I added a special partion with way more inodes).
+What I ended up doing is running rpki-client on my web server (on which I added
+a special partion with way more inodes).
 
 ~~~
 42 * * * * -n rpki-client -v && \
@@ -473,8 +489,8 @@ playing around:
 
 ## [Cost](#cost) {: #cost }
 
-Of course this weird hobby of mine costs money. I'm however very happy of how low I
-could keep my expenses.
+Of course this weird hobby of mine costs money. I'm however very happy of how
+low I could keep my expenses.
 
 ### [Administrative costs](#admincost) {: #admincost }
 
@@ -513,26 +529,29 @@ incredibly helpful.
 
 Probably no.
 
-While the resources I'm using are plentiful (32-bit ASNs, 128-bit IP addresses),
-people's routers
+While the resources I'm using are plentiful (32-bit ASNs, 128-bit IP
+addresses), people's routers
 [TCAM](https://en.wikipedia.org/wiki/Content-addressable_memory#Ternary_CAMs)
 are not.
 
 My 'experiment' is 3 netblocks out of the ~130k in the
 [DFZ](https://en.wikipedia.org/wiki/Default-free_zone).
 
-Note that I'm definitely not the first person to get an ASN for personal
-use. Once you begin looking into ASN, there are plenty.
+Note that I'm definitely not the first person to get an ASN for personal use.
+Once you begin looking into ASN, there are plenty.
 
-If you really want to play with BGP, you can look into [dn42](https://dn42.eu/Home)!
+If you really want to play with BGP, you can look into
+[dn42](https://dn42.eu/Home)!
 
 ## [Outro](#outro) {: #outro }
 
 I've been doing this project for a bit over a year now.
 
-There were some boring tasks (the perpetual quest to find hosters who don't suck,
-administrative things to get the resources, etc), but overall, this project has
-been incredibly fun!
+There were some boring tasks (the perpetual quest to find hosters who don't
+suck, administrative things to get the resources, etc), but overall, this
+project has been incredibly fun!
 
 Yeah sex is good, but have you tried running mtr(8), while shutting a BGP
-session, or [remotely triggering a black hole](https://en.wikipedia.org/wiki/Black_hole_(networking)#Black_hole_filtering) and watch the traffic change?
+session, or [remotely triggering a black
+hole](https://en.wikipedia.org/wiki/Black_hole_(networking)#Black_hole_filtering)
+and watch the traffic change?
