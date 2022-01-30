@@ -2,7 +2,11 @@ Title: Why and how I got my own ASN!
 Date: 2022-02-01
 Category: Tech
 
-XXX ASN
+## [Intro](#intro) {: #intro }
+
+In this article, I'll explain how, and why I acquired an [Autonomous System
+Number](https://en.wikipedia.org/wiki/Autonomous_system_(Internet)) and some
+IPv6 addresses.
 
 ## [Getting some IPv6 cravings again](#cravings) {: #cravings }
 
