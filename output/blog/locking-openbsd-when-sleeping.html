@@ -50,11 +50,10 @@ it was written in French, so here's a new one, also covering additional related 
 (either directly or by <a href="https://github.com/openbsd/src/blob/master/etc/etc.amd64/sysctl.conf#L3">closing the
 lid</a>).
 For instance, the script I'm using is:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/sh</span>
+<div class="codehilite"><pre><span></span><span class="ch">#!/bin/sh</span>
 doas -u danj env <span class="nv">DISPLAY</span><span class="o">=</span>:0 <span class="nv">XAUTHORITY</span><span class="o">=</span>/home/danj/.Xauthority xlock <span class="p">&amp;</span>
 </pre></div>
-</td></tr></table>
+
 <p>It requires:</p>
 <ul>
 <li>configuring doas, <em>left as an exercise to the reader</em> ;)</li>
