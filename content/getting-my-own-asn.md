@@ -385,7 +385,7 @@ way that it's hard to mess up, thanks to sane defaults and a nice logic.
 It ships with an excellent example config file making easy to start using it!
 For that reason, I'm not going to detail mine.
 
-"Hardware"-wise, they're virtual machines. OpenBGPD uses little memory:
+OpenBGPD uses little memory:
 
 ~~~
 danj@ns4:~$ bgpctl show rib nei vultr-6 in | wc -l
