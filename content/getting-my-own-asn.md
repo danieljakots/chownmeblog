@@ -158,7 +158,7 @@ provide a /48 (or more if you can justify the need) out of a netblock called
 feda (because it comes from `2602:feda::/36`).
 
 Unfortunately, this didn't solve my geolocation problem with Google. I even had
-a new problem, my FEDA block was geolocation in China, but I easily fixed it in
+a new problem, my FEDA block was geolocated in China, but I easily fixed it in
 maxmind db, and it seems to have been enough.
 
 However, as the quote says ["Everybody has a testing netblock. Some people are
