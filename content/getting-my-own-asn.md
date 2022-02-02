@@ -45,7 +45,7 @@ I thought I could rent a virtual machine (preferably, since tunnels require
 little resources and VMs are way cheaper than dedicated servers) and run my own
 tunnel with the IPv6 it provides.
 
-As mentioned in [my infrastructure blog post](./blog/infrastructure-2020), I
+As mentioned in [my infrastructure blog post](./infrastructure-2020), I
 have multiple networks (VLAN) at home. Because I didn't want to do some
 *unholy* things, I needed to have a /64 per network, meaning multiple /64s for
 my home.
