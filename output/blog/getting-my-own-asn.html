@@ -56,7 +56,7 @@ there is little unencrypted traffic, but to that I'll reply "meh".</p>
 <p>I thought I could rent a virtual machine (preferably, since tunnels require
 little resources and VMs are way cheaper than dedicated servers) and run my own
 tunnel with the IPv6 it provides.</p>
-<p>As mentioned in <a href="./blog/infrastructure-2020">my infrastructure blog post</a>, I
+<p>As mentioned in <a href="./infrastructure-2020">my infrastructure blog post</a>, I
 have multiple networks (VLAN) at home. Because I didn't want to do some
 <em>unholy</em> things, I needed to have a /64 per network, meaning multiple /64s for
 my home.</p>
@@ -138,7 +138,7 @@ it didn't work because we hit a technical limitation from a common provider.</p>
 provide a /48 (or more if you can justify the need) out of a netblock called
 feda (because it comes from <code>2602:feda::/36</code>).</p>
 <p>Unfortunately, this didn't solve my geolocation problem with Google. I even had
-a new problem, my FEDA block was geolocation in China, but I easily fixed it in
+a new problem, my FEDA block was geolocated in China, but I easily fixed it in
 maxmind db, and it seems to have been enough.</p>
 <p>However, as the quote says <a href="https://twitter.com/stahnma/status/634849376343429120">"Everybody has a testing netblock. Some people are
 lucky enough enough to have a totally separate netblock to run production
