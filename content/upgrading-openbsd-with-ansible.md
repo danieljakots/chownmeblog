@@ -15,7 +15,7 @@ to a newer snapshot was cumbersome.  Initially, I had to plug in a serial cable
 and then reboot into *bsd.rd*, hit enter ten times, then reboot, run `sysmerge`
 and update packages.
 
-I eventually switched to [upobsd](https://bitbucket.org/semarie/upobsd) to be
+I eventually switched to [upobsd](https://github.com/semarie/upobsd) to be
 able to upgrade without the need for a serial connection. The process was
 better, but still tiresome. Usually, I would prepare the special version of
 *bsd.rd*, boot on *bsd.rd*, and do something like wash the dishes in the
