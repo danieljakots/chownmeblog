@@ -1087,7 +1087,7 @@ snapshot every so often. Running -current is great, but the process of updating
 to a newer snapshot was cumbersome.  Initially, I had to plug in a serial cable
 and then reboot into &lt;em&gt;bsd.rd&lt;/em&gt;, hit enter ten times, then reboot, run &lt;code&gt;sysmerge&lt;/code&gt;
 and update packages.&lt;/p&gt;
-&lt;p&gt;I eventually switched to &lt;a href="https://bitbucket.org/semarie/upobsd"&gt;upobsd&lt;/a&gt; to be
+&lt;p&gt;I eventually switched to &lt;a href="https://github.com/semarie/upobsd"&gt;upobsd&lt;/a&gt; to be
 able to upgrade without the need for a serial connection. The process was
 better, but still tiresome. Usually, I would prepare the special version of
 &lt;em&gt;bsd.rd&lt;/em&gt;, boot on &lt;em&gt;bsd.rd&lt;/em&gt;, and do something like wash the dishes in the
