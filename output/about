@@ -26,13 +26,14 @@
 <a href="./about"><h1>About</h1></a>
 <br>
 <h2>Hey, I'm Daniel</h2>
-<p>I work as a <a href="https://en.wikipedia.org/wiki/Site_Reliability_Engineering">SRE</a>
+<p>I work as a tech lead, in a
+<a href="https://en.wikipedia.org/wiki/Site_Reliability_Engineering">SRE</a> team. I live
 in Montreal where I have been living since the end of 2016. In my spare time, I
 <a href="http://oxide.org/cvs/danj.html">contribute</a> to
 <a href="https://www.openbsd.org">OpenBSD</a>, I
-<a href="https://github.com/danieljakots">develop</a> in Python and Golang. When it's
-hotter than 10 Celsius, I ride my <a href="https://twitter.com/Vigdis_/status/857378539057893378">single
-speed</a>.</p>
+<a href="https://github.com/danieljakots">develop</a> in Python and
+<a href="https://codeberg.org/danj">Golang</a>. When the streets aren't icy, I ride
+my <a href="https://dumpster.chown.me/mastodon/media_attachments/files/109/009/662/860/060/315/original/8bc678094d759cbc.png">bike</a>.</p>
 <p><a href="https://pics.chown.me/Jean-Canard/">My cat</a> goes by the name of <em>Jean Canard</em>.</p>
 <p>I've been a board member of the <a href="https://qix.ca/">QIX</a>, the
 <a href="https://en.wikipedia.org/wiki/Internet_exchange_point">Internet Exchange Point</a>

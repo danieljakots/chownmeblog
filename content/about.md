@@ -4,13 +4,14 @@ Category: othercontent
 
 ## Hey, I'm Daniel
 
-I work as a [SRE](https://en.wikipedia.org/wiki/Site_Reliability_Engineering)
+I work as a tech lead, in a
+[SRE](https://en.wikipedia.org/wiki/Site_Reliability_Engineering) team. I live
 in Montreal where I have been living since the end of 2016. In my spare time, I
 [contribute](http://oxide.org/cvs/danj.html) to
 [OpenBSD](https://www.openbsd.org), I
-[develop](https://github.com/danieljakots) in Python and Golang. When it's
-hotter than 10 Celsius, I ride my [single
-speed](https://twitter.com/Vigdis_/status/857378539057893378).
+[develop](https://github.com/danieljakots) in Python and
+[Golang](https://codeberg.org/danj). When the streets aren't icy, I ride
+my [bike](https://dumpster.chown.me/mastodon/media_attachments/files/109/009/662/860/060/315/original/8bc678094d759cbc.png).
 
 [My cat](https://pics.chown.me/Jean-Canard/) goes by the name of *Jean Canard*.
 
