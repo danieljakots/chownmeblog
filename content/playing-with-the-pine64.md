@@ -607,5 +607,5 @@ You can now install it and the reboot it:
 
 
 And now, I just have to wait for
-[Jean Canard](https://chown.me/iota/pics/IMG_0675.JPG) to destroy the
+[Jean Canard](https://static.chown.me/pub/iota/pics/IMG_0675.JPG) to destroy the
 whole thing.

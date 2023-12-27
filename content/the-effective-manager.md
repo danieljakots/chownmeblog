@@ -3,8 +3,8 @@ Date: 2018-08-13
 Category: Books
 
 *Note: this is also available in audio format: 3:49
-[(1.6MB mp3)](https://chown.me/iota/blog/the-effective-manager.mp3)
-[(1.3MB ogg)](https://chown.me/iota/blog/the-effective-manager.ogg)*
+[(1.6MB mp3)](https://static.chown.me/pub/iota/blog/the-effective-manager.mp3)
+[(1.3MB ogg)](https://static.chown.me/pub/iota/blog/the-effective-manager.ogg)*
 
 <br/>
 

@@ -35,7 +35,7 @@ It was already well crowded for the first morning.</p>
 working on for a customer instead of asking my coworker. So a large part of my
 Monday was finishing that stuff. Still, <a href="https://github.com/openbsd/ports/commit/a322d2ddc88df925eb9c719578e9f6aca0096298">I updated a port I maintain,
 pqiv</a>.
-I received a <a href="https://chown.me/iota/dmesg/dmesg-x1.txt">generous donation</a> from <a href="https://twitter.com/mischapeters">Mischa
+I received a <a href="https://static.chown.me/pub/iota/dmesg/dmesg-x1.txt">generous donation</a> from <a href="https://twitter.com/mischapeters">Mischa
 Peters</a> so I installed OpenBSD on it (thanks
 to jasper@ for carrying it!).</p>
 <p>Installing OpenBSD was not that trivial because I didn't have any USB key and

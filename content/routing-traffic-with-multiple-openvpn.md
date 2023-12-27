@@ -186,5 +186,5 @@ root@pancake:~# pfctl -t softvpn -Ta 10.1.2.3
 ~~~
 
 That's all! Of course, if anything goes wrong, I have
-[Jean Canard's Advanced Paws System (APS)](https://chown.me/iota/pics/IMG_0551.JPG)
+[Jean Canard's Advanced Paws System (APS)](https://static.chown.me/pub/iota/pics/IMG_0551.JPG)
 that checks for anything.

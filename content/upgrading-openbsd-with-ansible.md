@@ -88,7 +88,7 @@ sets takes awhile. I got frustrated while I was testing it and looked into
 lessening the amount of time spent inside *bsd.rd*.
 
 To speed up the process, I wrote [a basic shell
-script](https://chown.me/iota/blog/fetch-sets) to fetch the sets **before**
+shttps://chown.me/iota/cript](https://static.chown.me/pub/iota/blog/fetch-sets) to fetch the sets **before**
 rebooting into *bsd.rd*. It enabled me to remove some *tasks* I had to do in
 order to get working Internet access in *bsd.rd*. (This is specific to my
 case).
