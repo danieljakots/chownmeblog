@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Daniel Jakots</title><link href="https://chown.me/" rel="alternate"></link><link href="https://chown.me/blog/feeds/atom.xml" rel="self"></link><id>https://chown.me/</id><updated>2022-02-01T10:00:00Z</updated><subtitle>Feed for https://chown.me</subtitle><entry><title>Why and how I got my own ASN!</title><link href="https://chown.me/blog/getting-my-own-asn" rel="alternate"></link><published>2022-02-01T10:00:00Z</published><updated>2022-02-01T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2022-02-01:/blog/getting-my-own-asn</id><summary type="html">&lt;h2 id="intro"&gt;&lt;a href="#intro"&gt;Intro&lt;/a&gt;&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Daniel Jakots</title><link href="https://chown.me/" rel="alternate"></link><link href="https://chown.me/blog/feeds/atom.xml" rel="self"></link><id>https://chown.me/</id><updated>2024-12-23T10:00:00Z</updated><subtitle>Feed for https://chown.me</subtitle><entry><title>Synchronizing TLS certificates across machines</title><link href="https://chown.me/blog/getCertificates" rel="alternate"></link><published>2024-12-23T10:00:00Z</published><updated>2024-12-23T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2024-12-23:/blog/getCertificates</id><summary type="html">&lt;p&gt;A while ago, I had the need to synchronize certificates across machines. I was
+able to answer it using a perhaps uncommon trick which I thought might be worth
+sharing.&lt;/p&gt;
+&lt;p&gt;Let's say you have one domain for which you want multiple machines answering
+requests. Of course, you choose to provide that service over TLS (doesn't
+matter whether it's http or another layer 7 protocol).&lt;/p&gt;
+&lt;p&gt;As usual, the first step is to create a private key and then obtain a
+certificate either directly on that machine with the &lt;a href="https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment"&gt;ACME
+protocol&lt;/a&gt;,
+or while jumping through hoops with a legacy certificate authority. All is
+well, but you didn't accomplish the goal of having that service provided by
+multiple machines.&lt;/p&gt;
+&lt;p&gt;So you copy the key and the certificates (plural since you most likely have an
+intermediate certificate). Now that goal is accomplished until you have to
+renew the certificate.&lt;/p&gt;
+&lt;p&gt;If you use a legacy certificate authority, it might work for a long time (if I
+understand correctly the &lt;a href="https://cabforum.org/working-groups/server/baseline-requirements/faq/"&gt;CA/Brower forum
+FAQ&lt;/a&gt;,
+39 months is the longest available right now). If you use Let's Encrypt (or any
+other alternative I assume), currently the certificate you'll receive is valid
+for 90 days. However, they're now talking about providing certificates with a
+&lt;a href="https://letsencrypt.org/2024/12/11/eoy-letter-2024/"&gt;6-day validity period&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Of course, with such a constraint, automating the certificate renewal is
+unavoidable. Proving to the validation server that you control the domain for
+which you have the certificate, while running the service on multiple machines
+is not necessarily trivial, but this is outside the scope of this article.&lt;/p&gt;
+&lt;p&gt;Let's say you route the &lt;code&gt;.well-known/acme-challenge&lt;/code&gt; path to a particular
+machine, which will run your favourite ACME client (this obviously assumes you
+use the &lt;code&gt;HTTP-01&lt;/code&gt; &lt;a href="https://letsencrypt.org/docs/challenge-types/"&gt;challenge&lt;/a&gt;).
+Now you have a renewed certificate on one machine, but how do you synchronize
+it with your other machines? By the way, I say certificate, but I should actually
+use plural as the intermediate certificate changes from time to time. (Your
+private key isn't likely to change unless you fucked something up — don't
+worry, we all do).&lt;/p&gt;
+&lt;p&gt;There are a couple of ways to synchronize the certificates across the fleet:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;by hand, but it's error-prone, time-consuming, and boring.&lt;/li&gt;
+&lt;li&gt;automated through rsync/scp, but it requires ssh access which may not end up being &lt;a href="https://en.wikipedia.org/wiki/Lateral_movement_(cybersecurity)"&gt;the best thing&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So what's a better way to solve that? Well, &lt;a href="https://en.wikipedia.org/wiki/Transport_Layer_Security#Basic_TLS_handshake"&gt;the certificates are actually sent
+by the server during the negotiation
+phase&lt;/a&gt;
+(so you can validate it). You don't actually need any privileged access, you can
+just do a basic TCP connection, followed by a TLS handshake.&lt;/p&gt;
+&lt;p&gt;When I wanted to do that, I attempted to use the &lt;code&gt;openssl(1)&lt;/code&gt; command line
+tool. After suffering a while because of its poor UX, I thought it would be less
+frustrating and even funnier to actually write some code to do that.&lt;/p&gt;
+&lt;p&gt;The code is available on
+&lt;a href="https://github.com/danieljakots/getCertificates"&gt;github&lt;/a&gt;. Basically you tell
+the tool how to connect with TCP to the machine with the new certificates
+(likely by specifying its IP since the DNS name is spread over the multiple
+machines), and it writes down the certificates it got.&lt;/p&gt;
+&lt;p&gt;To be honest, I don't run it anymore as I stopped running my website over
+multiple machines. I had it in my crontab for as long as I did though. Reading
+the Let's Encrypt announcement about short-lived certificates reminded me about
+this tool so I thought I would share it.&lt;/p&gt;</summary></entry><entry><title>Why and how I got my own ASN!</title><link href="https://chown.me/blog/getting-my-own-asn" rel="alternate"></link><published>2022-02-01T10:00:00Z</published><updated>2022-02-01T10:00:00Z</updated><author><name>Daniel Jakots</name></author><id>tag:chown.me,2022-02-01:/blog/getting-my-own-asn</id><summary type="html">&lt;h2 id="intro"&gt;&lt;a href="#intro"&gt;Intro&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;In this article, I'll explain how, and why I acquired an &lt;a href="https://en.wikipedia.org/wiki/Autonomous_system_(Internet)"&gt;Autonomous System
 Number&lt;/a&gt; and some
 IPv6 addresses.&lt;/p&gt;

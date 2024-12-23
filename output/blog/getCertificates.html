@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://chown.me/style.css" type="text/css"/>
+  <link rel="stylesheet" href="https://chown.me/pygmentize.css" type="text/css"/>
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="https://chown.me/blog/feeds/atom.xml" />
+  <link rel="icon" type="image/png" href="https://chown.me/favicon.png">
+  <meta property="og:image" content="https://chown.me/favicon.png">
+  <title>Synchronizing TLS certificates across machines</title>
+  <meta property="og:title" content="Synchronizing TLS certificates across machines">
+
+</head>
+
+<body>
+  <div class="sidebar">
+    <a href="https://chown.me" style="background-color:inherit;"><h1>Hi, I'm Daniel Jakots!</h1></a>
+    <a href="https://chown.me">Home</a>
+    <a href="https://chown.me/about">About</a>
+    <a href="https://chown.me/contact">Contact</a>
+    <a href="https://chown.me/blog/feeds/atom.xml">Atom Feed</a>
+    <a href="https://px.chown.me">Pictures</a>
+  </div>
+  <div class="notsidebar">
+<a href="./getCertificates"><h1>Synchronizing TLS certificates across machines</h1></a>
+<p><b>Posted on 2024-12-23</b></p>
+<p>A while ago, I had the need to synchronize certificates across machines. I was
+able to answer it using a perhaps uncommon trick which I thought might be worth
+sharing.</p>
+<p>Let's say you have one domain for which you want multiple machines answering
+requests. Of course, you choose to provide that service over TLS (doesn't
+matter whether it's http or another layer 7 protocol).</p>
+<p>As usual, the first step is to create a private key and then obtain a
+certificate either directly on that machine with the <a href="https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment">ACME
+protocol</a>,
+or while jumping through hoops with a legacy certificate authority. All is
+well, but you didn't accomplish the goal of having that service provided by
+multiple machines.</p>
+<p>So you copy the key and the certificates (plural since you most likely have an
+intermediate certificate). Now that goal is accomplished until you have to
+renew the certificate.</p>
+<p>If you use a legacy certificate authority, it might work for a long time (if I
+understand correctly the <a href="https://cabforum.org/working-groups/server/baseline-requirements/faq/">CA/Brower forum
+FAQ</a>,
+39 months is the longest available right now). If you use Let's Encrypt (or any
+other alternative I assume), currently the certificate you'll receive is valid
+for 90 days. However, they're now talking about providing certificates with a
+<a href="https://letsencrypt.org/2024/12/11/eoy-letter-2024/">6-day validity period</a>.</p>
+<p>Of course, with such a constraint, automating the certificate renewal is
+unavoidable. Proving to the validation server that you control the domain for
+which you have the certificate, while running the service on multiple machines
+is not necessarily trivial, but this is outside the scope of this article.</p>
+<p>Let's say you route the <code>.well-known/acme-challenge</code> path to a particular
+machine, which will run your favourite ACME client (this obviously assumes you
+use the <code>HTTP-01</code> <a href="https://letsencrypt.org/docs/challenge-types/">challenge</a>).
+Now you have a renewed certificate on one machine, but how do you synchronize
+it with your other machines? By the way, I say certificate, but I should actually
+use plural as the intermediate certificate changes from time to time. (Your
+private key isn't likely to change unless you fucked something up — don't
+worry, we all do).</p>
+<p>There are a couple of ways to synchronize the certificates across the fleet:</p>
+<ul>
+<li>by hand, but it's error-prone, time-consuming, and boring.</li>
+<li>automated through rsync/scp, but it requires ssh access which may not end up being <a href="https://en.wikipedia.org/wiki/Lateral_movement_(cybersecurity)">the best thing</a></li>
+</ul>
+<p>So what's a better way to solve that? Well, <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security#Basic_TLS_handshake">the certificates are actually sent
+by the server during the negotiation
+phase</a>
+(so you can validate it). You don't actually need any privileged access, you can
+just do a basic TCP connection, followed by a TLS handshake.</p>
+<p>When I wanted to do that, I attempted to use the <code>openssl(1)</code> command line
+tool. After suffering a while because of its poor UX, I thought it would be less
+frustrating and even funnier to actually write some code to do that.</p>
+<p>The code is available on
+<a href="https://github.com/danieljakots/getCertificates">github</a>. Basically you tell
+the tool how to connect with TCP to the machine with the new certificates
+(likely by specifying its IP since the DNS name is spread over the multiple
+machines), and it writes down the certificates it got.</p>
+<p>To be honest, I don't run it anymore as I stopped running my website over
+multiple machines. I had it in my crontab for as long as I did though. Reading
+the Let's Encrypt announcement about short-lived certificates reminded me about
+this tool so I thought I would share it.</p>
+  <br>
+  <footer>
+    <p>This website is best viewed on a screen identical to my own. <a href="https://github.com/danieljakots/chownmeblog">Source code</a></p>
+  </footer>
+  </div>
+</body>
+</html>
